@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+/* Importation des polices (vous devrez les remplacer par les vraies polices) */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background: #ffffff;
+  overflow-x: hidden;
+}

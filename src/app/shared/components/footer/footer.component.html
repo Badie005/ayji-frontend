@@ -1,1 +1,89 @@
-<p>footer works!</p>
+<footer class="footer" role="contentinfo">
+  <div class="container">
+    <div class="footer2">
+      <div class="container2">
+        <!-- Logo et sections -->
+        <div class="container3">
+          <a [routerLink]="['/']" aria-label="Retour à l'accueil">
+            <img [src]="logoSrc" alt="Logo AYJI" class="logo-b-1">
+          </a>
+        </div>
+
+        <!-- Sections du footer -->
+        <ng-container *ngFor="let section of footerSections">
+          <div class="container4" *ngIf="section.title === 'Ressources'">
+            <div class="heading-4">
+              <h3 class="ressources">{{ section.title }}</h3>
+            </div>
+            <ng-container *ngFor="let item of section.items">
+              <a [routerLink]="item.link" class="component-6">
+                <span class="text">{{ item.name }}</span>
+              </a>
+            </ng-container>
+          </div>
+
+          <div class="container5" *ngIf="section.title === 'Formations disponibles'">
+            <div class="heading-4">
+              <h3 class="formations-disponibles">{{ section.title }}</h3>
+            </div>
+            <ng-container *ngFor="let item of section.items">
+              <a [routerLink]="item.link" class="component-62">
+                <span class="text">{{ item.name }}</span>
+              </a>
+            </ng-container>
+          </div>
+
+          <div class="container4" *ngIf="section.title === 'À propos AYJI'">
+            <div class="heading-4">
+              <h3 class="propos-ayji">{{ section.title }}</h3>
+            </div>
+            <ng-container *ngFor="let item of section.items">
+              <a [routerLink]="item.link" class="component-6">
+                <span class="text">{{ item.name }}</span>
+              </a>
+            </ng-container>
+          </div>
+
+          <div class="container6" *ngIf="section.title === 'Legal'">
+            <div class="heading-4">
+              <h3 class="legal">{{ section.title }}</h3>
+            </div>
+            <ng-container *ngFor="let item of section.items">
+              <a [routerLink]="item.link" class="component-6">
+                <span class="text">{{ item.name }}</span>
+              </a>
+            </ng-container>
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Copyright et liens sociaux -->
+      <div class="container7">
+        <div class="container8">
+          <div class="container9">
+            <span class="text _2025-ayji">© {{ currentYear }} AYJI. Tous droits réservés.</span>
+          </div>
+        </div>
+
+        <div class="container10">
+          <ng-container *ngFor="let social of socialLinks; let last = last">
+            <a [href]="social.link" target="_blank" rel="noopener noreferrer" class="link-git-hub" [attr.aria-label]="social.ariaLabel">
+              <div class="github-svg" *ngIf="social.name === 'GitHub'">
+                <div class="github-svg-fill">
+                  <img [src]="social.icon" alt="" class="component-1">
+                </div>
+              </div>
+              <div class="github-svg" *ngIf="social.name === 'LinkedIn'">
+                <img [src]="social.icon" alt="" class="frame">
+              </div>
+              <div class="link-stackoverflow" *ngIf="social.name === 'Stack Overflow'">
+                <img [src]="social.icon" alt="" class="frame2">
+              </div>
+            </a>
+            <div class="separator" *ngIf="!last"></div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

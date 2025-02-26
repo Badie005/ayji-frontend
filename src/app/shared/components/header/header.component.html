@@ -1,1 +1,12 @@
-<p>header works!</p>
+<header class="header">
+  <div class="logo-b">
+    <img class="logo-b-1" [src]="logoSrc" [alt]="logoAlt" />
+  </div>
+  <div class="log-sign">
+    <div *ngFor="let button of authButtons"
+         [class]="button.class"
+         [routerLink]="button.route">
+      <div [class]="button.textClass">{{button.text}}</div>
+    </div>
+  </div>
+</header>

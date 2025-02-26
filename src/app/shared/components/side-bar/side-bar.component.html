@@ -1,0 +1,7 @@
+<aside class="side-bar">
+  <div class="side-bar-component">
+    <div *ngFor="let item of menuItems; let i = index" [routerLink]="item.route" class="a-3-{{i+1}}">
+      <div class="text-3-{{i+1}}">{{item.text}}</div>
+    </div>
+  </div>
+</aside>
