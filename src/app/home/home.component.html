@@ -1,20 +1,259 @@
+<!-- home.component.html amélioré -->
 <main class="main-frame">
-    <div class="container">
-        <div class="heading-1">
-            <h1 class="main-heading">
-                {{ mainTitle }}
-            </h1>
-        </div>
-        <div class="container2">
-            <p class="subheading">
-                {{ subTitle }}
-            </p>
-        </div>
-        <div class="component-1">
-            <div class="container3" (click)="startLearning()">
-                <div class="text">Commencer</div>
-            </div>
-        </div>
+  <div class="container">
+    <div class="heading-1">
+      <h1 class="main-heading">
+        {{ mainTitle }}
+      </h1>
+    </div>
+    <div class="container2">
+      <p class="subheading">
+        {{ subTitle }}
+      </p>
+    </div>
+    <div class="component-1">
+      <div class="container3-button" (click)="startLearning()"> <!-- Renamed class -->
+        <div class="text">Commencer</div>
+      </div>
     </div>
 
+    <!-- Section des pôles d'excellence - Remplacé la section features-grid -->
+    <div class="p-les">
+      <div class="container">
+        <div class="header">
+          <div class="title">Explorez Nos Pôles d'Excellence</div>
+        </div>
+        <div class="margin">
+          <div class="content">
+            <div class="card">
+              <div class="card2">
+                <div class="container2">
+                  <img class="frame-43-1" src="image-main-1.png" alt="Expertise SRI" />
+                </div>
+                <div class="container3">
+                  <div class="container4">
+                    <div class="notre-expertise-en-sri">Notre Expertise en SRI</div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="une-formation-experte-des-syst-mes-r-seaux-du-fondamental-l-avanc-pour-une-ma-trise-compl-te"
+                  >
+                    Une formation experte des systèmes réseaux, du fondamental à
+                    l'avancé, pour une maîtrise complète.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="fondamentaux-des-r-seaux">
+                      Fondamentaux des Réseaux
+                    </div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="ma-trisez-les-concepts-essentiels-des-syst-mes-et-r-seaux-informatiques-travers-des-contenus-p-dagogiques-structur-s-nos-ressources-sont-con-ues-pour-rendre-l-apprentissage-du-sri-accessible-tous-les-niveaux-des-d-butants-aux-plus-avanc-s"
+                  >
+                    Maîtrisez les concepts essentiels des Systèmes et Réseaux
+                    Informatiques à travers des contenus pédagogiques structurés.
+                    Nos ressources sont conçues pour rendre l'apprentissage du
+                    SRI accessible à tous les niveaux, des débutants aux plus
+                    avancés.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="concepts-avanc-s-du-sri">
+                      Concepts Avancés du SRI
+                    </div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="approfondissez-vos-connaissances-avec-des-modules-sp-cialis-s-couvrant-les-aspects-complexes-des-r-seaux-informatiques-ces-contenus-sont-particuli-rement-adapt-s-aux-tudiants-cherchant-exceller-dans-leur-cursus"
+                  >
+                    Approfondissez vos connaissances avec des modules spécialisés
+                    couvrant les aspects complexes des réseaux informatiques. Ces
+                    contenus sont particulièrement adaptés aux étudiants cherchant à
+                    exceller dans leur cursus.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="advanced-routing-nested-layouts">
+                      Apprentissage Personnalisé
+                    </div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts"
+                  >
+                    Notre plateforme s'adapte à votre rythme
+                    d'apprentissage, que vous soyez en formation initiale ou en
+                    perfectionnement, avec un accès flexible aux ressources selon
+                    vos besoins.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card2">
+                <div class="container2">
+                  <img class="frame-43-2" src="image-main-1.png" alt="Parcours Apprentissage" />
+                </div>
+                <div class="container3">
+                  <div class="container4">
+                    <div class="parcours-d-apprentissage">
+                      Parcours d'Apprentissage
+                    </div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="un-apprentissage-interactif-et-structur-combinant-th-orie-pratique-et-accompagnement-personnalis-pour-votre-r-ussite"
+                  >
+                    Un apprentissage interactif et organisé qui allie théorie, pratique et soutien personnalisé pour réussir.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="data-fetching">Progression Structurée</div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="make-your-react-component-async-and-await-your-data-next-js-supports-both-server-and-client-data-fetching"
+                  >
+                    Suivez un programme pédagogique organisé par niveaux, combinant
+                    théorie et pratique pour une compréhension approfondie des
+                    systèmes et réseaux informatiques.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="server-actions">Exercices Pratiques</div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="run-server-code-by-calling-a-function-skip-the-api-then-easily-revalidate-cached-data-and-update-your-ui-in-one-network-roundtrip"
+                  >
+                    Renforcez vos compétences grâce à des exercices corrigés, des
+                    quiz interactifs et des cas pratiques inspirés de situations
+                    réelles en SRI.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="advanced-routing-nested-layouts">
+                      Accompagnement Interactif
+                    </div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts"
+                  >
+                    Bénéficiez d'un support personnalisé via nos chats en
+                    direct et nos sessions de cours live avec des enseignants
+                    expérimentés.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="component-5">
+                <div class="container2">
+                  <img class="frame-43-3" src="image-main-1.png" alt="Domaines Couverts" />
+                </div>
+                <div class="container3">
+                  <div class="container4">
+                    <div class="card-title">Domaines Couverts</div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div class="card-description">
+                    Une expertise complète en infrastructures modernes, de la configuration réseau à la sécurité informatique.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="data-fetching">Config et Admin Réseau</div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="make-your-react-component-async-and-await-your-data-next-js-supports-both-server-and-client-data-fetching"
+                  >
+                    Explorez les fondamentaux et les aspects avancés de la
+                    configuration réseau, incluant la gestion des protocoles, la
+                    sécurité, et l'optimisation des performances.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="server-actions">Architecture des Systèmes</div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="run-server-code-by-calling-a-function-skip-the-api-then-easily-revalidate-cached-data-and-update-your-ui-in-one-network-roundtrip"
+                  >
+                    Découvrez les principes d'architecture des systèmes
+                    informatiques, avec une attention particulière sur les
+                    infrastructures réseau modernes.
+                  </div>
+                </div>
+              </div>
+              <div class="component-4">
+                <div class="container3">
+                  <div class="container4">
+                    <div class="advanced-routing-nested-layouts">
+                      Sécurité et Surveillance
+                    </div>
+                  </div>
+                </div>
+                <div class="container5">
+                  <div
+                    class="create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts"
+                  >
+                    Apprenez les meilleures pratiques en matière de sécurité réseau,
+                    de monitoring et de maintenance des infrastructures
+                    informatiques.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="line-1"></div>
+    </div>
+  </div>
+
+  <!-- Bouton de retour en haut (visible uniquement au défilement) -->
+  <button
+    *ngIf="showScrollButton"
+    class="scroll-top"
+    (click)="scrollToTop()"
+    aria-label="Retour en haut">
+    ↑
+  </button>
 </main>
