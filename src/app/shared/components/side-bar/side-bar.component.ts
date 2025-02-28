@@ -11,9 +11,9 @@ import { RouterModule } from '@angular/router';
 })
 export class SideBarComponent {
   menuItems = [
-    { text: 'Accueil', route: '/accueil' },
-    { text: 'About', route: '/about' },
-    { text: 'Connecter', route: '/connecter' },
-    { text: 'Cours', route: '/cours' }
+    { text: 'Accueil', route: '/home' }, // Changez '/accueil' en '/home'
+    { text: 'About', route: '/about' },  // Cette route n'existe pas encore dans app.routes.ts
+    { text: 'Connecter', route: '/connecter' }, // Cette route n'existe pas encore dans app.routes.ts
+    { text: 'Cours', route: '/cours' }  // Cette route n'existe pas encore dans app.routes.ts
   ];
 }

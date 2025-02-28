@@ -1,17 +1,17 @@
 import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
-import { SharedModule } from './shared/shared.module';
-import { CoreModule } from './core/core.module';
-import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
+import { errorInterceptor } from './core/interceptors/error.interceptor';
+import { CoreModule } from './core/core.module';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
-    provideHttpClient(withInterceptors([errorInterceptor, tokenInterceptor])),
-    importProvidersFrom(SharedModule, CoreModule)
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(
+      withInterceptors([tokenInterceptor, errorInterceptor])
+    ),
+    importProvidersFrom(CoreModule)
   ]
 };
