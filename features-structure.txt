@@ -1,0 +1,90 @@
+├───features
+│   ├───home
+│   │   │   home.module.ts
+│   │   │
+│   │   ├───components
+│   │   │   └───main
+│   │   │           home.component.ts
+│   │   │           home.component.html
+│   │   │           home.component.css
+│   │   │
+│   │   └───services
+│   │           home.service.ts
+│   │
+│   ├───auth
+│   │   │   auth.module.ts
+│   │   │   auth.routes.ts
+│   │   │
+│   │   ├───components
+│   │   │   ├───login
+│   │   │   │       login.component.ts
+│   │   │   │       login.component.html
+│   │   │   │       login.component.css
+│   │   │   │
+│   │   │   └───signup
+│   │   │           signup.component.ts
+│   │   │           signup.component.html
+│   │   │           signup.component.css
+│   │   │
+│   │   ├───services
+│   │   │       auth.service.ts
+│   │   │
+│   │   └───models
+│   │           auth.model.ts
+│   │
+│   ├───about
+│   │   │   about.module.ts
+│   │   │   about.routes.ts
+│   │   │
+│   │   ├───components
+│   │   │   ├───about-main
+│   │   │   └───about-detail
+│   │   │
+│   │   └───services
+│   │           about.service.ts
+│   │
+│   ├───cours
+│   │   │   cours.module.ts
+│   │   │   cours.routes.ts
+│   │   │
+│   │   ├───components
+│   │   │   ├───cours-list
+│   │   │   ├───cours-detail
+│   │   │   └───cours-player
+│   │   │
+│   │   ├───services
+│   │   │       cours.service.ts
+│   │   │
+│   │   └───models
+│   │           cours.model.ts
+│   │
+│   ├───member
+│   │   │   member.module.ts
+│   │   │   member.routes.ts
+│   │   │
+│   │   ├───components
+│   │   │   ├───member-dashboard
+│   │   │   ├───member-profile
+│   │   │   └───member-settings
+│   │   │
+│   │   ├───services
+│   │   │       member.service.ts
+│   │   │
+│   │   └───models
+│   │           member.model.ts
+│   │
+│   └───admin
+│       │   admin.module.ts
+│       │   admin.routes.ts
+│       │
+│       ├───components
+│       │   ├───admin-dashboard
+│       │   ├───user-management
+│       │   ├───cours-management
+│       │   └───stats
+│       │
+│       ├───services
+│       │       admin.service.ts
+│       │
+│       └───models
+│               admin.model.ts

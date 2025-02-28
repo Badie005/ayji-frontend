@@ -1,180 +1,324 @@
 /* login.component.css */
 .login-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 76px); /* Ajuster pour le header */
-  padding: 76px 24px 0; /* Top padding pour compenser le header fixe */
-  background-color: #f9f9f9;
-}
-
-.login-form-container {
+  height: 100vh;
   background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 480px;
-  padding: 32px;
-  margin-bottom: 48px; /* Espace pour le footer */
 }
 
-.login-header {
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.login-header h2 {
-  color: #161616;
-  font-family: 'Roboto-Medium', sans-serif;
-  font-size: 24px;
-  line-height: 32px;
-  margin-bottom: 8px;
-}
-
-.login-header p {
-  color: #666666;
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  color: #161616;
-  font-family: 'Roboto-Medium', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: 6px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 12px 16px;
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #161616;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus {
-  border-color: #4d4d4d;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-}
-
-.form-group input.invalid {
-  border-color: #dc3545;
-}
-
-.password-container {
-  position: relative;
-}
-
-.password-toggle {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #666666;
-}
-
-.password-toggle:hover {
-  color: #161616;
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 12px;
-  margin-top: 4px;
-  font-family: 'Roboto-Regular', sans-serif;
-}
-
-.form-actions {
-  margin-top: 32px;
-}
-
-.btn-submit {
-  width: 100%;
-  background-color: #161616;
-  color: #ffffff;
-  border: none;
-  border-radius: 9999px; /* Pour correspondre aux boutons de header */
-  padding: 12px 24px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+.left-side {
+  flex: 1;
+  background-color: #f0f0f0;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 44px;
+  position: relative;
 }
 
-.btn-submit:hover {
+.blob-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.blob {
+  position: absolute;
+  background-color: #e6e6e6;
+  border-radius: 50%;
+  filter: blur(10px);
+}
+
+.blob-1 {
+  width: 300px;
+  height: 300px;
+  top: 10%;
+  left: 10%;
+}
+
+.blob-2 {
+  width: 250px;
+  height: 250px;
+  bottom: 20%;
+  right: 15%;
+}
+
+.blob-3 {
+  width: 350px;
+  height: 350px;
+  bottom: 5%;
+  left: 5%;
+}
+
+.speckles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#cccccc 1px, transparent 1px);
+  background-size: 10px 10px;
+  opacity: 0.3;
+}
+
+.right-side {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #ffffff;
+  max-width: 500px;
+}
+
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+}
+
+.logo svg {
+  width: 30px;
+  height: 30px;
+  fill: #333;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #333333;
+}
+
+p {
+  color: #777777;
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.password-group {
+  position: relative;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #555555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 20px 25px;
+  border-radius: 50px;
+  border: 1px solid #333333;
+  background-color: #ffffff;
+  font-size: 1.1rem;
+  outline: none;
+  color: #333333;
+  transition: all 0.3s;
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: transparent;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: #555555;
+}
+
+input.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  margin-left: 25px;
+}
+
+.alert-error {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+label {
+  position: absolute;
+  left: 25px;
+  color: #555555;
+  pointer-events: none;
+  transition: 0.3s ease all;
+  font-size: 1rem;
+  background-color: #ffffff;
+  padding: 0 5px;
+}
+
+/* Position par défaut du label */
+.form-group label {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Position du label quand l'input est focus ou rempli */
+.form-group input:focus ~ label,
+.form-group input:not(:placeholder-shown) ~ label {
+  top: 0;
+  transform: translateY(-50%);
+  font-size: 0.8rem;
+  color: #333333;
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border-radius: 50px;
+  border: none;
   background-color: #333333;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  transition: background-color 0.3s;
 }
 
-.btn-submit:disabled {
-  background-color: #666666;
+button:hover {
+  background-color: #555555;
+}
+
+button:disabled {
+  background-color: #cccccc;
   cursor: not-allowed;
 }
 
-.login-redirect {
-  margin-top: 20px;
-  text-align: center;
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  color: #666666;
+.checkbox-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
-.login-redirect a {
-  color: #161616;
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #ffffff;
+  border: 1px solid #333333;
+  border-radius: 4px;
+}
+
+.checkbox-container:hover input ~ .checkmark {
+  background-color: #f5f5f5;
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background-color: #333333;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.checkbox-container .checkmark:after {
+  left: 7px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.forgot-password {
+  color: #333333;
   text-decoration: none;
-  font-weight: 500;
-  margin-left: 5px;
-  transition: color 0.2s;
 }
 
-.login-redirect a:hover {
-  color: #000000;
+.forgot-password:hover {
   text-decoration: underline;
 }
 
-.password-strength {
-  font-size: 12px;
-  margin-top: 4px;
-  font-family: 'Roboto-Regular', sans-serif;
+.register-redirect {
+  text-align: center;
+  margin-top: 1rem;
 }
 
-.form-text {
-  color: #666666;
-  font-size: 12px;
-  margin-top: 4px;
-  font-family: 'Roboto-Regular', sans-serif;
+.register-redirect a {
+  color: #333333;
+  font-weight: bold;
+  text-decoration: none;
+  margin-left: 5px;
 }
 
-/* Pour les appareils mobiles */
-@media (max-width: 576px) {
-  .login-form-container {
-    padding: 24px 16px;
+.register-redirect a:hover {
+  text-decoration: underline;
+}
+
+/* Affichage du spinner pendant le chargement */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #ffffff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design pour les petits écrans */
+@media (max-width: 992px) {
+  .login-container {
+    flex-direction: column;
   }
 
-  .login-header h2 {
-    font-size: 22px;
+  .left-side {
+    display: none;
   }
 
-  .form-group input,
-  .btn-submit {
-    padding: 10px 16px;
+  .right-side {
+    max-width: 100%;
   }
 }

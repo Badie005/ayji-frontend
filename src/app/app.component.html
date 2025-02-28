@@ -1,6 +1,8 @@
-<app-header></app-header>
-<app-side-bar></app-side-bar>
+<ng-container *ngIf="showHeaderFooter">
+  <app-header></app-header>
+</ng-container>
 
+<app-side-bar></app-side-bar>
 <div class="app-container">
   <div class="content-wrapper">
     <main class="main-content">
@@ -8,9 +10,7 @@
     </main>
   </div>
 </div>
-<!--
-   <app-register></app-register>
--->
 
-
-<app-footer></app-footer>
+<ng-container *ngIf="showHeaderFooter">
+  <app-footer></app-footer>
+</ng-container>

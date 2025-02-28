@@ -28,7 +28,7 @@
 //
 //
 // -- This is a parent command --
-// Cypress.Commands.add("register", (email, password) => { ... })
+// Cypress.Commands.add("signup", (email, password) => { ... })
 //
 //
 // -- This is a child command --

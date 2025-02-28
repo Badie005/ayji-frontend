@@ -1,0 +1,132 @@
+<!-- signup.component.html -->
+<div class="login-container">
+  <div class="left-side">
+    <div class="blob-container">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="speckles"></div>
+    </div>
+  </div>
+
+  <div class="right-side">
+    <div class="logo">
+      <!-- Logo SVG or image here -->
+    </div>
+
+    <h1>Créer un compte</h1>
+    <p>Veuillez remplir les informations ci-dessous pour vous inscrire</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Message d'erreur global -->
+      <div *ngIf="errorMessage" class="alert-error">
+        {{ errorMessage }}
+      </div>
+
+      <!-- Nom -->
+      <div class="form-group">
+        <input
+          type="text"
+          id="nom"
+          formControlName="nom"
+          placeholder="Nom"
+          [ngClass]="{'is-invalid': submitted && f['nom'].errors}"
+        >
+        <label for="nom">Nom*</label>
+        <div *ngIf="submitted && f['nom'].errors" class="invalid-feedback">
+          <span *ngIf="f['nom'].errors?.['required']">Le nom est obligatoire</span>
+          <span *ngIf="f['nom'].errors?.['maxlength']">Le nom ne peut pas dépasser 50 caractères</span>
+        </div>
+      </div>
+
+      <!-- Prénom -->
+      <div class="form-group">
+        <input
+          type="text"
+          id="prenom"
+          formControlName="prenom"
+          placeholder="Prénom"
+          [ngClass]="{'is-invalid': submitted && f['prenom'].errors}"
+        >
+        <label for="prenom">Prénom*</label>
+        <div *ngIf="submitted && f['prenom'].errors" class="invalid-feedback">
+          <span *ngIf="f['prenom'].errors?.['required']">Le prénom est obligatoire</span>
+          <span *ngIf="f['prenom'].errors?.['maxlength']">Le prénom ne peut pas dépasser 50 caractères</span>
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="Email"
+          [ngClass]="{'is-invalid': submitted && f['email'].errors}"
+        >
+        <label for="email">Email*</label>
+        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+          <span *ngIf="f['email'].errors?.['required']">L'email est obligatoire</span>
+          <span *ngIf="f['email'].errors?.['email']">Veuillez entrer une adresse email valide</span>
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="form-group">
+        <div class="password-group">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="Mot de passe"
+            [ngClass]="{'is-invalid': submitted && f['password'].errors}"
+          >
+          <span class="toggle-password" (click)="togglePasswordVisibility()">
+            👁️
+          </span>
+        </div>
+        <label for="password">Mot de passe*</label>
+        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+          <span *ngIf="f['password'].errors?.['required']">Le mot de passe est obligatoire</span>
+          <span *ngIf="f['password'].errors?.['minlength']">Le mot de passe doit contenir au moins 8 caractères</span>
+          <span *ngIf="f['password'].errors?.['pattern']">Le mot de passe doit contenir au moins une lettre minuscule, une lettre majuscule, un chiffre et un caractère spécial</span>
+        </div>
+        <div *ngIf="f['password'].value" class="password-strength" [ngStyle]="{'color': getPasswordStrength().color}">
+          Force: {{ getPasswordStrength().text }}
+        </div>
+      </div>
+
+      <!-- Confirmation de mot de passe -->
+      <div class="form-group">
+        <div class="password-group">
+          <input
+            [type]="showConfirmPassword ? 'text' : 'password'"
+            id="confirmPassword"
+            formControlName="confirmPassword"
+            placeholder="Confirmer le mot de passe"
+            [ngClass]="{'is-invalid': submitted && f['confirmPassword'].errors}"
+          >
+          <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+            👁️
+          </span>
+        </div>
+        <label for="confirmPassword">Confirmer le mot de passe*</label>
+        <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
+          <span *ngIf="f['confirmPassword'].errors?.['required']">La confirmation du mot de passe est obligatoire</span>
+          <span *ngIf="f['confirmPassword'].errors?.['mustMatch']">Les mots de passe ne correspondent pas</span>
+        </div>
+      </div>
+
+      <!-- Bouton de soumission -->
+      <button type="submit" [disabled]="loading">
+        <span *ngIf="loading">Chargement...</span>
+        <span *ngIf="!loading">S'inscrire</span>
+      </button>
+
+      <div class="login-link">
+        <span>Déjà inscrit ?</span>
+        <a [routerLink]="['/login']">Connectez-vous</a>
+      </div>
+    </form>
+  </div>
+</div>
