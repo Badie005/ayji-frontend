@@ -124,6 +124,11 @@
   background-color: #333333;
 }
 
+.btn-submit:disabled {
+  background-color: #666666;
+  cursor: not-allowed;
+}
+
 .login-redirect {
   margin-top: 20px;
   text-align: center;
@@ -143,6 +148,19 @@
 .login-redirect a:hover {
   color: #000000;
   text-decoration: underline;
+}
+
+.password-strength {
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Roboto-Regular', sans-serif;
+}
+
+.form-text {
+  color: #666666;
+  font-size: 12px;
+  margin-top: 4px;
+  font-family: 'Roboto-Regular', sans-serif;
 }
 
 /* Pour les appareils mobiles */

@@ -15,6 +15,6 @@ export class HeaderComponent {
 
   authButtons = [
     { text: 'Sign Up', class: 'log-sign-component-1', textClass: 'log-sign-text-1', route: '/signup' },
-    { text: 'Log In', class: 'log-sign-component-2', textClass: 'log-sign-text-2', route: '/login' }
+    { text: 'Log In', class: 'log-sign-component-2', textClass: 'log-sign-text-2', route: '/register' }
   ];
 }
