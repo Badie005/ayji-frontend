@@ -1,0 +1,512 @@
+/* Style adapté pour correspondre à la page Home avec améliorations */
+.main-frame {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: calc(100vh - 76px);
+  padding: 40px 0px 20px 20px;
+}
+
+.heading-1 {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 1291px;
+  width: 100%;
+}
+
+.main-heading {
+  color: #000000;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 1.2;
+  margin: 0 0 20px 0;
+}
+
+.container2 {
+  max-width: 969px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto 20px auto;
+}
+
+.subheading {
+  color: #616161;
+  text-align: center;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  max-width: 790px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* Style des sections de la page About */
+.p-les {
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 30px;
+}
+
+.p-les .container {
+  padding: 0;
+  min-height: auto;
+}
+
+.p-les .header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #f5f5f5;
+  padding-bottom: 10px;
+}
+
+.p-les .title {
+  color: #000000;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.5;
+  position: relative;
+}
+
+.p-les .title::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  width: 80px;
+  height: 3px;
+  background-color: #000;
+}
+
+.p-les .margin {
+  width: 100%;
+}
+
+.p-les .content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.single-card {
+  margin-bottom: 20px;
+}
+
+.card2 {
+  padding: 16px;
+  width: 100%;
+}
+
+.component-4 {
+  padding: 12px 0;
+  width: 100%;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.component-4:last-child {
+  border-bottom: none;
+}
+
+.container3, .container4, .container5 {
+  margin-bottom: 8px;
+}
+
+.feature-title {
+  color: #000000;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-description {
+  color: #616161;
+  text-align: left;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+/* Icônes en noir et blanc */
+.icon-wrapper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background-color: #f5f5f5;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.icon-wrapper.large {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Base pour toutes les icônes */
+.feature-icon-bw {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 50%;
+  filter: brightness(0); /* Rendre les icônes en noir */
+  opacity: 0.8; /* Légère transparence pour un effet plus doux */
+}
+
+/* Définition des icônes spécifiques avec des SVG encodés en base64 ou des caractères unicode */
+.icon-book::before {
+  content: "\f02d"; /* Unicode pour un livre */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-message::before {
+  content: "\f27a"; /* Unicode pour message */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-live::before {
+  content: "\f03d"; /* Unicode pour vidéo */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-key::before {
+  content: "\f084"; /* Unicode pour clé */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-progress::before {
+  content: "\f201"; /* Unicode pour graphique */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-courses::before {
+  content: "\f19d"; /* Unicode pour diplôme */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-access::before {
+  content: "\f0c2"; /* Unicode pour cloud */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-chat::before {
+  content: "\f086"; /* Unicode pour commentaires */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-premium::before {
+  content: "\f005"; /* Unicode pour étoile */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-frontend::before {
+  content: "\f13b"; /* Unicode pour HTML5 */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-backend::before {
+  content: "\f3d3"; /* Unicode pour Node.js */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-database::before {
+  content: "\f1c0"; /* Unicode pour database */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-security::before {
+  content: "\f023"; /* Unicode pour cadenas */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-ui::before {
+  content: "\f1fc"; /* Unicode pour pinceau */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-person::before {
+  content: "\f007"; /* Unicode pour personne */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-free::before {
+  content: "\f06b"; /* Unicode pour cadeau */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-interface::before {
+  content: "\f108"; /* Unicode pour écran */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-interactive::before {
+  content: "\f11c"; /* Unicode pour clavier */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-support::before {
+  content: "\f095"; /* Unicode pour téléphone */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-email::before {
+  content: "\f0e0"; /* Unicode pour email */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-phone::before {
+  content: "\f095"; /* Unicode pour téléphone */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+.icon-location::before {
+  content: "\f3c5"; /* Unicode pour marqueur */
+  font-family: monospace;
+  font-size: 16px;
+}
+
+/* Grille pour les fonctionnalités */
+.cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.feature-card, .team-card {
+  padding: 24px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: calc(33.33% - 14px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.feature-card:hover, .team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Section Technologies */
+.tech-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  width: 100%;
+}
+
+.tech-item {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  min-width: 150px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+
+.tech-item:hover {
+  transform: translateY(-5px);
+  background: #f0f0f0;
+}
+
+/* Section équipe */
+.team-container {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.team-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.team-avatar .icon-wrapper {
+  width: 100%;
+  height: 100%;
+  background: none;
+  font-size: 40px;
+}
+
+/* Section Contact */
+.contact-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  justify-content: center;
+  width: 100%;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  min-width: 250px;
+  transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.contact-detail {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Responsive design */
+@media (max-width: 1366px) {
+  .main-heading {
+    font-size: 48px;
+  }
+  
+  .heading-1 {
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-heading {
+    font-size: 40px;
+  }
+  
+  .subheading {
+    font-size: 18px;
+  }
+  
+  .feature-card, .team-card {
+    width: calc(50% - 10px);
+  }
+  
+  .tech-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-heading {
+    font-size: 36px;
+  }
+  
+  .p-les .title {
+    font-size: 28px;
+  }
+  
+  .feature-card, .team-card {
+    width: 100%;
+  }
+  
+  .cards-row {
+    flex-direction: column;
+  }
+  
+  .tech-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .tech-item {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .contact-container {
+    flex-direction: column;
+  }
+  
+  .contact-item {
+    width: 100%;
+  }
+  
+  .team-container {
+    flex-direction: column;
+  }
+}

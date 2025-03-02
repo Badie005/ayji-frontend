@@ -1,8 +1,10 @@
 // signup.component.ts
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { Subject } from 'rxjs';
+import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 // Importez ici votre service d'authentification
 // import { AuthService } from '../core/services/auth.service';
 
@@ -19,13 +21,16 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
   ],
   styleUrls: ['./signup.component.css']
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
   registerForm!: FormGroup;
   submitted = false;
   showPassword = false;
   showConfirmPassword = false;
   loading = false;
   errorMessage = '';
+  
+  // Pour gérer la désabonnement des observables
+  private destroy$ = new Subject<void>();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -35,41 +40,77 @@ export class SignupComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
+    this.setupFormListeners();
   }
 
-  // Initialisation du formulaire avec validation
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  // Initialisation du formulaire avec validation avancée
   initForm(): void {
     this.registerForm = this.formBuilder.group({
-      nom: ['', [Validators.required, Validators.maxLength(50)]],
-      prenom: ['', [Validators.required, Validators.maxLength(50)]],
+      nom: ['', [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator]],
+      prenom: ['', [Validators.required, Validators.maxLength(50), this.noWhitespaceValidator]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [
         Validators.required,
         Validators.minLength(8),
-        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/)
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/),
+        this.noWhitespaceValidator
       ]],
       confirmPassword: ['', Validators.required]
     }, {
-      validator: this.mustMatch('password', 'confirmPassword')
+      validators: [this.mustMatch('password', 'confirmPassword')]
     });
+  }
+
+  // Configurer les listeners pour le formulaire
+  setupFormListeners(): void {
+    // Validation en temps réel du mot de passe
+    this.registerForm.get('password')?.valueChanges
+      .pipe(
+        takeUntil(this.destroy$),
+        debounceTime(300),
+        distinctUntilChanged()
+      )
+      .subscribe(() => {
+        // Réinitialiser la validation de confirmPassword si le mot de passe change
+        if (this.registerForm.get('confirmPassword')?.value) {
+          this.registerForm.get('confirmPassword')?.updateValueAndValidity();
+        }
+      });
   }
 
   // Validation pour vérifier que les mots de passe correspondent
   mustMatch(controlName: string, matchingControlName: string) {
-    return (formGroup: FormGroup) => {
-      const control = formGroup.controls[controlName];
-      const matchingControl = formGroup.controls[matchingControlName];
+    return (formGroup: AbstractControl): ValidationErrors | null => {
+      const control = formGroup.get(controlName);
+      const matchingControl = formGroup.get(matchingControlName);
+
+      if (!control || !matchingControl) {
+        return null;
+      }
 
       if (matchingControl.errors && !matchingControl.errors['mustMatch']) {
-        return;
+        return null;
       }
 
       if (control.value !== matchingControl.value) {
         matchingControl.setErrors({ mustMatch: true });
+        return { mustMatch: true };
       } else {
         matchingControl.setErrors(null);
+        return null;
       }
     };
+  }
+
+  // Validateur pour empêcher les espaces seuls
+  noWhitespaceValidator(control: AbstractControl): ValidationErrors | null {
+    const isWhitespace = (control.value || '').trim().length === 0;
+    return isWhitespace ? { whitespace: true } : null;
   }
 
   // Getter pour accéder facilement aux contrôles du formulaire
@@ -115,11 +156,30 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  // Obtenir le pourcentage de force du mot de passe pour la barre de progression
+  getPasswordStrengthPercentage(): number {
+    const password = this.f['password'].value || '';
+    
+    if (!password) return 0;
+    if (password.length < 8) return 25;
+    
+    const hasLower = /[a-z]/.test(password);
+    const hasUpper = /[A-Z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[@$!%*?&]/.test(password);
+    
+    const strength = [hasLower, hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
+    
+    return Math.min(25 + (strength * 25), 100); // 25% par critère, maximum 100%
+  }
+
   // Réinitialiser le formulaire
   resetForm(): void {
     this.submitted = false;
     this.registerForm.reset();
     this.errorMessage = '';
+    this.showPassword = false;
+    this.showConfirmPassword = false;
   }
 
   // Soumission du formulaire
@@ -129,6 +189,8 @@ export class SignupComponent implements OnInit {
 
     // Si le formulaire est invalide, arrêter ici
     if (this.registerForm.invalid) {
+      // Focus sur le premier champ invalide
+      this.focusFirstInvalidField();
       return;
     }
 
@@ -138,6 +200,9 @@ export class SignupComponent implements OnInit {
     setTimeout(() => {
       try {
         // Ici, vous pourriez appeler votre service d'authentification
+        // const { confirmPassword, ...userData } = this.registerForm.value;
+        // this.authService.register(userData).subscribe(...)
+        
         console.log('Formulaire d\'inscription valide', this.registerForm.value);
 
         // Exemple de redirection après inscription réussie
@@ -151,5 +216,29 @@ export class SignupComponent implements OnInit {
         this.errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
       }
     }, 1000);
+  }
+
+  // Focus sur le premier champ invalide
+  private focusFirstInvalidField(): void {
+    const invalidControls = this.findInvalidControls();
+    if (invalidControls.length > 0) {
+      const firstControlName = invalidControls[0];
+      const element = document.getElementById(firstControlName);
+      if (element) {
+        element.focus();
+      }
+    }
+  }
+
+  // Trouver tous les contrôles invalides
+  private findInvalidControls(): string[] {
+    const invalid = [];
+    const controls = this.registerForm.controls;
+    for (const name in controls) {
+      if (controls[name].invalid) {
+        invalid.push(name);
+      }
+    }
+    return invalid;
   }
 }

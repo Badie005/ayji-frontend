@@ -2,21 +2,39 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  margin: 0; /* Suppression de toutes les marges */
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* Ajuster uniquement la marge gauche en fonction de l'état de la barre latérale */
+body.sidebar-expanded .app-container {
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+body.sidebar-collapsed .app-container {
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
+/* Style pour les pages sans barre latérale (login/signup) */
+.app-container.no-sidebar, body.sidebar-hidden .app-container {
+  margin: 0;
+}
+.main-content {
+  flex: 1;
+  padding: 0; /* Suppression du padding */
+  overflow-y: auto;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
 .content-wrapper {
   display: flex;
   flex: 1;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-}
-
-@media (max-width: 768px) {
-  .content-wrapper {
-    flex-direction: column;
-  }
 }

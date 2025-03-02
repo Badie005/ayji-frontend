@@ -2,8 +2,12 @@
   <app-header></app-header>
 </ng-container>
 
-<app-side-bar></app-side-bar>
-<div class="app-container">
+<!-- N'afficher la barre latérale que si showHeaderFooter est true (pas sur les pages login/signup) -->
+<ng-container *ngIf="showHeaderFooter">
+  <app-side-bar></app-side-bar>
+</ng-container>
+
+<div class="app-container" [ngClass]="{'no-sidebar': !showHeaderFooter}">
   <div class="content-wrapper">
     <main class="main-content">
       <router-outlet></router-outlet>
