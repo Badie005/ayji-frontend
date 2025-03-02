@@ -1,18 +1,11 @@
 <!-- login.component.html -->
 <div class="login-container">
-  <div class="left-side">
-    <div class="blob-container">
-      <div class="blob blob-1"></div>
-      <div class="blob blob-2"></div>
-      <div class="blob blob-3"></div>
-      <div class="speckles"></div>
-    </div>
+
+  <div class="left-side" role="img" aria-label="Image décorative d'inscription">
+    <img src="signup-image-1.png" alt="Image d'inscription" loading="lazy">
   </div>
 
   <div class="right-side">
-    <div class="logo">
-      <!-- Logo SVG or image here -->
-    </div>
 
     <h1>Connexion</h1>
     <p>Entrez vos identifiants pour vous connecter</p>
@@ -41,19 +34,17 @@
 
       <!-- Mot de passe -->
       <div class="form-group">
-        <div class="password-group">
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            id="password"
-            formControlName="password"
-            placeholder="Mot de passe"
-            [ngClass]="{'is-invalid': submitted && f['password'].errors}"
-          >
-          <span class="toggle-password" (click)="togglePasswordVisibility()">
-            👁️
-          </span>
-        </div>
-        <label for="password">Mot de passe*</label>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="Mot de passe"
+          [ngClass]="{'is-invalid': submitted && f['password'].errors}"
+        >
+        <label for="password">Mot de passe<span class="required-mark">*</span></label>
+        <span class="toggle-password" (click)="togglePasswordVisibility()">
+          👁️
+        </span>
         <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
           <span *ngIf="f['password'].errors?.['required']">Le mot de passe est obligatoire</span>
         </div>

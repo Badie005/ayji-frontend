@@ -1,180 +1,479 @@
 /* login.component.css */
+:root {
+  --primary-color: #333333;
+  --secondary-color: #555555;
+  --light-color: #ffffff;
+  --gray-light: #f0f0f0;
+  --gray-medium: #e0e0e0;
+  --gray-dark: #777777;
+  --error-color: #dc3545;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --border-radius: 50px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition-time: 0.3s;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .login-container {
   display: flex;
-  justify-content: center;
+  height: 100vh;
+  background-color: var(--light-color);
+  overflow: hidden;
+}
+
+.left-side {
+  flex: 0 0 50%;
+  background-color: var(--gray-light);
+  overflow: hidden;
+  display: flex;
   align-items: center;
-  min-height: calc(100vh - 76px); /* Ajuster pour le header */
-  padding: 76px 24px 0; /* Top padding pour compenser le header fixe */
-  background-color: #f9f9f9;
-}
-
-.login-form-container {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 480px;
-  padding: 32px;
-  margin-bottom: 48px; /* Espace pour le footer */
-}
-
-.login-header {
-  margin-bottom: 24px;
-  text-align: center;
-}
-
-.login-header h2 {
-  color: #161616;
-  font-family: 'Roboto-Medium', sans-serif;
-  font-size: 24px;
-  line-height: 32px;
-  margin-bottom: 8px;
-}
-
-.login-header p {
-  color: #666666;
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-group label {
-  display: block;
-  color: #161616;
-  font-family: 'Roboto-Medium', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: 6px;
-}
-
-.form-group input {
-  width: 100%;
-  padding: 12px 16px;
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  line-height: 20px;
-  color: #161616;
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 4px;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.form-group input:focus {
-  border-color: #4d4d4d;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-}
-
-.form-group input.invalid {
-  border-color: #dc3545;
-}
-
-.password-container {
+  justify-content: center;
   position: relative;
 }
 
-.password-toggle {
+.left-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease-out;
+}
+
+.left-side:hover img {
+  transform: scale(1.05);
+}
+
+.right-side {
+  flex: 0 0 50%;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  justify-content: center;
+  position: relative;
+}
+
+h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  animation: staggerFadeIn 0.5s ease-in-out;
+  animation-delay: 0.1s;
+  animation-fill-mode: both;
+}
+
+p {
+  color: var(--gray-dark);
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  animation: staggerFadeIn 0.5s ease-in-out;
+  animation-delay: 0.2s;
+  animation-fill-mode: both;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  position: relative;
+  animation: staggerFadeIn 0.5s ease-in-out;
+  animation-fill-mode: both;
+}
+
+.form-group:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.form-group:nth-child(2) {
+  animation-delay: 0.4s;
+}
+
+.form-group:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.password-group {
+  position: relative;
+  width: 100%;
+}
+
+.toggle-password {
   position: absolute;
-  right: 16px;
+  right: 15px;
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
-  color: #666666;
-}
-
-.password-toggle:hover {
-  color: #161616;
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 12px;
-  margin-top: 4px;
-  font-family: 'Roboto-Regular', sans-serif;
-}
-
-.form-actions {
-  margin-top: 32px;
-}
-
-.btn-submit {
-  width: 100%;
-  background-color: #161616;
-  color: #ffffff;
-  border: none;
-  border-radius: 9999px; /* Pour correspondre aux boutons de header */
-  padding: 12px 24px;
-  font-family: 'Open Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+  color: #777;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 44px;
+  width: 36px;
+  height: 36px;
+  transition: all 0.2s ease;
+  z-index: 2;
+  background-color: transparent;
+  border-radius: 50%;
 }
 
-.btn-submit:hover {
-  background-color: #333333;
+.toggle-password:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
-.btn-submit:disabled {
-  background-color: #666666;
+.toggle-password:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 18px 25px;
+  border-radius: var(--border-radius);
+  border: 2px solid #e0e0e0;
+  background-color: #f9f9f9;
+  font-size: 1.1rem;
+  outline: none;
+  color: var(--primary-color);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  -webkit-appearance: none; /* Pour iOS */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+input[type="password"] {
+  padding-right: 50px; /* Espace pour l'icône toggle */
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+  color: transparent;
+}
+
+/* Effet de focus amélioré */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+  border-color: var(--primary-color);
+  background-color: #ffffff;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  transform: translateY(-3px) scale(1.01);
+}
+
+/* Effet de hover subtil */
+input[type="text"]:hover:not(:focus),
+input[type="email"]:hover:not(:focus),
+input[type="password"]:hover:not(:focus) {
+  border-color: #d0d0d0;
+  background-color: #f7f7f7;
+}
+
+input.is-invalid {
+  border-color: var(--error-color);
+  background-color: rgba(220, 53, 69, 0.05);
+}
+
+input.is-valid {
+  border-color: var(--success-color);
+  background-color: rgba(40, 167, 69, 0.05);
+}
+
+/* Effet visuel pour les champs valides et invalides */
+input.is-invalid:focus {
+  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+input.is-valid:focus {
+  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
+}
+
+/* Amélioration des messages d'erreur */
+.invalid-feedback {
+  color: var(--error-color);
+  font-size: 0.85rem;
+  margin-top: 0.6rem;
+  margin-left: 25px;
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+  transform-origin: left center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation pour les changements d'état des inputs */
+@keyframes pulseValidation {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+input.is-valid,
+input.is-invalid {
+  animation: pulseValidation 0.3s ease-in-out;
+}
+
+label {
+  position: absolute;
+  left: 25px;
+  color: var(--gray-dark);
+  pointer-events: none;
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 16px;
+  background-color: var(--light-color);
+  padding: 0 10px;
+  z-index: 1;
+  border-radius: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Position par défaut du label */
+.form-group label {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Design plus raffiné pour les labels en focus/hover */
+.form-group input:focus ~ label,
+.form-group input:not(:placeholder-shown) ~ label {
+  top: -14px;
+  transform: translateY(0);
+  font-size: 16px;
+  color: var(--primary-color);
+  font-weight: 700;
+  padding: 5px 16px;
+  background-color: white;
+  border: 2px solid var(--primary-color);
+  z-index: 5;
+  letter-spacing: 0.5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  animation: labelFloatUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes labelFloatUp {
+  0% {
+    opacity: 0.6;
+    transform: translateY(15%);
+    scale: 0.95;
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    scale: 1;
+  }
+}
+
+button {
+  width: 100%;
+  padding: 15px;
+  border-radius: var(--border-radius);
+  border: none;
+  background-color: #F5F5F5;
+  color: var(--primary-color);
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  font-weight: 600;
+  box-shadow: var(--box-shadow);
+  animation: staggerFadeIn 0.5s ease-in-out;
+  animation-delay: 0.6s;
+  animation-fill-mode: both;
+}
+
+button:hover {
+  background-color: #e0e0e0;
+}
+
+button:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.7;
   cursor: not-allowed;
 }
 
-.login-redirect {
-  margin-top: 20px;
-  text-align: center;
-  font-family: 'Roboto-Regular', sans-serif;
-  font-size: 14px;
-  color: #666666;
+.alert-error {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-left: 4px solid var(--error-color);
+  color: #721c24;
+  padding: 16px 20px;
+  margin-bottom: 25px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transform-origin: center;
+  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
 }
 
-.login-redirect a {
-  color: #161616;
+.checkbox-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  color: var(--gray-dark);
+  cursor: pointer;
+  position: relative;
+  padding-left: 30px;
+  user-select: none;
+}
+
+/* Cacher la checkbox standard */
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Créer une checkbox personnalisée */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  border-radius: 4px;
+  border: 2px solid var(--gray-medium);
+  background-color: white;
+  transition: all 0.2s ease;
+}
+
+/* Style quand la souris passe sur la checkbox */
+.checkbox-container:hover input ~ .checkmark {
+  border-color: var(--primary-color);
+}
+
+/* Style quand la checkbox est cochée */
+.checkbox-container input:checked ~ .checkmark {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+/* Créer le symbole de la checkbox (checkmark/indicateur) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Afficher le checkmark quand la case est cochée */
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style du symbole checkmark */
+.checkbox-container .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.forgot-password {
+  color: var(--primary-color);
+  font-size: 0.9rem;
   text-decoration: none;
-  font-weight: 500;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.forgot-password:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+  transform: translateX(2px);
+}
+
+.register-redirect {
+  text-align: center;
+  margin-top: -1rem;
+  font-size: 0.9rem;
+  color: var(--gray-dark);
+  animation: staggerFadeIn 0.5s ease-in-out;
+  animation-delay: 0.7s;
+  animation-fill-mode: both;
+}
+
+.register-redirect a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
   margin-left: 5px;
   transition: color 0.2s;
 }
 
-.login-redirect a:hover {
-  color: #000000;
+.register-redirect a:hover {
+  color: var(--secondary-color);
   text-decoration: underline;
 }
 
-.password-strength {
-  font-size: 12px;
-  margin-top: 4px;
-  font-family: 'Roboto-Regular', sans-serif;
+/* Animations globales */
+@keyframes staggerFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.form-text {
-  color: #666666;
-  font-size: 12px;
-  margin-top: 4px;
-  font-family: 'Roboto-Regular', sans-serif;
+@keyframes shake {
+  10%, 90% { transform: translateX(-1px); }
+  20%, 80% { transform: translateX(2px); }
+  30%, 50%, 70% { transform: translateX(-2px); }
+  40%, 60% { transform: translateX(2px); }
 }
 
-/* Pour les appareils mobiles */
+/* Responsive design pour les petits écrans */
+@media (max-width: 1200px) {
+  .left-side {
+    display: none;
+  }
+  
+  .right-side {
+    flex: 0 0 100%;
+    padding: 30px;
+  }
+}
+
 @media (max-width: 576px) {
-  .login-form-container {
-    padding: 24px 16px;
+  .right-side {
+    padding: 20px;
   }
-
-  .login-header h2 {
-    font-size: 22px;
+  
+  h1 {
+    font-size: 1.8rem;
   }
-
-  .form-group input,
-  .btn-submit {
-    padding: 10px 16px;
+  
+  p {
+    font-size: 1rem;
   }
 }

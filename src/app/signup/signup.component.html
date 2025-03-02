@@ -1,7 +1,7 @@
 <!-- signup.component.html -->
 <div class="login-container">
   <div class="left-side" role="img" aria-label="Image décorative d'inscription">
-    <img src="../public/signup-image-1.png" alt="Image d'inscription" loading="lazy">
+    <img src="signup-image-1.png" alt="Image d'inscription" loading="lazy">
   </div>
 
   <div class="right-side">
@@ -72,20 +72,18 @@
 
       <!-- Mot de passe -->
       <div class="form-group">
-        <div class="password-group">
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            id="password"
-            formControlName="password"
-            placeholder="Mot de passe"
-            aria-required="true"
-            autocomplete="new-password"
-            [ngClass]="{'is-invalid': submitted && f['password'].errors, 'is-valid': f['password'].valid && f['password'].touched}"
-          >
-          <span class="toggle-password" (click)="togglePasswordVisibility()" tabindex="0" role="button" aria-label="Afficher ou masquer le mot de passe" [attr.aria-pressed]="showPassword">
-            <i class="eye-icon" [ngClass]="showPassword ? 'eye-open' : 'eye-closed'"></i>
-          </span>
-        </div>
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="Mot de passe"
+          aria-required="true"
+          autocomplete="new-password"
+          [ngClass]="{'is-invalid': submitted && f['password'].errors, 'is-valid': f['password'].valid && f['password'].touched}"
+        >
+        <span class="toggle-password" (click)="togglePasswordVisibility()" tabindex="0" role="button" aria-label="Afficher ou masquer le mot de passe" [attr.aria-pressed]="showPassword">
+          <i class="eye-icon" [ngClass]="showPassword ? 'eye-open' : 'eye-closed'"></i>
+        </span>
         <label for="password">Mot de passe<span class="required-mark">*</span></label>
         <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
           <span *ngIf="f['password'].errors?.['required']">Le mot de passe est obligatoire</span>
@@ -102,20 +100,18 @@
 
       <!-- Confirmation de mot de passe -->
       <div class="form-group">
-        <div class="password-group">
-          <input
-            [type]="showConfirmPassword ? 'text' : 'password'"
-            id="confirmPassword"
-            formControlName="confirmPassword"
-            placeholder="Confirmer le mot de passe"
-            aria-required="true"
-            autocomplete="new-password"
-            [ngClass]="{'is-invalid': submitted && f['confirmPassword'].errors, 'is-valid': f['confirmPassword'].valid && f['confirmPassword'].touched && f['password'].value === f['confirmPassword'].value}"
-          >
-          <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()" tabindex="0" role="button" aria-label="Afficher ou masquer la confirmation du mot de passe" [attr.aria-pressed]="showConfirmPassword">
-            <i class="eye-icon" [ngClass]="showConfirmPassword ? 'eye-open' : 'eye-closed'"></i>
-          </span>
-        </div>
+        <input
+          [type]="showConfirmPassword ? 'text' : 'password'"
+          id="confirmPassword"
+          formControlName="confirmPassword"
+          placeholder="Confirmer le mot de passe"
+          aria-required="true"
+          autocomplete="new-password"
+          [ngClass]="{'is-invalid': submitted && f['confirmPassword'].errors, 'is-valid': f['confirmPassword'].valid && f['confirmPassword'].touched && f['password'].value === f['confirmPassword'].value}"
+        >
+        <span class="toggle-password" (click)="toggleConfirmPasswordVisibility()" tabindex="0" role="button" aria-label="Afficher ou masquer la confirmation du mot de passe" [attr.aria-pressed]="showConfirmPassword">
+          <i class="eye-icon" [ngClass]="showConfirmPassword ? 'eye-open' : 'eye-closed'"></i>
+        </span>
         <label for="confirmPassword">Confirmer le mot de passe<span class="required-mark">*</span></label>
         <div *ngIf="submitted && f['confirmPassword'].errors" class="invalid-feedback">
           <span *ngIf="f['confirmPassword'].errors?.['required']">La confirmation du mot de passe est obligatoire</span>
