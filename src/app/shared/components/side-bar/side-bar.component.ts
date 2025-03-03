@@ -15,7 +15,7 @@ export class SideBarComponent implements OnInit, OnDestroy {
   menuItems = [
     { text: 'Accueil', route: '/home' }, // Changez '/accueil' en '/home'
     { text: 'About', route: '/about' },  // Cette route n'existe pas encore dans app.routes.ts
-    { text: 'Connecter', route: '/connecter' }, // Cette route n'existe pas encore dans app.routes.ts
+    { text: 'Connecter', route: '/login' }, // Modifié pour pointer vers la page de login
     { text: 'Cours', route: '/cours' }  // Cette route n'existe pas encore dans app.routes.ts
   ];
   

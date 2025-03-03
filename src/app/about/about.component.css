@@ -1,0 +1,17 @@
+.about-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.about-content {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    padding: 10px;
+  }
+}

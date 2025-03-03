@@ -1,0 +1,539 @@
+/* Styles spécifiques pour la page des valeurs */
+.quote-container {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: 16px;
+  padding: 2.5rem;
+  margin: 2.5rem 0;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.quote-container::before {
+  content: '\201C';
+  position: absolute;
+  top: -20px;
+  left: 20px;
+  font-size: 8rem;
+  color: rgba(0, 0, 0, 0.05);
+  font-family: Georgia, serif;
+}
+
+.quote {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: #333;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-author {
+  font-weight: 600;
+  color: #000;
+  font-size: 1.1rem;
+  position: relative;
+  display: inline-block;
+}
+
+.quote-author::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  height: 2px;
+  background: #000;
+}
+
+.cards-row {
+  display: flex;
+  
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+/* Cartes des valeurs fondamentales */
+.ayji-cards-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+.ayji-feature-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.4s ease;
+  border: none;
+  overflow: hidden;
+  position: relative;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.ayji-feature-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.ayji-feature-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ayji-feature-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.ayji-feature-card:hover {
+  transform: translateY(-15px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.ayji-feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #000, #333);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ayji-feature-card:hover::before {
+  opacity: 1;
+}
+
+.ayji-icon-wrapper.large {
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90px;
+  height: 90px;
+  background-color: #f7f7f7;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+}
+
+.ayji-feature-card:hover .ayji-icon-wrapper.large {
+  background-color: #000;
+  transform: rotateY(180deg);
+}
+
+.feature-icon-bw {
+  font-size: 36px;
+  color: #000;
+  transition: all 0.4s ease;
+}
+
+.ayji-feature-card:hover .feature-icon-bw {
+  color: #fff;
+}
+
+.ayji-feature-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.ayji-card-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+  transition: all 0.3s ease;
+}
+
+/* Points de valeurs */
+.ayji-value-points {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.ayji-value-point {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+  border-left: 5px solid transparent;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.ayji-value-point:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.ayji-value-point:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.ayji-value-point:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.ayji-value-point:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.ayji-value-point:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.ayji-value-point:hover {
+  transform: translateX(10px);
+  border-left: 5px solid #000;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.ayji-value-point-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.ayji-value-point-title i {
+  margin-right: 15px;
+  font-size: 24px;
+  background-color: #f7f7f7;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.ayji-value-point:hover .ayji-value-point-title i {
+  background-color: #000;
+  color: #fff;
+}
+
+.ayji-value-point-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #666;
+  margin-left: 65px;
+  transition: all 0.3s ease;
+}
+
+/* Styles importés depuis about-main.component.css pour correspondre au nouveau design */
+.ayji-main,
+.ayji-main * {
+  box-sizing: border-box;
+}
+
+.ayji-main {
+  padding: 180px 0px 60px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+}
+
+.ayji-container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+}
+
+.ayji-container2 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ayji-heading-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ayji-main-heading {
+  color: #000000;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 1.2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -1px;
+}
+
+.ayji-container3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.ayji-subheading {
+  color: #616161;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 790px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+.ayji-line-1 {
+  margin-top: 40px;
+  border-width: 4px 0 0 0;
+  border-style: solid;
+  border-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 25%, rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0.5) 75%, rgba(255, 255, 255, 0) 100%);
+  border-image-slice: 1;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1200px;
+  height: 0px;
+  position: relative;
+}
+
+.ayji-p-les {
+  background: #ffffff;
+  padding: 60px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  padding: 0 20px;
+}
+
+.ayji-container4 {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  padding: 0 20px;
+}
+
+.ayji-header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.ayji-title {
+  color: #000000;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 600;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+  border-left: 5px solid #000;
+}
+
+.ayji-margin {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.ayji-content {
+  width: 100%;
+}
+
+.ayji-p-les2 {
+  background: #ffffff;
+  padding: 40px 0px 60px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Icons pour les valeurs */
+.icon-excellence::before {
+  content: '\f091'; /* Font Awesome trophy icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-innovation::before {
+  content: '\f0eb'; /* Font Awesome lightbulb icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-accessibility::before {
+  content: '\f2a8'; /* Font Awesome universal access icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-quality::before {
+  content: '\f14a'; /* Font Awesome check-square icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-community::before {
+  content: '\f500'; /* Font Awesome user-friends icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-ethics::before {
+  content: '\f64d'; /* Font Awesome balance-scale icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-inclusion::before {
+  content: '\f0c0'; /* Font Awesome users icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+.icon-relevance::before {
+  content: '\f201'; /* Font Awesome chart-line icon */
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+}
+
+@media (max-width: 1250px) {
+  .ayji-line-1 {
+    width: 90%;
+  }
+  .ayji-p-les, .ayji-p-les2 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .ayji-main-heading {
+    font-size: 40px;
+  }
+  .ayji-subheading {
+    font-size: 16px;
+  }
+  .ayji-title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+  .ayji-main {
+    padding-top: 150px;
+  }
+  .ayji-cards-row {
+    grid-template-columns: 1fr;
+  }
+  .ayji-value-point-description {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+  .ayji-feature-title {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ayji-main-heading {
+    font-size: 32px;
+  }
+  .ayji-main {
+    padding-top: 120px;
+  }
+  .ayji-value-point-title {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .ayji-value-point-title i {
+    margin-bottom: 15px;
+  }
+}

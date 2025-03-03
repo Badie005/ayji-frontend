@@ -38,9 +38,9 @@ export class FooterComponent {
       title: 'À propos AYJI',
       items: [
         { name: 'Notre mission', link: '/a-propos/mission' },
-        { name: 'L\'équipe derrière AYJI', link: '/a-propos/equipe' },
-        { name: 'Nos valeurs', link: '/a-propos/valeurs' },
-        { name: 'Contactez-nous', link: '/contact' }
+        { name: 'L\'équipe', link: '/a-propos/team' },
+        { name: 'Nos valeurs', link: '/a-propos/values' },
+        { name: 'Contactez-nous', link: '/a-propos/contact' }
       ]
     },
     {

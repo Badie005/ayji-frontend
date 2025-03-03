@@ -1,1 +1,44 @@
-<p>course-list works!</p>
+<div class="main" [ngClass]="{'sidebar-expanded': isSidebarExpanded, 'sidebar-collapsed': !isSidebarExpanded}">
+  <div class="container">
+    <div class="container2">
+      <div class="heading-1">
+        <div class="main-heading">COURS</div>
+      </div>
+      <div class="container3">
+        <div class="subheading">
+          Votre plateforme d'apprentissage en Systèmes Réseaux Informatiques
+        </div>
+      </div>
+    </div>
+    <div class="line-1"></div>
+  </div>
+  <div class="p-les">
+    <div class="container4">
+      <div class="margin">
+        <!-- Cours individuels -->
+        <div [ngClass]="'component-' + (i === 0 ? '4' : (i === 1 ? '14' : (i === 2 ? '15' : '16')))" 
+             *ngFor="let course of courses; let i = index">
+          <div class="container5">
+            <div class="container6">
+              <div [ngClass]="'cours-' + (i+1)">{{ course.title }}</div>
+            </div>
+            <div class="container7">
+              <div class="container8">
+                <div [ngClass]="{'rectangle-5': course.progress === 80, 'rectangle-52': course.progress === 30, 'rectangle-53': course.progress === 50}" 
+                     [style.width]="course.progress + '%'"></div>
+              </div>
+              <div class="container9">
+                <div [ngClass]="{'_80': course.progress === 80, '_20': course.progress === 30, '_50': course.progress === 50}">{{ course.progress }}%</div>
+              </div>
+            </div>
+          </div>
+          <div class="log-sign-component-1" [routerLink]="['/cours', course.id]">
+            <div class="log-sign-a-1">
+              <div class="log-sign-text-1">Étudier le cours</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

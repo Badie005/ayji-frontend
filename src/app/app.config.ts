@@ -5,6 +5,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { tokenInterceptor } from './core/interceptors/token.interceptor';
 import { errorInterceptor } from './core/interceptors/error.interceptor';
 import { CoreModule } from './core/core.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(
       withInterceptors([tokenInterceptor, errorInterceptor])
     ),
-    importProvidersFrom(CoreModule)
+    importProvidersFrom(CoreModule, FormsModule, ReactiveFormsModule)
   ]
 };

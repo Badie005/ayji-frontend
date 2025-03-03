@@ -20,8 +20,16 @@ export const routes: Routes = [
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
   },
   {
+    path: 'a-propos',
+    loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
+  },
+  {
     path: 'cours',
     loadChildren: () => import('./cours/cours.module').then(m => m.CoursModule)
+  },
+  {
+    path: 'legal',
+    loadChildren: () => import('./legal/legal.module').then(m => m.LegalModule)
   },
   {
     path: 'member',

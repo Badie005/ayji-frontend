@@ -1,1 +1,316 @@
-<p>course-detail works!</p>
+<div class="course-detail-container">
+    
+  <!-- Breadcrumb Navigation -->
+  <div class="course-breadcrumb">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/cours">Cours</a></li>
+        <li class="breadcrumb-item"><a href="#">SRI</a></li>
+        <li class="breadcrumb-item"><a href="#">Sécurité réseau</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Protocole HTTPS</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Course Title -->
+  <div class="course-header">
+    <h1 class="course-title">Protocole HTTPS</h1>
+    <div class="course-meta">
+      <span class="course-level">Niveau: Intermédiaire</span>
+      <span class="course-duration">Durée: 2h</span>
+    </div>
+  </div>
+
+  <!-- Course Navigation and Content -->
+  <div class="course-content-container" [ngClass]="{'sidebar-expanded': isSidebarExpanded, 'sidebar-collapsed': !isSidebarExpanded}">
+    <!-- Left Navigation Panel -->
+    <div class="course-navigation">
+      <h2 class="nav-title">Naviguer la leçon</h2>
+      
+      <div class="nav-section">
+        <button class="nav-item" [ngClass]="{'active': activeTab === 'course'}" (click)="switchTab('course')">
+          <div class="nav-icon">📄</div>
+          <div class="nav-text">
+            <span class="nav-label">Fiche de cours</span>
+            <span class="nav-description">1 document</span>
+          </div>
+        </button>
+        
+        <button class="nav-item" [ngClass]="{'active': activeTab === 'tests'}" (click)="switchTab('tests')">
+          <div class="nav-icon">📝</div>
+          <div class="nav-text">
+            <span class="nav-label">Tests interactifs</span>
+            <span class="nav-description">QCM, vrai/faux</span>
+          </div>
+          <div class="progress-badge">0/3 complétés</div>
+        </button>
+        
+        <button class="nav-item" [ngClass]="{'active': activeTab === 'exercises'}" (click)="switchTab('exercises')">
+          <div class="nav-icon">🧩</div>
+          <div class="nav-text">
+            <span class="nav-label">Exercices corrigés</span>
+            <span class="nav-description">Solutions détaillées</span>
+          </div>
+          <div class="progress-badge">0/2 complétés</div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Right Content Panel -->
+    <div class="course-content">
+      <!-- Course Material Tab -->
+      <div class="content-tab" *ngIf="activeTab === 'course'">
+        <div class="content-header">
+          <h2>Fiche de cours - Protocole HTTPS</h2>
+        </div>
+        
+        <div class="course-document">
+          <h3>Introduction au HTTPS</h3>
+          <p>HTTPS (HyperText Transfer Protocol Secure) est une extension du protocole HTTP qui utilise le chiffrement TLS/SSL pour sécuriser les communications. Ce protocole est essentiel pour protéger les données sensibles échangées entre le navigateur d'un utilisateur et un serveur web.</p>
+          
+          <h3>Fonctionnement de HTTPS</h3>
+          <p>Le protocole HTTPS fonctionne en ajoutant une couche de sécurité au protocole HTTP standard :</p>
+          <ul>
+            <li><strong>Authentification</strong>: Vérifie l'identité du site web visité</li>
+            <li><strong>Chiffrement</strong>: Protège les données échangées contre l'espionnage</li>
+            <li><strong>Intégrité des données</strong>: Garantit que les données n'ont pas été modifiées</li>
+          </ul>
+          
+          <h3>Le processus de handshake TLS</h3>
+          <div class="course-image">
+            <img src="assets/images/courses/https-handshake.png" alt="Processus de handshake TLS" class="img-fluid">
+            <div class="image-caption">Fig 1: Le processus de handshake TLS en 5 étapes</div>
+          </div>
+          
+          <h3>Avantages du HTTPS</h3>
+          <ul>
+            <li>Protection des données sensibles (identifiants, informations de paiement)</li>
+            <li>Amélioration du référencement sur les moteurs de recherche</li>
+            <li>Établissement de la confiance avec les utilisateurs</li>
+            <li>Intégration plus fluide avec les nouvelles API web</li>
+          </ul>
+
+          <h3>Certificats SSL/TLS</h3>
+          <p>Les certificats SSL/TLS sont des fichiers numériques qui lient cryptographiquement une clé cryptographique aux informations d'une organisation. Un certificat contient :</p>
+          <ul>
+            <li>Le nom de domaine pour lequel le certificat est validé</li>
+            <li>La personne, organisation ou appareil auquel il a été délivré</li>
+            <li>L'autorité de certification qui a émis le certificat</li>
+            <li>La signature numérique de l'autorité de certification</li>
+            <li>Paires de clés associées</li>
+          </ul>
+        </div>
+      </div>
+      
+      <!-- Tests Tab -->
+      <div class="content-tab" *ngIf="activeTab === 'tests'">
+        <div class="content-header">
+          <h2>Tests interactifs - Protocole HTTPS</h2>
+          <div class="test-progress">Progression: 0/3 tests complétés</div>
+        </div>
+        
+        <div class="test-container">
+          <div class="test-card">
+            <div class="test-number">Test #1</div>
+            <h3>QCM sur les bases du HTTPS</h3>
+            
+            <div class="question">
+              <p><strong>1. Que signifie HTTPS ?</strong></p>
+              <div class="options">
+                <div class="option">
+                  <input type="radio" id="q1-a" name="q1" value="a">
+                  <label for="q1-a">HyperText Transport Protocol Secure</label>
+                </div>
+                <div class="option">
+                  <input type="radio" id="q1-b" name="q1" value="b">
+                  <label for="q1-b">HyperText Transfer Protocol Secure</label>
+                </div>
+                <div class="option">
+                  <input type="radio" id="q1-c" name="q1" value="c">
+                  <label for="q1-c">High Transfer Text Protocol System</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="question">
+              <p><strong>2. Quel protocole de sécurité est utilisé par HTTPS ?</strong></p>
+              <div class="options">
+                <div class="option">
+                  <input type="radio" id="q2-a" name="q2" value="a">
+                  <label for="q2-a">SSH</label>
+                </div>
+                <div class="option">
+                  <input type="radio" id="q2-b" name="q2" value="b">
+                  <label for="q2-b">TLS/SSL</label>
+                </div>
+                <div class="option">
+                  <input type="radio" id="q2-c" name="q2" value="c">
+                  <label for="q2-c">PGP</label>
+                </div>
+              </div>
+            </div>
+            
+            <button class="submit-test">Vérifier mes réponses</button>
+          </div>
+          
+          <div class="test-card">
+            <div class="test-number">Test #2</div>
+            <h3>Vrai ou Faux</h3>
+            
+            <div class="question">
+              <p><strong>1. HTTPS chiffre uniquement les mots de passe, pas les autres données.</strong></p>
+              <div class="options">
+                <div class="option">
+                  <input type="radio" id="vf1-a" name="vf1" value="true">
+                  <label for="vf1-a">Vrai</label>
+                </div>
+                <div class="option">
+                  <input type="radio" id="vf1-b" name="vf1" value="false">
+                  <label for="vf1-b">Faux</label>
+                </div>
+              </div>
+            </div>
+            
+            <div class="question">
+              <p><strong>2. Un certificat SSL peut être émis par n'importe qui.</strong></p>
+              <div class="options">
+                <div class="option">
+                  <input type="radio" id="vf2-a" name="vf2" value="true">
+                  <label for="vf2-a">Vrai</label>
+                </div>
+                <div class="option">
+                  <input type="radio" id="vf2-b" name="vf2" value="false">
+                  <label for="vf2-b">Faux</label>
+                </div>
+              </div>
+            </div>
+            
+            <button class="submit-test">Vérifier mes réponses</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Exercises Tab -->
+      <div class="content-tab" *ngIf="activeTab === 'exercises'">
+        <div class="content-header">
+          <h2>Exercices corrigés - Protocole HTTPS</h2>
+          <div class="exercise-progress">Progression: 0/2 exercices complétés</div>
+        </div>
+        
+        <div class="exercise-container">
+          <div class="exercise-card">
+            <h3>Exercice 1: Analyse d'un certificat SSL</h3>
+            <div class="exercise-content">
+              <p><strong>Énoncé:</strong> Analysez le certificat SSL suivant et répondez aux questions.</p>
+              <div class="exercise-image">
+                <img src="assets/images/courses/ssl-certificate.png" alt="Certificat SSL exemple" class="img-fluid">
+              </div>
+              
+              <div class="exercise-questions">
+                <p><strong>1. Quelle est l'autorité de certification qui a émis ce certificat?</strong></p>
+                <textarea rows="2" placeholder="Votre réponse..."></textarea>
+                
+                <p><strong>2. Quelle est la date d'expiration de ce certificat?</strong></p>
+                <textarea rows="2" placeholder="Votre réponse..."></textarea>
+                
+                <p><strong>3. Quel algorithme de chiffrement est utilisé?</strong></p>
+                <textarea rows="2" placeholder="Votre réponse..."></textarea>
+              </div>
+              
+              <div class="exercise-solution">
+                <div class="solution-toggle" (click)="toggleSolution('ex1')">
+                  <span>Voir la solution</span>
+                  <span class="toggle-icon">+</span>
+                </div>
+                
+                <div class="solution-content" [ngClass]="{'visible': visibleSolutions.includes('ex1')}">
+                  <p><strong>1. Autorité de certification:</strong> DigiCert Inc</p>
+                  <p><strong>2. Date d'expiration:</strong> 15 Septembre 2023</p>
+                  <p><strong>3. Algorithme de chiffrement:</strong> RSA 2048 bits</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="exercise-card">
+            <h3>Exercice 2: Configuration d'un serveur HTTPS</h3>
+            <div class="exercise-content">
+              <p><strong>Énoncé:</strong> Complétez le fichier de configuration Nginx suivant pour activer HTTPS sur un serveur web.</p>
+              
+              <div class="code-block">
+<pre>
+server &#123; 
+    listen 80;
+    server_name example.com;
+    
+    # Redirigez HTTP vers HTTPS
+    [...]
+    
+    # Configuration du serveur HTTPS
+    [...]
+    
+    # Paramètres SSL
+    [...]
+    
+    location / &#123; 
+        root /var/www/html;
+        index index.html;
+    &#125;
+&#125;
+</pre>
+              </div>
+              
+              <div class="exercise-solution">
+                <div class="solution-toggle" (click)="toggleSolution('ex2')">
+                  <span>Voir la solution</span>
+                  <span class="toggle-icon">+</span>
+                </div>
+                
+                <div class="solution-content" [ngClass]="{'visible': visibleSolutions.includes('ex2')}">
+<pre>
+server &#123; 
+    listen 80;
+    server_name example.com;
+    
+    # Redirigez HTTP vers HTTPS
+    return 301 https://$host$request_uri;
+&#125;
+
+server &#123; 
+    listen 443 ssl;
+    server_name example.com;
+    
+    # Configuration du serveur HTTPS
+    root /var/www/html;
+    index index.html;
+    
+    # Paramètres SSL
+    ssl_certificate /etc/ssl/certs/example.com.crt;
+    ssl_certificate_key /etc/ssl/private/example.com.key;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384;
+    
+    location / &#123; 
+        root /var/www/html;
+        index index.html;
+    &#125;
+&#125;
+</pre>
+<p>Cette configuration:</p>
+<ul>
+  <li>Redirige tout le trafic HTTP vers HTTPS</li>
+  <li>Configure le serveur pour écouter sur le port 443 avec SSL</li>
+  <li>Spécifie l'emplacement des certificats</li>
+  <li>Limite les protocoles aux versions TLS 1.2 et 1.3 (plus sécurisées)</li>
+  <li>Configure des chiffrements sécurisés</li>
+</ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,550 @@
+.main-frame {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.container {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.heading-1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 0;
+}
+
+.container2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.subheading {
+  font-size: 1.5rem;
+  color: #000000;
+  font-weight: 400;
+}
+
+.p-les {
+  margin-bottom: 40px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #000000;
+  border-left: 5px solid #000000;
+  padding-left: 15px;
+}
+
+.margin {
+  margin-top: 20px;
+}
+
+.content {
+  width: 100%;
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+}
+
+.team-member {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.team-member:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.member-photo {
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.member-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.team-member:hover .member-img {
+  transform: scale(1.05);
+}
+
+.member-info {
+  padding: 20px;
+}
+
+.member-info h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 5px;
+}
+
+.member-title {
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 500;
+  margin-bottom: 15px;
+}
+
+.member-description {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444444;
+}
+
+/* Styles importés depuis about-main.component.css pour correspondre au nouveau design */
+.ayji-main,
+.ayji-main * {
+  box-sizing: border-box;
+}
+.ayji-main {
+  padding: 200px 0px 60px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-container {
+  display: flex;
+  flex-direction: column;
+  gap: 200px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-container2 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-heading-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-main-heading {
+  color: #000000;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 1.2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ayji-container3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-subheading {
+  color: #616161;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 790px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+.ayji-line-1 {
+  margin-top: 40px;
+  border-width: 4px 0 0 0;
+  border-style: solid;
+  border-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(149, 149, 149, 0.5) 25%,
+    rgba(149, 149, 149, 1) 50%,
+    rgba(149, 149, 149, 0.5) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-image-slice: 1;
+  flex-shrink: 0;
+  width: 1200px;
+  height: 0px;
+  position: relative;
+}
+.ayji-p-les {
+  background: #ffffff;
+  padding: 60px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1200px;
+  position: relative;
+}
+.ayji-container4 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  max-width: 1200px;
+  position: relative;
+}
+.ayji-header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-title {
+  color: #000000;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 500;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+}
+.ayji-p-les2 {
+  background: #ffffff;
+  padding: 40px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1200px;
+  position: relative;
+}
+
+/* Styles améliorés pour les cartes d'équipe */
+.ayji-cards-row {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.ayji-team-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  width: 350px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ayji-team-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.ayji-team-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: linear-gradient(90deg, #000000, #555555);
+  border-radius: 6px 6px 0 0;
+}
+
+.ayji-member-photo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 20px;
+  border: 4px solid #f8f8f8;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.ayji-member-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ayji-member-name {
+  color: #000000;
+  font-size: 22px;
+  font-weight: 600;
+  text-align: center;
+  margin: 0 0 5px;
+}
+
+.ayji-member-title {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0 0 15px;
+}
+
+.ayji-member-bio {
+  color: #444444;
+  font-size: 15px;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.ayji-member-social {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.ayji-social-link {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #000000;
+  transition: all 0.2s ease;
+}
+
+.ayji-social-link:hover {
+  background: #000000;
+  color: white;
+}
+
+/* Styles pour la section Vision */
+.ayji-vision-container {
+  padding: 30px 40px;
+  background: #f9f9f9;
+  border-radius: 12px;
+  margin: 30px 0;
+  position: relative;
+}
+
+.ayji-vision-text {
+  color: #333333;
+  font-size: 16px;
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+
+.ayji-vision-quote {
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 500;
+  color: #000000;
+  text-align: center;
+  padding: 20px 40px;
+  position: relative;
+  margin: 30px 0 10px;
+}
+
+.ayji-vision-quote::before {
+  content: "\201C"; /* Use Unicode escape sequence for left double quotation mark */
+  font-size: 60px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.2;
+  color: #000000;
+}
+
+.ayji-vision-quote::after {
+  content: "\201D"; /* Use Unicode escape sequence for right double quotation mark */
+  font-size: 60px;
+  position: absolute;
+  right: 0;
+  bottom: -20px;
+  opacity: 0.2;
+  color: #000000;
+}
+
+/* Styles pour la section Rejoindre l'équipe */
+.ayji-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  width: 100%;
+  margin: 30px 0;
+}
+
+.ayji-card2 {
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.ayji-card-description {
+  color: #444444;
+  font-size: 16px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+.ayji-action-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.ayji-btn {
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-weight: 500;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ayji-btn-primary {
+  background: #000000;
+  color: white;
+  border: none;
+}
+
+.ayji-btn-primary:hover {
+  background: #333333;
+  transform: translateY(-2px);
+}
+
+.ayji-btn-outline {
+  background: transparent;
+  color: #000000;
+  border: 2px solid #000000;
+}
+
+.ayji-btn-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+.ayji-margin {
+  width: 100%;
+  padding: 20px 0;
+}
+
+.ayji-content {
+  width: 100%;
+}
+
+@media (max-width: 1250px) {
+  .ayji-line-1 {
+    width: 90%;
+  }
+  .ayji-p-les, .ayji-p-les2 {
+    width: 100%;
+  }
+  .ayji-cards-row {
+    gap: 20px;
+  }
+  .ayji-team-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media (max-width: 768px) {
+  .ayji-main-heading {
+    font-size: 40px;
+  }
+  .ayji-subheading {
+    font-size: 16px;
+  }
+  .ayji-title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+  .ayji-team-card {
+    width: 100%;
+  }
+  .ayji-card2 {
+    padding: 30px;
+  }
+  .ayji-action-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-heading {
+    font-size: 2rem;
+  }
+  
+  .subheading {
+    font-size: 1.2rem;
+  }
+  
+  .title {
+    font-size: 1.5rem;
+  }
+  
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}

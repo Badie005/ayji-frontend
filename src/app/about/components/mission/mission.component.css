@@ -1,0 +1,533 @@
+.main-frame {
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+.container {
+  width: 100%;
+  padding: 0 20px;
+}
+
+.heading-1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #3066BE;
+  margin-bottom: 0;
+}
+
+.container2 {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.subheading {
+  font-size: 1.5rem;
+  color: #666;
+  font-weight: 400;
+}
+
+.p-les {
+  margin-bottom: 40px;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #333;
+  border-left: 5px solid #3066BE;
+  padding-left: 15px;
+}
+
+.margin {
+  margin-top: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: none;
+}
+
+.single-card {
+  width: 100%;
+}
+
+.card2, .component-4 {
+  padding: 25px;
+}
+
+.container5, .container3, .container4 {
+  width: 100%;
+}
+
+.card-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+.feature-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #000;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+/* Styles importés depuis about-main.component.css pour correspondre au nouveau design */
+.ayji-main,
+.ayji-main * {
+  box-sizing: border-box;
+}
+.ayji-main {
+  padding: 200px 0px 60px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: flex-start;
+  align-self: stretch;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-container {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+}
+.ayji-container2 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-heading-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-main-heading {
+  color: #000000;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 60px;
+  font-weight: 600;
+  line-height: 1.2;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: -1px;
+}
+.ayji-container3 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+.ayji-subheading {
+  color: #616161;
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 790px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+.ayji-line-1 {
+  margin-top: 40px;
+  border-width: 4px 0 0 0;
+  border-style: solid;
+  border-image: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(149, 149, 149, 0.5) 25%,
+    rgba(149, 149, 149, 1) 50%,
+    rgba(149, 149, 149, 0.5) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  border-image-slice: 1;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1200px;
+  height: 0px;
+  position: relative;
+}
+.ayji-p-les {
+  background: #ffffff;
+  padding: 60px 0px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+.ayji-container4 {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-shrink: 0;
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  padding: 0 20px;
+}
+.ayji-header {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  justify-content: flex-start;
+  flex-shrink: 0;
+  position: relative;
+  margin-bottom: 30px;
+  width: 100%;
+}
+.ayji-title {
+  color: #000000;
+  text-align: left;
+  font-family: "Open Sans", sans-serif;
+  font-size: 36px;
+  line-height: 40px;
+  font-weight: 600;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 15px;
+}
+.ayji-p-les2 {
+  background: #ffffff;
+  padding: 40px 0px 60px 0px;
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+}
+
+/* Styles améliorés pour les cartes de piliers */
+.cards-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+  width: 100%;
+}
+
+.feature-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 40px 30px;
+  flex: 1;
+  min-width: 300px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.icon-wrapper.large {
+  margin-bottom: 25px;
+  width: 80px;
+  height: 80px;
+  background-color: #f7f7f7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .icon-wrapper.large {
+  background-color: #000;
+}
+
+.feature-card:hover .feature-icon-bw {
+  color: #fff;
+}
+
+.feature-icon-bw {
+  font-size: 32px;
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.card-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin-top: 0;
+}
+
+/* Styles améliorés pour les objectifs */
+.objective-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
+
+.objective-item {
+  display: flex;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  padding: 30px;
+  transition: all 0.3s ease;
+  border: none;
+}
+
+.objective-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.objective-icon {
+  margin-right: 25px;
+  min-width: 60px;
+  height: 60px;
+  background-color: #f7f7f7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.objective-item:hover .objective-icon {
+  background-color: #000;
+}
+
+.objective-item:hover .feature-icon-bw {
+  color: #fff;
+}
+
+.objective-content {
+  flex: 1;
+}
+
+.objective-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #000;
+  margin: 0 0 10px 0;
+}
+
+.objective-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666;
+  margin: 0;
+}
+
+/* Icônes personnalisées */
+.icon-accessibility:before {
+  content: "\f500"; /* Utiliser des icônes Font Awesome ou équivalent */
+  font-family: "Font Awesome 5 Free";
+}
+
+.icon-quality:before {
+  content: "\f005";
+  font-family: "Font Awesome 5 Free";
+}
+
+.icon-innovation:before {
+  content: "\f0eb";
+  font-family: "Font Awesome 5 Free";
+}
+
+.icon-learn:before {
+  content: "\f19d";
+  font-family: "Font Awesome 5 Free";
+}
+
+.icon-community:before {
+  content: "\f0c0";
+  font-family: "Font Awesome 5 Free";
+}
+
+.icon-connection:before {
+  content: "\f0c1";
+  font-family: "Font Awesome 5 Free";
+}
+
+/* Animation pour les cartes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.feature-card, .objective-item {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.feature-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.feature-card:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.feature-card:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.objective-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.objective-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.objective-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@media (max-width: 1250px) {
+  .ayji-line-1 {
+    width: 90%;
+  }
+  .ayji-p-les, .ayji-p-les2 {
+    width: 100%;
+  }
+}
+
+@media (max-width: 992px) {
+  .cards-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .feature-card {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .objective-item {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .objective-icon {
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ayji-main-heading {
+    font-size: 40px;
+  }
+  .ayji-subheading {
+    font-size: 16px;
+  }
+  .ayji-title {
+    font-size: 28px;
+    line-height: 32px;
+  }
+  
+  .ayji-main {
+    padding-top: 150px;
+  }
+  
+  .cards-row {
+    gap: 20px;
+  }
+  
+  .feature-card, .objective-item {
+    padding: 25px 20px;
+  }
+  
+  .icon-wrapper.large {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .feature-icon-bw {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ayji-main-heading {
+    font-size: 32px;
+  }
+  
+  .ayji-main {
+    padding-top: 120px;
+  }
+  
+  .feature-title, .objective-title {
+    font-size: 18px;
+  }
+  
+  .card-description, .objective-description {
+    font-size: 14px;
+  }
+}
