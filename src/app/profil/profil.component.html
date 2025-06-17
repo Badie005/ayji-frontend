@@ -1,0 +1,261 @@
+<div class="profile-page">
+  <div class="profile-container">
+    <div class="profile-header">
+      <h1>Profil</h1>
+      <div class="header-line"></div>
+    </div>
+
+    <div class="profile-content" *ngIf="currentUser">
+      <div class="profile-section user-card">
+        <div class="avatar-section">
+          <div class="avatar-wrapper">
+            <div class="avatar-circle">
+              <span class="initials">
+                {{currentUser.prenom.charAt(0)}}{{currentUser.nom.charAt(0)}}
+              </span>
+            </div>
+            <div class="status-indicator"></div>
+          </div>
+        </div>
+
+        <div class="user-info">
+          <h2>{{currentUser.prenom}} {{currentUser.nom}}</h2>
+          <p class="user-role">{{currentUser.role || 'Membre'}}</p>
+          <div class="info-item">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <div class="info-text">
+              <span class="label">Email</span>
+              <span class="value">{{currentUser.email}}</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <div class="icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+              </svg>
+            </div>
+            <div class="info-text">
+              <span class="label">Membre depuis</span>
+              <span class="value">{{currentUser.createdAt | date:'dd MMM yyyy'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="userProgressions.length === 0" class="empty-state">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+          <path d="M8 21h8"></path>
+          <path d="M12 17v4"></path>
+          <path d="M17 8l-5 5-5-5"></path>
+        </svg>
+        <h3>Aucun cours suivi</h3>
+        <p>Vous n'avez pas encore commencé à suivre des cours.</p>
+        <button class="action-button" [routerLink]="['/cours']">
+          <span>Découvrir les cours</span>
+        </button>
+      </div>
+
+      <div class="profile-section action-section">
+        <button class="action-button edit-button" [routerLink]="['/profil/edit']">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"></path>
+            <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+          </svg>
+          <span>Éditer le profil</span>
+        </button>
+        <button class="action-button logout-button" (click)="logout()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          <span>Se déconnecter</span>
+        </button>
+      </div>
+
+      <div class="profile-section stats-section">
+        <!-- Indicateur de chargement -->
+        <div *ngIf="isLoading" class="loading-indicator">
+          <div class="spinner"></div>
+          <p>Chargement des données de progression...</p>
+        </div>
+
+        <!-- Section spéciale pour les administrateurs -->
+        <div *ngIf="!isLoading && currentUser && currentUser.role === 'admin'" class="admin-section">
+          <div class="admin-icon">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6L9 17l-5-5"></path>
+            </svg>
+          </div>
+          <h3>Compte Administrateur</h3>
+          <p>En tant qu'administrateur, vous n'avez pas de progression de cours à suivre.</p>
+          <p>Vous pouvez accéder au panneau d'administration pour gérer les utilisateurs et les cours.</p>
+          <a routerLink="/admin" class="action-button admin-button">
+            <span>Panneau d'administration</span>
+          </a>
+        </div>
+
+        <!-- Section pour les utilisateurs réguliers -->
+        <div *ngIf="!isLoading && currentUser && currentUser.role !== 'admin'">
+          <div class="progress-container">
+            <div class="progress-label">
+              <span>Progression globale</span>
+              <span class="progress-percentage">{{globalProgress}}%</span>
+            </div>
+            <div class="container8">
+              <div class="rectangle-5" [style.width.%]="globalProgress"></div>
+            </div>
+          </div>
+          
+          <!-- Statistiques générales -->
+          <div class="stats-summary">
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-name">Cours suivis</span>
+                <span class="stat-value">{{userProgressions.length}}</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-name">Temps total</span>
+                <span class="stat-value">{{formatTime(totalTimeSpent)}}</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-name">Complétés</span>
+                <span class="stat-value">{{completedCourses}}</span>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="1 4 1 10 7 10"></polyline>
+                  <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                </svg>
+              </div>
+              <div class="stat-details">
+                <span class="stat-name">En cours</span>
+                <span class="stat-value">{{inProgressCourses}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div *ngIf="lastConnection" class="last-connection">
+            Dernière connexion: {{lastConnection | date:'dd MMM yyyy à HH:mm'}}
+          </div>
+          
+          <h3>Détails de progression</h3>
+          
+          <div *ngIf="userProgressions.length > 0" class="course-progress-list">
+            <div *ngFor="let progression of userProgressions" class="course-progress-item">
+              <div class="course-info">
+                <div class="course-title">{{coursesTitles[progression.courseId] || progression.title || 'Cours ' + progression.courseId}}</div>
+                <div class="course-progress-percentage">{{progression.completionPercentage}}%</div>
+              </div>
+              <div class="container8 small-progress">
+                <div class="rectangle-5" [style.width.%]="progression.completionPercentage"></div>
+              </div>
+              <div class="course-details">
+                <div class="course-detail-item">
+                  <span class="detail-label">Dernière consultation:</span>
+                  <span class="detail-value">{{progression.lastAccessed | date:'dd/MM/yyyy HH:mm'}}</span>
+                </div>
+                <!-- Détails des modules -->
+                <div *ngFor="let module of progression.modules" class="module-item">
+                  <div class="module-header">
+                    <span class="module-title">{{module.title}}</span>
+                    <span class="module-progress">{{module.completionPercentage}}%</span>
+                  </div>
+                  <!-- Documents PDF -->
+                  <div *ngIf="module.pdfProgressList.length > 0" class="pdf-list">
+                    <div *ngFor="let pdf of module.pdfProgressList" class="pdf-item">
+                      <span class="pdf-type">
+                        {{pdf.documentType === 'cours' ? 'Cours' : 
+                          pdf.documentType === 'exercice' ? 'Exercice' : 
+                          pdf.documentType === 'correction' ? 'Correction' : 'Document'}}:
+                      </span>
+                      <span class="pdf-progress">{{pdf.completionPercentage}}%</span>
+                      <div class="pdf-details">
+                        <span>Pages vues: {{pdf.pagesViewed.length}}/{{pdf.totalPages}}</span>
+                        <span>Temps: {{formatTime(pdf.timeSpent)}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- QCMs -->
+                  <div *ngIf="module.qcmProgressList.length > 0" class="qcm-list">
+                    <div *ngFor="let qcm of module.qcmProgressList" class="qcm-item">
+                      <span class="qcm-name">QCM #{{qcm.groupId + 1}}:</span>
+                      <span class="qcm-status">
+                        {{qcm.completed ? 'Complété' : 'En cours'}} 
+                        ({{qcm.completionPercentage}}%)
+                      </span>
+                      <div *ngIf="qcm.highestScore" class="qcm-score">
+                        <span>Meilleur score: {{qcm.highestScore}}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div *ngIf="userProgressions.length === 0" class="no-courses-message">
+            <p>Vous n'avez pas encore commencé de cours.</p>
+          </div>
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value">{{completedCourses}}</div>
+              <div class="stat-label">Cours terminés</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">{{inProgressCourses}}</div>
+              <div class="stat-label">En cours</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">0</div>
+              <div class="stat-label">Certifications</div>
+            </div>
+          </div>
+          <div class="start-learning">
+            <a [routerLink]="['/cours']" class="start-button">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              <span>Commencer les cours</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

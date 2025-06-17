@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HeaderComponent } from './header.component';
 import { RouterModule } from '@angular/router';
+import { expect } from '@angular/core/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -18,6 +19,6 @@ describe('HeaderComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    expect(component).toBeDefined();
   });
 });

@@ -1,0 +1,35 @@
+<div class="progress-container" *ngIf="progression && !loading">
+  <div class="progress-info">
+    <span>Progression: {{ progression.progress }}%</span>
+    <span *ngIf="progression.completed" class="badge badge-success">Complété</span>
+    <span *ngIf="!progression.completed" class="badge badge-info">En cours</span>
+  </div>
+  
+  <div class="progress">
+    <div class="progress-bar" 
+         [style.width.%]="progression.progress"
+         [ngClass]="{'bg-success': progression.completed}">
+    </div>
+  </div>
+  
+  <div class="last-accessed" *ngIf="progression.lastAccessed">
+    Dernier accès: {{ progression.lastAccessed | date:'short' }}
+  </div>
+  
+  <div class="course-actions" *ngIf="!progression.completed">
+    <button class="btn btn-outline-primary btn-sm" (click)="updateProgress(25)" 
+            [disabled]="progression.progress >= 25">25%</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="updateProgress(50)" 
+            [disabled]="progression.progress >= 50">50%</button>
+    <button class="btn btn-outline-primary btn-sm" (click)="updateProgress(75)" 
+            [disabled]="progression.progress >= 75">75%</button>
+    <button class="btn btn-success btn-sm" (click)="updateProgress(100)"
+            [disabled]="progression.progress >= 100">Compléter</button>
+  </div>
+</div>
+
+<div *ngIf="loading" class="progress-loading">
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Chargement...</span>
+  </div>
+</div>

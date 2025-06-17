@@ -1,1 +1,93 @@
-<p>profile works!</p>
+<div class="profile-container">
+  <header class="profile-header">
+    <h1>Mon Profil</h1>
+    <p class="subtitle">Suivez votre progression et gérez vos informations personnelles</p>
+  </header>
+
+  <!-- Informations utilisateur -->
+  <section class="user-info-section">
+    <div class="user-avatar">
+      <img src="/assets/images/default-avatar.png" alt="Avatar utilisateur" onerror="this.src='/assets/images/default-avatar.png'">
+    </div>
+    <div class="user-details">
+      <h2>{{ userName }}</h2>
+      <p class="user-email">{{ userEmail }}</p>
+    </div>
+  </section>
+
+  <!-- Statistiques de progression -->
+  <section class="progress-stats-section">
+    <h2>Mes Statistiques</h2>
+    
+    <div class="stats-container">
+      <div class="stat-card">
+        <span class="stat-value">{{ userProgress.length }}</span>
+        <span class="stat-label">Cours suivis</span>
+      </div>
+      
+      <div class="stat-card">
+        <span class="stat-value">{{ userProgress.filter(p => p.progress === 100).length }}</span>
+        <span class="stat-label">Cours terminés</span>
+      </div>
+      
+      <div class="stat-card">
+        <span class="stat-value">
+          {{ userProgress.reduce((total, course) => total + course.timeSpent, 0) | formatTime }}
+        </span>
+        <span class="stat-label">Temps total</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Progression des cours -->
+  <section class="course-progress-section">
+    <h2>Ma Progression</h2>
+    
+    <div *ngIf="loading" class="loading-indicator">
+      <p>Chargement de vos progressions...</p>
+    </div>
+    
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+    </div>
+    
+    <div *ngIf="!loading && !error && userProgress.length === 0" class="no-data-message">
+      <p>Vous n'avez pas encore commencé de cours.</p>
+      <a [routerLink]="['/cours']" class="btn-primary">Découvrir les cours</a>
+    </div>
+    
+    <div *ngIf="!loading && !error && userProgress.length > 0" class="course-list">
+      <div *ngFor="let course of userProgress" class="course-card">
+        <div class="course-info">
+          <h3>{{ course.courseName }}</h3>
+          <span class="course-status" [class]="course.status | statusClass">{{ course.status }}</span>
+        </div>
+        
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="course.progress" [class]="getProgressColor(course.progress)"></div>
+          </div>
+          <span class="progress-value">{{ course.progress }}%</span>
+        </div>
+        
+        <div class="course-details">
+          <div class="detail-item">
+            <span class="detail-label">Temps passé:</span>
+            <span class="detail-value">{{ formatTime(course.timeSpent) }}</span>
+          </div>
+          
+          <div *ngIf="course.lastAccessed" class="detail-item">
+            <span class="detail-label">Dernier accès:</span>
+            <span class="detail-value">{{ course.lastAccessed | date:'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+        
+        <div class="course-actions">
+          <a [routerLink]="['/cours', 'viewer', course.courseId]" class="btn-secondary">
+            {{ course.progress === 100 ? 'Revoir' : 'Continuer' }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

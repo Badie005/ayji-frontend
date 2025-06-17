@@ -1,0 +1,260 @@
+<!-- Loading state -->
+<div *ngIf="loading" class="loading-state">
+  <div class="spinner"></div>
+  <p>Chargement du cours...</p>
+</div>
+
+<!-- Error state -->
+<div *ngIf="error" class="error-state">
+  <div class="error-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+  </div>
+  <h2>Une erreur est survenue</h2>
+  <p>{{ error }}</p>
+  <button (click)="navigateToCoursList()" class="primary-button">
+    Retour à la liste des cours
+  </button>
+</div>
+
+<!-- Course content -->
+<div *ngIf="course && !loading" class="main-frame">
+  <div class="container">
+    <div class="container2">
+      <div class="heading-1">
+        <div class="main-heading">{{ course.title }}</div>
+      </div>
+      <div class="container3">
+        <div class="subheading">Naviguer la leçon</div>
+      </div>
+    </div>
+    <div class="line-1"></div>
+  </div>
+  
+  <!-- Course progress -->
+  <div class="course-progress-container">
+    <div class="progress-label">
+      <span>Progression du cours</span>
+      <span class="progress-percentage" [class.progress-update]="progressChanged">{{ progress }}%</span>
+    </div>
+    <div class="container8">
+      <div class="rectangle-5" [style.width.%]="progress"></div>
+    </div>
+  </div>
+  
+  <!-- Navigation buttons -->
+  <div class="top-navigation">
+    <button class="nav-button back-button" (click)="navigateToCoursList()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Retour aux cours
+    </button>
+    <button class="action-button back-to-top-button" (click)="scrollToTop()" aria-label="Retour en haut de page">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="18 15 12 9 6 15"></polyline>
+      </svg>
+    </button>
+  </div>
+  
+  <div class="p-les">
+    <div class="container4">
+      <div class="tab-group">
+        <div class="tab-list" role="tablist">
+          <button class="tab" [class.active]="activeTab === 'course'" (click)="setActiveTab('course')" role="tab" [attr.aria-selected]="activeTab === 'course'" data-category="course">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-book">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+            </svg>
+            Fiche de cours
+          </button>
+          <button class="tab" [class.active]="activeTab === 'exercise'" (click)="setActiveTab('exercise')" role="tab" [attr.aria-selected]="activeTab === 'exercise'" data-category="exercise">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-3">
+              <path d="M12 20h9"></path>
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+            </svg>
+            Exercices corrigés
+          </button>
+          <button class="tab" [class.active]="activeTab === 'qcm'" (click)="setActiveTab('qcm')" role="tab" [attr.aria-selected]="activeTab === 'qcm'" data-category="qcm">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square">
+              <polyline points="9 11 12 14 22 4"></polyline>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+            Tests interactifs
+          </button>
+        </div>
+        
+        <div class="tab-panels">
+          <!-- Course PDF Panel -->
+          <div class="tab-panel" [class.active]="activeTab === 'course'" id="panel-course" role="tabpanel">
+            <div class="content-actions" *ngIf="coursePdfUrl">
+              <button class="action-button download-button" (click)="downloadPdf('course')" aria-label="Télécharger le PDF du cours">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                  <polyline points="7 10 12 15 17 10"></polyline>
+                  <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Télécharger le PDF
+              </button>
+            </div>
+            <div class="pdf-container" *ngIf="coursePdfUrl">
+              <iframe [src]="coursePdfUrl | safe" width="100%" height="600" frameborder="0"></iframe>
+            </div>
+            <div class="no-content" *ngIf="!coursePdfUrl">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+                <polyline points="13 2 13 9 20 9"></polyline>
+              </svg>
+              <p>Aucun document de cours n'est disponible pour le moment.</p>
+            </div>
+          </div>
+          
+          <!-- Exercise PDF Panel with sub-options -->
+          <div class="tab-panel" [class.active]="activeTab === 'exercise'" id="panel-exercise" role="tabpanel">
+            <!-- Exercise sub-options -->
+            <div class="exercise-options" *ngIf="exercisePdfUrl || solutionPdfUrl">
+              <div class="option-buttons">
+                <button class="option-button" [class.active]="exerciseSubTab === 'exercises'" (click)="setExerciseSubTab('exercises')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                  <span>Exercices</span>
+                </button>
+                <button class="option-button" [class.active]="exerciseSubTab === 'solutions'" (click)="setExerciseSubTab('solutions')">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                  </svg>
+                  <span>Solutions</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Exercises Display -->
+            <div *ngIf="exerciseSubTab === 'exercises'">
+              <div class="content-actions" *ngIf="exercisePdfUrl">
+                <button class="action-button download-button" (click)="downloadPdf('exercise')" aria-label="Télécharger le PDF des exercices">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Télécharger le PDF
+                </button>
+              </div>
+              <div class="pdf-container" *ngIf="exercisePdfUrl">
+                <iframe [src]="exercisePdfUrl | safe" width="100%" height="600" frameborder="0"></iframe>
+              </div>
+              <div class="no-content" *ngIf="!exercisePdfUrl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <p>Les exercices ne sont pas encore disponibles pour ce cours.</p>
+              </div>
+            </div>
+
+            <!-- Solutions Display -->
+            <div *ngIf="exerciseSubTab === 'solutions'">
+              <div class="content-actions" *ngIf="solutionPdfUrl">
+                <button class="action-button download-button" (click)="downloadPdf('solution')" aria-label="Télécharger le PDF des solutions">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Télécharger le PDF
+                </button>
+              </div>
+              <div class="pdf-container" *ngIf="solutionPdfUrl">
+                <iframe [src]="solutionPdfUrl | safe" width="100%" height="600" frameborder="0"></iframe>
+              </div>
+              <div class="no-content" *ngIf="!solutionPdfUrl">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <p>Les solutions ne sont pas encore disponibles pour ce cours.</p>
+              </div>
+            </div>
+
+            <!-- No content at all -->
+            <div class="no-content" *ngIf="!exercisePdfUrl && !solutionPdfUrl">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+              <p>Les exercices corrigés ne sont pas encore disponibles pour ce cours.</p>
+            </div>
+          </div>
+          
+          <!-- Interactive MCQ Panel -->
+          <div class="tab-panel" [class.active]="activeTab === 'qcm'" id="panel-qcm" role="tabpanel">
+            <!-- MCQ Component -->
+            <app-mcq-viewer 
+              *ngIf="mcqGroups?.length && courseId" 
+              [mcqGroups]="mcqGroups" 
+              [courseId]="courseId || ''"
+              (updateProgress)="updateMcqProgress($event)">
+            </app-mcq-viewer>
+            
+            <!-- Loading state for MCQs -->
+            <div class="loading-content" *ngIf="loadingMcqs">
+              <div class="spinner"></div>
+              <p>Chargement des tests interactifs...</p>
+            </div>
+            
+            <!-- No content state -->
+            <div class="no-content" *ngIf="!mcqGroups?.length && !loadingMcqs">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <p>Les tests interactifs ne sont pas encore disponibles pour ce cours.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Course navigation buttons -->
+<div class="courses-main-navigation" *ngIf="previousCourseId || nextCourseId">
+  <div class="navigation-container">
+    <a *ngIf="previousCourseId" [routerLink]="['/cours', 'viewer', previousCourseId]" class="nav-button prev-button" title="Aller au cours précédent">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Cours précédent
+    </a>
+    <a *ngIf="nextCourseId" [routerLink]="['/cours', 'viewer', nextCourseId]" class="nav-button next-button" title="Aller au cours suivant">
+      Cours suivant
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </div>
+</div>
+
+<!-- Back to top button -->
+<button *ngIf="showBackToTop" class="back-to-top-button" (click)="scrollToTop()" title="Retour en haut">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</button>

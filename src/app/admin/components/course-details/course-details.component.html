@@ -1,0 +1,110 @@
+<div class="course-details-container">
+  <div class="details-header">
+    <button class="btn back-btn" (click)="goBack()">
+      <i class="material-icons">arrow_back</i> Retour
+    </button>
+    <h1>
+      <i class="material-icons">school</i>
+      Détails du cours
+    </h1>
+    <div class="actions">
+      <button class="btn edit-btn" (click)="editCourse()" *ngIf="course">
+        <i class="material-icons">edit</i> Modifier
+      </button>
+      <button class="btn delete-btn" (click)="deleteCourse()" *ngIf="course">
+        <i class="material-icons">delete</i> Supprimer
+      </button>
+    </div>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des détails du cours...</p>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    <i class="material-icons">error</i>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <div class="course-content" *ngIf="course && !loading">
+    <div class="course-header">
+      <div class="course-info">
+        <h2>{{ course.title }}</h2>
+        <span class="course-subject">{{ course.subject }}</span>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h3>Description</h3>
+      <p>{{ course.description }}</p>
+    </div>
+
+    <div class="detail-section" *ngIf="course.content">
+      <h3>Contenu du cours</h3>
+      <div class="content-preview">
+        {{ course.content }}
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h3>Chapitres</h3>
+      <div class="chapters-list">
+        <div class="chapter-item" *ngFor="let chapitre of getChapitres(); let i = index">
+          <div class="chapter-number">{{ i + 1 }}</div>
+          <div class="chapter-info">
+            <h4>{{ chapitre.titre }}</h4>
+            <p>{{ chapitre.description }}</p>
+            <span class="chapter-duration">
+              <i class="material-icons">access_time</i> {{ chapitre.duree }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h3>Ressources</h3>
+      <div class="resources-grid">
+        <a *ngIf="course.coursePdfUrl" [href]="course.coursePdfUrl" target="_blank" class="resource-item">
+          <i class="material-icons">description</i>
+          <span>Support de cours</span>
+        </a>
+        <a *ngIf="course.exercisePdfUrl" [href]="course.exercisePdfUrl" target="_blank" class="resource-item">
+          <i class="material-icons">assignment</i>
+          <span>Exercices</span>
+        </a>
+        <a *ngIf="course.qcmPdfUrl" [href]="course.qcmPdfUrl" target="_blank" class="resource-item">
+          <i class="material-icons">quiz</i>
+          <span>QCM</span>
+        </a>
+        <div *ngIf="!course.coursePdfUrl && !course.exercisePdfUrl && !course.qcmPdfUrl" class="empty-resources">
+          <i class="material-icons">info</i>
+          <span>Aucune ressource disponible</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h3>Informations supplémentaires</h3>
+      <div class="info-grid">
+        <div class="info-item">
+          <span class="info-label">Date de création</span>
+          <span class="info-value">{{ course.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Dernière mise à jour</span>
+          <span class="info-value">{{ course.updatedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">Ordre d'affichage</span>
+          <span class="info-value">{{ course.order }}</span>
+        </div>
+        <div class="info-item">
+          <span class="info-label">ID</span>
+          <span class="info-value course-id">{{ course._id }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

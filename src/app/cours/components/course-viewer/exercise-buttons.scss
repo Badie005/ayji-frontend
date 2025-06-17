@@ -1,0 +1,81 @@
+/* Exercise Options Styles */
+.exercise-options {
+  margin-bottom: 25px;
+  
+  .option-buttons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    justify-content: center;
+    
+    .option-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px 26px;
+      border-radius: 8px;
+      border: none;
+      background-color: #f0f4ff;
+      color: #4a6cf7;
+      font-weight: 600;
+      font-size: 15px;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      min-width: 160px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: width 0.3s ease;
+        z-index: 1;
+      }
+      
+      svg {
+        color: #4a6cf7;
+        transition: transform 0.3s ease, color 0.3s ease;
+        z-index: 2;
+      }
+      
+      span {
+        z-index: 2;
+      }
+      
+      &:hover {
+        background-color: #e0e8ff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        
+        &::before {
+          width: 100%;
+        }
+        
+        svg {
+          transform: scale(1.1);
+        }
+      }
+      
+      &.active {
+        background-color: #4a6cf7;
+        color: white;
+        
+        svg {
+          color: white;
+        }
+        
+        &:hover {
+          background-color: #3d5ad8;
+        }
+      }
+    }
+  }
+}

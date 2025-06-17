@@ -1,0 +1,186 @@
+<div class="mcq-container">
+  <!-- MCQ Start Screen - Group selection -->
+  <div *ngIf="viewMode === 'start'" class="mcq-start-screen" @fadeIn>
+    <div class="mcq-header">
+      <h2>Tests interactifs</h2>
+      <p class="mcq-description">
+        Sélectionnez un groupe de questions pour commencer. Chaque groupe contient 6 questions de niveau de difficulté variable.
+      </p>
+    </div>
+
+    <div class="mcq-groups-container">
+      <div *ngFor="let group of mcqGroups; let i = index" 
+           class="mcq-group-card" 
+           [class]="getGroupClass(group.difficulty)"
+           [class.completed]="isGroupComplete(i)"
+           (click)="isGroupComplete(i) ? showGroupResults(i) : startMcq(i)">
+        
+        <div class="group-header">
+          <h3>{{ group.title }}</h3>
+          <span class="difficulty-badge">{{ getDifficultyLabel(group.difficulty) }}</span>
+        </div>
+        
+        <div class="group-progress">
+          <div class="progress-bar" [style.width.%]="calculateGroupProgress(i)"></div>
+        </div>
+        
+        <div class="group-stats">
+          <span *ngIf="isGroupComplete(i)" class="completion-status">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+            Terminé
+          </span>
+          <span *ngIf="!isGroupComplete(i)" class="questions-count">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+            {{ group.questions.length }} questions
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="isAllGroupsCompleted()" class="all-completed-banner" @fadeIn>
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+      <span>Félicitations ! Vous avez terminé tous les tests.</span>
+    </div>
+  </div>
+
+  <!-- Quiz Mode - Question Display -->
+  <div *ngIf="viewMode === 'quiz'" class="mcq-quiz-container" @slideIn>
+    <div class="quiz-header">
+      <div class="quiz-title">
+        <h3>{{ mcqGroups[activeGroupIndex].title }}</h3>
+        <span class="difficulty-badge">{{ getDifficultyLabel(mcqGroups[activeGroupIndex].difficulty) }}</span>
+      </div>
+      <div class="quiz-progress">
+        Question {{ activeQuestionIndex + 1 }}/{{ mcqGroups[activeGroupIndex].questions.length }}
+        <div class="progress-bar-container">
+          <div class="progress-bar" [style.width.%]="(activeQuestionIndex + 1) / mcqGroups[activeGroupIndex].questions.length * 100"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Current Question -->
+    <div class="question-container">
+      <div class="question-text">
+        <span class="question-number">{{ activeQuestionIndex + 1 }}.</span> 
+        {{ mcqGroups[activeGroupIndex].questions[activeQuestionIndex].text }}
+      </div>
+
+      <div class="options-container">
+        <div *ngFor="let option of mcqGroups[activeGroupIndex].questions[activeQuestionIndex].options"
+             class="option-item"
+             [class.selected]="isOptionSelected(mcqGroups[activeGroupIndex].questions[activeQuestionIndex], option.id)"
+             (click)="selectAnswer(mcqGroups[activeGroupIndex].questions[activeQuestionIndex], option.id)">
+          
+          <div class="option-marker" [class.selected]="isOptionSelected(mcqGroups[activeGroupIndex].questions[activeQuestionIndex], option.id)">
+            {{ ['A', 'B', 'C', 'D'][option.id] }}
+          </div>
+          <div class="option-text">{{ option.text }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quiz-actions">
+      <button class="secondary-button" (click)="previousQuestion()" [disabled]="activeQuestionIndex === 0">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Précédent
+      </button>
+      <button class="primary-button" 
+              (click)="nextQuestion()" 
+              [disabled]="mcqGroups[activeGroupIndex].questions[activeQuestionIndex].selectedOptionId === undefined">
+        {{ activeQuestionIndex < mcqGroups[activeGroupIndex].questions.length - 1 ? 'Suivant' : 'Terminer' }}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Results Mode - After completing a group -->
+  <div *ngIf="viewMode === 'results'" class="mcq-results-container" @fadeIn>
+    <div class="results-header">
+      <h3>Résultats - {{ mcqGroups[activeGroupIndex].title }}</h3>
+      <div class="score-display" [class]="getScoreClass(scorePercentage)">
+        <div class="score-circle">
+          <span class="score-value">{{ scorePercentage }}%</span>
+        </div>
+        <div class="score-text">
+          <div class="score-label">Score</div>
+          <div class="score-detail">{{ totalCorrect }}/{{ mcqGroups[activeGroupIndex].questions.length }} réponses correctes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-details">
+      <h4>Détails des réponses</h4>
+      
+      <div *ngFor="let question of mcqGroups[activeGroupIndex].questions; let i = index" class="result-question-item">
+        <div class="result-question-header">
+          <div class="question-status" [class.correct]="isCorrectAnswer(question)" [class.incorrect]="!isCorrectAnswer(question)">
+            <svg *ngIf="isCorrectAnswer(question)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            <svg *ngIf="!isCorrectAnswer(question)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </div>
+          <div class="result-question-text">
+            <span class="question-number">{{ i + 1 }}.</span> {{ question.text }}
+          </div>
+        </div>
+
+        <div class="result-answers">
+          <div *ngFor="let option of question.options" 
+               class="result-option"
+               [class.selected]="option.id === question.selectedOptionId"
+               [class.correct]="isCorrectOption(question, option.id)"
+               [class.incorrect]="option.id === question.selectedOptionId && !isCorrectOption(question, option.id)">
+            
+            <div class="option-marker">
+              {{ ['A', 'B', 'C', 'D'][option.id] }}
+            </div>
+            <div class="option-text">{{ option.text }}</div>
+          </div>
+        </div>
+
+        <div class="explanation-box" *ngIf="!isCorrectAnswer(question) || true">
+          <div class="explanation-header">Explication</div>
+          <div class="explanation-content">{{ question.explanation }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="results-actions">
+      <button class="secondary-button" (click)="backToGroups()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Retour aux groupes
+      </button>
+      <button class="primary-button" (click)="restartQuiz()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 2v6h-6"></path>
+          <path d="M3 12a9 9 0 0 1 15-6.7L21 8"></path>
+          <path d="M3 22v-6h6"></path>
+          <path d="M21 12a9 9 0 0 1-15 6.7L3 16"></path>
+        </svg>
+        Refaire
+      </button>
+    </div>
+  </div>
+</div>

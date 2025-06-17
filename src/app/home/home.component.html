@@ -1,5 +1,5 @@
 <!-- home.component.html amélioré -->
-<main class="main-frame">
+<main class="main-frame" [ngClass]="{'sidebar-expanded': isSidebarExpanded}">
   <br>
   <br>
   <br>
@@ -12,18 +12,18 @@
   <br>
   <br>
   <div class="container">
-    <div class="heading-1">
+    <div class="heading-1" [@heroTitle]>
       <h1 class="main-heading">
         {{ mainTitle }}
       </h1>
     </div>
-    <div class="container2">
+    <div class="container2" [@heroSubtitle]>
       <p class="subheading">
         {{ subTitle }}
       </p>
     </div>
     <div class="component-1">
-      <div class="container3-button" (click)="startLearning()"> <!-- Renamed class -->
+      <div class="container3-button" [@heroButton]="buttonState" (mouseenter)="buttonState = 'hover'" (mouseleave)="buttonState = 'normal'" (click)="startLearning()">
         <div class="text">Commencer</div>
       </div>
     </div>
@@ -36,219 +36,57 @@
         </div>
         <div class="margin">
           <div class="content">
-            <div class="card">
-              <div class="card2">
+            <div class="card" *ngFor="let card of expertiseCards; let i = index">
+              <div [ngClass]="i === 2 ? 'component-5' : 'card2'">
                 <div class="container2">
-                  <img class="frame-43-1" src="image-main-1.png" alt="Expertise SRI" />
+                  <ng-container *ngIf="i === 1; else kaleido">
+                    <app-ribbon></app-ribbon>
+                  </ng-container>
+                  <ng-template #kaleido>
+                    <app-kaleidoscope></app-kaleidoscope>
+                  </ng-template>
                 </div>
                 <div class="container3">
                   <div class="container4">
-                    <div class="notre-expertise-en-sri">Notre Expertise en SRI</div>
+                    <div class="server-actions" [ngClass]="{
+                      'notre-expertise-en-sri': i === 0,
+                      'parcours-d-apprentissage': i === 1,
+                      'card-title': i === 2
+                    }">{{ card.mainTitle }}</div>
                   </div>
                 </div>
                 <div class="container5">
-                  <div
-                    class="une-formation-experte-des-syst-mes-r-seaux-du-fondamental-l-avanc-pour-une-ma-trise-compl-te"
-                  >
-                    Une formation experte des systèmes réseaux, du fondamental à
-                    l'avancé, pour une maîtrise complète.
-                  </div>
+                  <div [ngClass]="{
+                    'une-formation-experte-des-syst-mes-r-seaux-du-fondamental-l-avanc-pour-une-ma-trise-compl-te': i === 0,
+                    'un-apprentissage-interactif-et-structur-combinant-th-orie-pratique-et-accompagnement-personnalis-pour-votre-r-ussite': i === 1,
+                    'card-description': i === 2
+                  }">{{ card.mainDescription }}</div>
                 </div>
               </div>
-              <div class="component-4">
+              <div class="component-4" 
+                   *ngFor="let feature of card.features; let j = index"
+                   [@featureItemAnimation]
+                   [@featureItemHover]="featureItemStates[i + '-' + j]"
+                   (mouseenter)="onFeatureItemHover(i, j, true)"
+                   (mouseleave)="onFeatureItemHover(i, j, false)">
                 <div class="container3">
                   <div class="container4">
-                    <div class="fondamentaux-des-r-seaux">
-                      Fondamentaux des Réseaux
-                    </div>
+                    <div class="server-actions" [ngClass]="{
+                      'fondamentaux-des-r-seaux': i === 0 && j === 0,
+                      'concepts-avanc-s-du-sri': i === 0 && j === 1,
+                      'advanced-routing-nested-layouts': (i === 0 && j === 2) || (i === 1 && j === 2),
+                      'data-fetching': i === 1 && j === 0 || i === 2 && j === 0
+                    }">{{ feature.title }}</div>
                   </div>
                 </div>
                 <div class="container5">
-                  <div
-                    class="ma-trisez-les-concepts-essentiels-des-syst-mes-et-r-seaux-informatiques-travers-des-contenus-p-dagogiques-structur-s-nos-ressources-sont-con-ues-pour-rendre-l-apprentissage-du-sri-accessible-tous-les-niveaux-des-d-butants-aux-plus-avanc-s"
-                  >
-                    Maîtrisez les concepts essentiels des Systèmes et Réseaux
-                    Informatiques à travers des contenus pédagogiques structurés.
-                    Nos ressources sont conçues pour rendre l'apprentissage du
-                    SRI accessible à tous les niveaux, des débutants aux plus
-                    avancés.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="concepts-avanc-s-du-sri">
-                      Concepts Avancés du SRI
-                    </div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="approfondissez-vos-connaissances-avec-des-modules-sp-cialis-s-couvrant-les-aspects-complexes-des-r-seaux-informatiques-ces-contenus-sont-particuli-rement-adapt-s-aux-tudiants-cherchant-exceller-dans-leur-cursus"
-                  >
-                    Approfondissez vos connaissances avec des modules spécialisés
-                    couvrant les aspects complexes des réseaux informatiques. Ces
-                    contenus sont particulièrement adaptés aux étudiants cherchant à
-                    exceller dans leur cursus.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="advanced-routing-nested-layouts">
-                      Apprentissage Personnalisé
-                    </div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts"
-                  >
-                    Notre plateforme s'adapte à votre rythme
-                    d'apprentissage, que vous soyez en formation initiale ou en
-                    perfectionnement, avec un accès flexible aux ressources selon
-                    vos besoins.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card2">
-                <div class="container2">
-                  <img class="frame-43-2" src="image-main-1.png" alt="Parcours Apprentissage" />
-                </div>
-                <div class="container3">
-                  <div class="container4">
-                    <div class="parcours-d-apprentissage">
-                      Parcours d'Apprentissage
-                    </div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="un-apprentissage-interactif-et-structur-combinant-th-orie-pratique-et-accompagnement-personnalis-pour-votre-r-ussite"
-                  >
-                    Un apprentissage interactif et organisé qui allie théorie, pratique et soutien personnalisé pour réussir.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="data-fetching">Progression Structurée</div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="make-your-react-component-async-and-await-your-data-next-js-supports-both-server-and-client-data-fetching"
-                  >
-                    Suivez un programme pédagogique organisé par niveaux, combinant
-                    théorie et pratique pour une compréhension approfondie des
-                    systèmes et réseaux informatiques.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="server-actions">Exercices Pratiques</div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="run-server-code-by-calling-a-function-skip-the-api-then-easily-revalidate-cached-data-and-update-your-ui-in-one-network-roundtrip"
-                  >
-                    Renforcez vos compétences grâce à des exercices corrigés, des
-                    quiz interactifs et des cas pratiques inspirés de situations
-                    réelles en SRI.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="advanced-routing-nested-layouts">
-                      Accompagnement Interactif
-                    </div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts"
-                  >
-                    Bénéficiez d'un support personnalisé via nos chats en
-                    direct et nos sessions de cours live avec des enseignants
-                    expérimentés.
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="component-5">
-                <div class="container2">
-                  <img class="frame-43-3" src="image-main-1.png" alt="Domaines Couverts" />
-                </div>
-                <div class="container3">
-                  <div class="container4">
-                    <div class="card-title">Domaines Couverts</div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div class="card-description">
-                    Une expertise complète en infrastructures modernes, de la configuration réseau à la sécurité informatique.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="data-fetching">Config et Admin Réseau</div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="make-your-react-component-async-and-await-your-data-next-js-supports-both-server-and-client-data-fetching"
-                  >
-                    Explorez les fondamentaux et les aspects avancés de la
-                    configuration réseau, incluant la gestion des protocoles, la
-                    sécurité, et l'optimisation des performances.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="server-actions">Architecture des Systèmes</div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="run-server-code-by-calling-a-function-skip-the-api-then-easily-revalidate-cached-data-and-update-your-ui-in-one-network-roundtrip"
-                  >
-                    Découvrez les principes d'architecture des systèmes
-                    informatiques, avec une attention particulière sur les
-                    infrastructures réseau modernes.
-                  </div>
-                </div>
-              </div>
-              <div class="component-4">
-                <div class="container3">
-                  <div class="container4">
-                    <div class="advanced-routing-nested-layouts">
-                      Sécurité et Surveillance
-                    </div>
-                  </div>
-                </div>
-                <div class="container5">
-                  <div
-                    class="create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts"
-                  >
-                    Apprenez les meilleures pratiques en matière de sécurité réseau,
-                    de monitoring et de maintenance des infrastructures
-                    informatiques.
-                  </div>
+                  <div [ngClass]="{
+                    'ma-trisez-les-concepts-essentiels-des-syst-mes-et-r-seaux-informatiques-travers-des-contenus-p-dagogiques-structur-s-nos-ressources-sont-con-ues-pour-rendre-l-apprentissage-du-sri-accessible-tous-les-niveaux-des-d-butants-aux-plus-avanc-s': i === 0 && j === 0,
+                    'approfondissez-vos-connaissances-avec-des-modules-sp-cialis-s-couvrant-les-aspects-complexes-des-r-seaux-informatiques-ces-contenus-sont-particuli-rement-adapt-s-aux-tudiants-cherchant-exceller-dans-leur-cursus': i === 0 && j === 1,
+                    'create-routes-using-the-file-system-including-support-for-more-advanced-routing-patterns-and-ui-layouts': (i === 0 && j === 2) || (i === 1 && j === 2),
+                    'make-your-react-component-async-and-await-your-data-next-js-supports-both-server-and-client-data-fetching': i === 1 && j === 0 || i === 2 && j === 0,
+                    'run-server-code-by-calling-a-function-skip-the-api-then-easily-revalidate-cached-data-and-update-your-ui-in-one-network-roundtrip': i === 1 && j === 1 || i === 2 && j === 1
+                  }">{{ feature.description }}</div>
                 </div>
               </div>
             </div>
@@ -270,76 +108,50 @@
 
   <br>
 
+  <!-- Section "Pourquoi choisir AYJI" - Version améliorée avec onglets -->
   <div class="prix">
     <div class="header-container">
       <div class="section-heading">Pourquoi Choisir Notre Plateforme ?</div>
     </div>
-    <img class="mask-group" src="image-main-1.png" />
+    <div class="kaleido-wrapper"><app-kaleidoscope></app-kaleidoscope></div>
     <div class="content-container">
-      <div class="feature-grid">
-        <div class="_2-2">
-          <div class="feature-container">
-            <div class="feature-title-container">
-              <div class="feature-title">4. Accompagnement Personnalisé</div>
+      <!-- Navigation par onglets -->
+      <div class="feature-tabs">
+        <button *ngFor="let item of featureItems; let i = index" 
+                class="feature-tab-button" 
+                [class.active]="activeFeatureTab === i"
+                (click)="setActiveFeatureTab(i)">
+          <span class="tab-icon"></span>
+          <span class="tab-label">{{ item.title }}</span>
+        </button>
+      </div>
+      <!-- Contenu des onglets -->
+      <div class="feature-grid" [@featureListAnimation]="featureItems.length">
+        <ng-container *ngFor="let item of featureItems">
+          <div [class]="item.class" 
+               [@featureHover]="featureStates[item.number]"
+               (mouseenter)="onFeatureHover(item.number, true)"
+               (mouseleave)="onFeatureHover(item.number, false)"
+               [class.feature-active]="isFeatureActive(item)"
+               [class.feature-inactive]="!isFeatureActive(item)">
+            <div class="feature-container">
+              <div class="feature-title-container">
+                <div class="feature-title">{{ item.title }}</div>
+              </div>
+            </div>
+            <div class="feature-description-container">
+              <div class="feature-description">
+                {{ item.description }}
+              </div>
             </div>
           </div>
-          <div class="feature-description-container">
-            <div class="feature-description">
-              Bénéficiez d’un support personnalisé et d’outils interactifs qui
-              vous aident à progresser efficacement dans vos études.
-            </div>
-          </div>
-        </div>
-        <div class="_2-3">
-          <div class="feature-container">
-            <div class="feature-title-container">
-              <div class="feature-title">3. Contenus Riches et Évolutifs</div>
-            </div>
-          </div>
-          <div class="feature-description-container">
-            <div class="feature-description">
-              Profitez d’une variété de ressources adaptées à votre niveau,
-              enrichies par des mises à jour régulières pour rester à jour dans
-              votre apprentissage.
-            </div>
-          </div>
-        </div>
+        </ng-container>
         <div class="_2-1">
           <img class="frame-47-1" src="image-main-4.png" />
-        </div>
-        <div class="_1-2">
-          <div class="feature-container">
-            <div class="feature-title-container">
-              <div class="feature-title">2. Accessibilité et Sécurité</div>
-            </div>
-          </div>
-          <div class="feature-description-container">
-            <div class="feature-description">
-              Étudiez à votre rythme, où que vous soyez, grâce à une plateforme
-              accessible sur tous vos appareils. Vos données sont protégées par
-              des technologies de pointe.
-            </div>
-          </div>
-        </div>
-        <div class="_1-1">
-          <div class="feature-container">
-            <div class="feature-title-container">
-              <div class="feature-title">1. Apprentissage Simplifié</div>
-            </div>
-          </div>
-          <div class="feature-description-container">
-            <div class="feature-description">
-              AYJI vous offre des ressources pédagogiques claires et accessibles,
-              conçues pour simplifier les concepts complexes des Systèmes et
-              Réseaux Informatiques.
-            </div>
-          </div>
         </div>
       </div>
     </div>
   </div>
-
-
 
   <div class="section-ayji">
     <div class="container-ayji">
@@ -355,9 +167,9 @@
             <div
               class="quote-text"
             >
-              “ AYJI a changé ma façon d'aborder les études. C'est un
+              " AYJI a changé ma façon d'aborder les études. C'est un
               excellent outil pour organiser mon apprentissage et mieux comprendre
-              les concepts. Une ressource inestimable ! “
+              les concepts. Une ressource inestimable ! "
             </div>
           </div>
         </div>
@@ -375,9 +187,9 @@
             <div
               class="quote-text"
             >
-              “ J'utilise AYJI pour réviser et approfondir mes cours. La
+              " J'utilise AYJI pour réviser et approfondir mes cours. La
               plateforme est claire et interactive, ce qui rend
-              l'apprentissage plus agréable et efficace. “
+              l'apprentissage plus agréable et efficace. "
             </div>
           </div>
         </div>
@@ -395,9 +207,9 @@
             <div
               class="quote-text"
             >
-              “ AYJI améliore l'apprentissage des étudiants et offre aux
+              " AYJI améliore l'apprentissage des étudiants et offre aux
               enseignants des outils pratiques pour organiser et partager des
-              ressources pédagogiques. “
+              ressources pédagogiques. "
             </div>
           </div>
         </div>
@@ -411,6 +223,4 @@
       </div>
     </div>
   </div>
-
-
 </main>

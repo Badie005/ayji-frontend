@@ -1,4 +1,4 @@
-<div class="main" [ngClass]="{'sidebar-expanded': isSidebarExpanded, 'sidebar-collapsed': !isSidebarExpanded}">
+<div class="main">
   <div class="container">
     <div class="container2">
       <div class="heading-1">
@@ -6,39 +6,70 @@
       </div>
       <div class="container3">
         <div class="subheading">
-          Votre plateforme d'apprentissage en Systèmes Réseaux Informatiques
+          Votre plateforme d'apprentissage en Systèmes Réseaux
+          Informatiques
         </div>
       </div>
     </div>
     <div class="line-1"></div>
   </div>
-  <div class="p-les">
+  <div class="p-les" *ngIf="!loading && !error && filteredCourses.length > 0">
     <div class="container4">
       <div class="margin">
-        <!-- Cours individuels -->
-        <div [ngClass]="'component-' + (i === 0 ? '4' : (i === 1 ? '14' : (i === 2 ? '15' : '16')))" 
-             *ngFor="let course of courses; let i = index">
+        <div *ngFor="let course of filteredCourses; let i = index" 
+             class="component-4">
           <div class="container5">
             <div class="container6">
-              <div [ngClass]="'cours-' + (i+1)">{{ course.title }}</div>
+              <div class="cours-1">{{ course.title }}</div>
             </div>
             <div class="container7">
               <div class="container8">
-                <div [ngClass]="{'rectangle-5': course.progress === 80, 'rectangle-52': course.progress === 30, 'rectangle-53': course.progress === 50}" 
-                     [style.width]="course.progress + '%'"></div>
+                <div class="rectangle-5" [style.width.%]="course.progress || 0"></div>
               </div>
               <div class="container9">
-                <div [ngClass]="{'_80': course.progress === 80, '_20': course.progress === 30, '_50': course.progress === 50}">{{ course.progress }}%</div>
+                <div class="_80">{{ course.progress || 0 }}%</div>
               </div>
             </div>
           </div>
-          <div class="log-sign-component-1" [routerLink]="['/cours', course.id]">
-            <div class="log-sign-a-1">
-              <div class="log-sign-text-1">Étudier le cours</div>
+          <div class="log-sign-component-1">
+            <a [routerLink]="['/cours/viewer', course._id]" style="text-decoration: none;">
+              <div class="log-sign-a-1">
+                <div class="log-sign-text-1">Étudier le cours</div>
+              </div>
+            </a>
+            <!-- Débogage - Afficher l'ID du cours -->
+            <div style="font-size: 12px; color: #666; margin-top: 5px;">
+              ID: {{course._id}}
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Loading, error, and empty states -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement des cours...</p>
+  </div>
+  
+  <div *ngIf="error" class="error-container">
+    <p>Erreur lors du chargement des cours. Veuillez réessayer plus tard.</p>
+  </div>
+  
+  <div *ngIf="!loading && !error && filteredCourses.length === 0" class="empty-container">
+    <p>Aucun cours disponible pour le moment.</p>
+  </div>
+  
+  <!-- Footer avec liens de formations -->
+  <div class="formations-footer">
+    <h3 class="formations-title">Formations disponibles</h3>
+    <ul class="formations-list">
+      <li><a href="http://localhost:4200/formations/sri">Systèmes et Réseaux Informatiques (SRI)</a></li>
+      <li><a href="http://localhost:4200/formations/bts-mcw">Cours interactifs pour BTS MCW</a></li>
+      <li><a href="http://localhost:4200/formations/exercices">Exercices pratiques et corrigés</a></li>
+      <li><a href="http://localhost:4200/formations/quiz">Quizz pour évaluer vos compétences</a></li>
+      <li><a href="http://localhost:4200/formations/ressources">Ressources pédagogiques téléchargeables</a></li>
+    </ul>
   </div>
 </div>

@@ -1,5 +1,6 @@
 /* Importation des polices (vous devrez les remplacer par les vraies polices) */
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600&display=swap');
+@import url('./assets/css/noise.css');
 
 * {
   box-sizing: border-box;

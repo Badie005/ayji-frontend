@@ -1,0 +1,84 @@
+<app-hero-header></app-hero-header>
+
+<main class="hero-section">
+  <!-- Fond et effets visuels -->
+  <app-animated-group>
+    <div class="bg-image">
+      <!-- Remplacez l'URL de l'image par une image de votre projet -->
+      <img src="assets/images/hero-background.jpg" alt="Fond" class="dark:block hidden">
+    </div>
+  </app-animated-group>
+  
+  <div class="bg-gradient"></div>
+  
+  <!-- Contenu principal -->
+  <div class="container">
+    <div class="hero-content">
+      <!-- Badge d'annonce animé -->
+      <app-animated-group>
+        <a href="/cours/nouveautes" class="announcement-badge">
+          <span class="announcement-text">Nouvelles ressources SRI disponibles</span>
+          <span class="badge-icon">→</span>
+        </a>
+      </app-animated-group>
+
+      <!-- Titre principal avec effet d'animation -->
+      <app-text-effect preset="fade-in-blur" speedSegment="0.3" as="h1" class="hero-heading">
+        {{ mainTitle }}
+      </app-text-effect>
+      
+      <!-- Sous-titre avec effet d'animation -->
+      <app-text-effect per="line" preset="fade-in-blur" speedSegment="0.3" delay="0.5" as="p" class="hero-subheading">
+        {{ subTitle }}
+      </app-text-effect>
+
+      <!-- Boutons d'action -->
+      <app-animated-group class="buttons-group">
+        <button (click)="startLearning()" class="main-button">Commencer</button>
+        <button (click)="requestDemo()" class="secondary-button">Demander une démo</button>
+      </app-animated-group>
+      
+      <!-- Aperçu de l'application -->
+      <app-animated-group>
+        <div class="demo-container">
+          <div class="demo-fade"></div>
+          <img src="assets/images/app-preview.png" alt="Démonstration de l'application" width="100%">
+        </div>
+      </app-animated-group>
+    </div>
+  </div>
+</main>
+
+<!-- Section des clients/partenaires -->
+<section class="clients-section">
+  <div class="clients-container">
+    <a href="/about/partners" class="clients-cta">Voir nos partenaires <span class="arrow">→</span></a>
+    <div class="clients-grid">
+      <!-- Remplacez par vos logos de partenaires -->
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner1.svg" alt="Partenaire 1" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner2.svg" alt="Partenaire 2" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner3.svg" alt="Partenaire 3" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner4.svg" alt="Partenaire 4" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner5.svg" alt="Partenaire 5" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner6.svg" alt="Partenaire 6" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner7.svg" alt="Partenaire 7" class="client-logo">
+      </div>
+      <div class="client-logo-wrapper">
+        <img src="assets/images/clients/partner8.svg" alt="Partenaire 8" class="client-logo">
+      </div>
+    </div>
+  </div>
+</section>

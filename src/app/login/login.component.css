@@ -1,443 +1,356 @@
-/* login.component.css */
-:root {
-  --primary-color: #333333;
-  --secondary-color: #555555;
-  --light-color: #ffffff;
-  --gray-light: #f0f0f0;
-  --gray-medium: #e0e0e0;
-  --gray-dark: #777777;
-  --error-color: #dc3545;
-  --success-color: #28a745;
-  --warning-color: #ffc107;
-  --border-radius: 50px;
-  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --transition-time: 0.3s;
-}
-
+/* login.component.css - Dark Mode Redesign - Fixed */
 * {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
 .login-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   height: 100vh;
-  background-color: var(--light-color);
+  background-color: rgb(12, 12, 12);
   overflow: hidden;
 }
 
-.left-side {
-  flex: 0 0 50%;
-  background-color: var(--gray-light);
-  overflow: hidden;
+.left-column {
+  position: relative;
+  background-color: rgb(0, 0, 0);
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.1); /* Ligne verticale entre les colonnes */
 }
 
-.left-side img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+.left-column img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   transition: transform 0.5s ease-out;
 }
 
-.left-side:hover img {
-  transform: scale(1.05);
+.left-column:hover img {
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
-.right-side {
-  flex: 0 0 50%;
+.right-column {
+  flex: 1;
+  background-color: #000;
   display: flex;
   flex-direction: column;
-  padding: 50px;
   justify-content: center;
+  padding: 40px;
   position: relative;
+}
+
+.login-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.logo-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.logo-image {
+  width: 80px;
+  height: auto;
 }
 
 h1 {
-  font-size: 2.2rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color);
-  animation: staggerFadeIn 0.5s ease-in-out;
-  animation-delay: 0.1s;
-  animation-fill-mode: both;
+  color: white;
+  font-size: 24px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.Connexion {
+  color: white;
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 
 p {
-  color: var(--gray-dark);
-  margin-bottom: 2rem;
-  font-size: 1.1rem;
-  animation: staggerFadeIn 0.5s ease-in-out;
-  animation-delay: 0.2s;
-  animation-fill-mode: both;
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
+.create-account-link {
+  text-decoration: none;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 17px;
+  transition: all 0.3s ease;
+  font-weight: 400;
+  color: #636e72;
+}
+
+.create-account-link:hover {
+  color: #c2c2c2;
+  text-decoration: underline;
+}
+
+form {
+  width: 100%;
+}
+
+/* Form group styling */
 .form-group {
-  margin-bottom: 2rem;
   position: relative;
-  animation: staggerFadeIn 0.5s ease-in-out;
+  display: flex;
+  align-items: center; /* Centre verticalement le contenu */
+  justify-content: center; /* Centre horizontalement le contenu */
+  flex-direction: column; /* Empile les éléments verticalement */
+  border-radius: 9999px;
+  border: 1px solid rgb(36, 36, 36);
+  background-color: rgb(29, 29, 29);
+  margin-bottom: 1rem;
+  animation: slideUpFade 0.4s ease-out;
   animation-fill-mode: both;
-}
-
-.form-group:nth-child(1) {
-  animation-delay: 0.3s;
+  height: 58px; /* Hauteur fixe */
+  width: 100%;
+  overflow: hidden; /* Empêche que le contenu déborde */
 }
 
 .form-group:nth-child(2) {
-  animation-delay: 0.4s;
+  animation-delay: 0.1s;
 }
 
 .form-group:nth-child(3) {
-  animation-delay: 0.5s;
+  animation-delay: 0.2s;
 }
 
-.password-group {
-  position: relative;
-  width: 100%;
-}
-
-.toggle-password {
+/* Labels positionnés de manière centrée */
+label {
   position: absolute;
-  right: 15px;
-  top: 50%;
-  transform: translateY(-50%);
-  cursor: pointer;
-  color: #777;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  transition: all 0.2s ease;
-  z-index: 2;
-  background-color: transparent;
-  border-radius: 50%;
+  left: 27px;
+  right: 0; /* Ajouté pour le centrage horizontal */
+  text-align: left; /* Centre le texte */
+  color: rgb(255, 255, 255);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  transform-origin: left; /* Origine de transformation au centre */
+  pointer-events: none;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  margin-bottom: 0;
+  top: 50%; /* Centre verticalement */
+  transform: translateY(-50%); /* Ajustement pour un centrage parfait */
 }
 
-.toggle-password:hover {
-  color: var(--primary-color);
-  background-color: rgba(0, 0, 0, 0.05);
+/* Style pour les labels quand l'input est focus ou a une valeur */
+input:focus + label,
+input:not(:placeholder-shown) + label {
+  transform: translateY(-120%) scale(0.85); /* Déplace le label au-dessus de l'input */
+  color: #c8c8c8;
 }
 
-.toggle-password:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
+/* Style des champs input */
 input[type="text"],
 input[type="email"],
 input[type="password"] {
+  height: 100%;
   width: 100%;
-  padding: 18px 25px;
-  border-radius: var(--border-radius);
-  border: 2px solid #e0e0e0;
-  background-color: #f9f9f9;
-  font-size: 1.1rem;
-  outline: none;
-  color: var(--primary-color);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  -webkit-appearance: none; /* Pour iOS */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
-}
-
-input[type="password"] {
-  padding-right: 50px; /* Espace pour l'icône toggle */
-}
-
-input[type="text"]::placeholder,
-input[type="email"]::placeholder,
-input[type="password"]::placeholder {
-  color: transparent;
-}
-
-/* Effet de focus amélioré */
-input[type="text"]:focus,
-input[type="email"]:focus,
-input[type="password"]:focus {
-  border-color: var(--primary-color);
-  background-color: #ffffff;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-  transform: translateY(-3px) scale(1.01);
-}
-
-/* Effet de hover subtil */
-input[type="text"]:hover:not(:focus),
-input[type="email"]:hover:not(:focus),
-input[type="password"]:hover:not(:focus) {
-  border-color: #d0d0d0;
-  background-color: #f7f7f7;
-}
-
-input.is-invalid {
-  border-color: var(--error-color);
-  background-color: rgba(220, 53, 69, 0.05);
-}
-
-input.is-valid {
-  border-color: var(--success-color);
-  background-color: rgba(40, 167, 69, 0.05);
-}
-
-/* Effet visuel pour les champs valides et invalides */
-input.is-invalid:focus {
-  box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
-}
-
-input.is-valid:focus {
-  box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
-}
-
-/* Amélioration des messages d'erreur */
-.invalid-feedback {
-  color: var(--error-color);
-  font-size: 0.85rem;
-  margin-top: 0.6rem;
-  margin-left: 25px;
-  display: block;
-  animation: fadeIn 0.3s ease-in-out;
-  transform-origin: left center;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Animation pour les changements d'état des inputs */
-@keyframes pulseValidation {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.02); }
-  100% { transform: scale(1); }
-}
-
-input.is-valid,
-input.is-invalid {
-  animation: pulseValidation 0.3s ease-in-out;
-}
-
-label {
-  position: absolute;
-  left: 25px;
-  color: var(--gray-dark);
-  pointer-events: none;
-  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  font-size: 16px;
-  background-color: var(--light-color);
-  padding: 0 10px;
-  z-index: 1;
-  border-radius: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-}
-
-/* Position par défaut du label */
-.form-group label {
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-/* Design plus raffiné pour les labels en focus/hover */
-.form-group input:focus ~ label,
-.form-group input:not(:placeholder-shown) ~ label {
-  top: -14px;
-  transform: translateY(0);
-  font-size: 16px;
-  color: var(--primary-color);
-  font-weight: 700;
-  padding: 5px 16px;
-  background-color: white;
-  border: 2px solid var(--primary-color);
-  z-index: 5;
-  letter-spacing: 0.5px;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-  animation: labelFloatUp 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-@keyframes labelFloatUp {
-  0% {
-    opacity: 0.6;
-    transform: translateY(15%);
-    scale: 0.95;
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-    scale: 1;
-  }
-}
-
-button {
-  width: 100%;
-  padding: 15px;
-  border-radius: var(--border-radius);
+  min-width: 0px;
+  flex: 1 1 0%;
+  background-color: transparent;
+  padding-bottom: 0.2rem;
+  padding-left: 27px; /* Modifié pour le centrage */
+  padding-top: 1.25rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  filter: none;
+  cursor: text;
+  color: rgb(236, 236, 236);
   border: none;
-  background-color: #F5F5F5;
-  color: var(--primary-color);
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s ease;
+  text-align: left; /* Centre le texte de l'input */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mise en forme spéciale pour le champ password */
+.password-container {
   position: relative;
+  display: inline-flex;
+  height: 58px;
+  width: 100%;
+  align-items: center;
   overflow: hidden;
-  font-weight: 600;
-  box-shadow: var(--box-shadow);
-  animation: staggerFadeIn 0.5s ease-in-out;
-  animation-delay: 0.6s;
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0px;
+  line-height: 17px;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-color: rgb(36, 36, 36);
+  background-color: rgb(29, 29, 29);
+  margin-bottom: 1rem;
+}
+
+.password-container input[type="password"],
+.password-container input[type="text"] {
+  padding-right: 45px;
+}
+
+/* Styles pour le bouton de visibilité du mot de passe */
+.toggle-password {
+  position: absolute;
+  right: 15px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(170, 170, 170);
+  outline: none;
+  z-index: 1;
+  padding: 0;
+  transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+  color: white;
+}
+
+.toggle-password:focus {
+  outline: none;
+}
+
+/* Style pour l'icône SVG */
+.eye-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+/* Style du bouton de connexion */
+.submit-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 500;
+  background-color: white;
+  color: rgb(13, 13, 13);
+  transition-property: color, background-color, border-color;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+  height: 58px;
+  width: 100%;
+  font-size: 15px;
+  letter-spacing: 0px;
+  line-height: 19px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  animation: slideUpFade 0.4s ease-out 0.3s;
   animation-fill-mode: both;
 }
 
-button:hover {
-  background-color: #e0e0e0;
+.submit-button:hover {
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
-button:not(:disabled):active {
+.submit-button:active {
   transform: scale(0.98);
 }
 
-button:disabled {
-  opacity: 0.7;
+.submit-button:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
 }
 
-.alert-error {
-  background-color: rgba(220, 53, 69, 0.1);
-  border-left: 4px solid var(--error-color);
-  color: #721c24;
-  padding: 16px 20px;
-  margin-bottom: 25px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-  transform-origin: center;
-  animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+.submit-button .button-text {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }
 
-.checkbox-group {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 0;
-  margin-bottom: 1.5rem;
+.submit-button.loading .button-text {
+  opacity: 0.8;
 }
 
-.checkbox-container {
-  display: flex;
-  align-items: center;
-  font-size: 0.95rem;
-  color: var(--gray-dark);
-  cursor: pointer;
-  position: relative;
-  padding-left: 30px;
-  user-select: none;
-}
-
-/* Cacher la checkbox standard */
-.checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* Créer une checkbox personnalisée */
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
+.spinner-border {
+  display: inline-block;
   width: 20px;
-  border-radius: 4px;
-  border: 2px solid var(--gray-medium);
-  background-color: white;
-  transition: all 0.2s ease;
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: black;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 10px;
 }
 
-/* Style quand la souris passe sur la checkbox */
-.checkbox-container:hover input ~ .checkmark {
-  border-color: var(--primary-color);
+/* Nouveau style pour le conteneur du lien mot de passe oublié */
+.forgot-password-container {
+  text-align: center;
+  margin-top: 25px;
+  margin-bottom: 20px;
 }
 
-/* Style quand la checkbox est cochée */
-.checkbox-container input:checked ~ .checkmark {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-/* Créer le symbole de la checkbox (checkmark/indicateur) */
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-
-/* Afficher le checkmark quand la case est cochée */
-.checkbox-container input:checked ~ .checkmark:after {
-  display: block;
-}
-
-/* Style du symbole checkmark */
-.checkbox-container .checkmark:after {
-  left: 6px;
-  top: 2px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 2px 2px 0;
-  transform: rotate(45deg);
-}
-
+/* Style pour le lien mot de passe oublié (modifié) */
 .forgot-password {
-  color: var(--primary-color);
-  font-size: 0.9rem;
+  color: rgb(170, 170, 170);
+  transition: color 0.3s ease;
   text-decoration: none;
-  transition: color 0.2s, transform 0.2s;
+  font-size: 14px;
+  display: inline-block;
 }
 
 .forgot-password:hover {
-  color: var(--secondary-color);
-  text-decoration: underline;
-  transform: translateX(2px);
-}
-
-.register-redirect {
-  text-align: center;
-  margin-top: -1rem;
-  font-size: 0.9rem;
-  color: var(--gray-dark);
-  animation: staggerFadeIn 0.5s ease-in-out;
-  animation-delay: 0.7s;
-  animation-fill-mode: both;
-}
-
-.register-redirect a {
-  color: var(--primary-color);
-  text-decoration: none;
-  font-weight: 600;
-  margin-left: 5px;
-  transition: color 0.2s;
-}
-
-.register-redirect a:hover {
-  color: var(--secondary-color);
+  color: white;
   text-decoration: underline;
 }
 
-/* Animations globales */
-@keyframes staggerFadeIn {
+/* Animation de transition */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpFade {
   0% {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(10px);
   }
   100% {
     opacity: 1;
@@ -445,35 +358,133 @@ button:disabled {
   }
 }
 
-@keyframes shake {
-  10%, 90% { transform: translateX(-1px); }
-  20%, 80% { transform: translateX(2px); }
-  30%, 50%, 70% { transform: translateX(-2px); }
-  40%, 60% { transform: translateX(2px); }
+/* Améliorations spécifiques pour le mode sombre */
+.form-group:has(input:focus) {
+  border-color: #979797;
 }
 
-/* Responsive design pour les petits écrans */
-@media (max-width: 1200px) {
-  .left-side {
-    display: none;
+.password-container:has(input:focus) {
+  border-color: #979797;
+}
+
+/* Adaptation du reste du formulaire au design */
+.forgot-password {
+  color: rgb(170, 170, 170);
+  transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+  color: white;
+}
+
+/* Ajustements pour les animations et transitions */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Alert styling */
+.alert-success, 
+.alert-error {
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+
+.alert-success {
+  background-color: rgba(39, 174, 96, 0.1);
+  border: 1px solid rgba(39, 174, 96, 0.3);
+  color: #27ae60;
+}
+
+.alert-error {
+  background-color: rgba(231, 76, 60, 0.1);
+  border: 1px solid rgba(231, 76, 60, 0.3);
+  color: #e74c3c;
+  position: relative;
+}
+
+.alert-icon {
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.close-alert {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+/* Footer links */
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 20px 0;
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  font-size: 12px;
+}
+
+.footer-link {
+  color: rgb(170, 170, 170);
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+  color: white;
+  text-decoration: underline;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .login-container {
+    flex-direction: column;
   }
   
-  .right-side {
-    flex: 0 0 100%;
-    padding: 30px;
+  .left-column {
+    height: 30vh;
   }
-}
-
-@media (max-width: 576px) {
-  .right-side {
-    padding: 20px;
+  
+  .right-column {
+    height: 70vh;
+    padding: 30px 20px;
+  }
+  
+  form {
+    padding: 0;
   }
   
   h1 {
-    font-size: 1.8rem;
+    font-size: 22px;
   }
-  
-  p {
-    font-size: 1rem;
+
+  .forgot-password-container {
+    margin-top: 15px;
   }
+}
+
+/* Required mark styling */
+.required-mark {
+  color: #e74c3c;
+  margin-left: 2px;
+}
+
+/* Make sure that forms with validation invalid states look good */
+input.is-invalid {
+  border-color: #e74c3c;
+}
+
+input.is-valid {
+  border-color: #27ae60;
 }

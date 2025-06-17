@@ -7,6 +7,7 @@ import { NotFoundComponent } from './shared/components/not-found/not-found.compo
 import { AuthGuard } from './core/guards/auth.guard';
 import { AdminGuard } from './core/guards/admin.guard';
 import { MemberGuard } from './core/guards/member.guard';
+import { CourseProgressDashboardComponent } from './shared/components/course-progress-dashboard/course-progress-dashboard.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -15,6 +16,11 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: SignupComponent },
   { path: 'connecter', component: ConnecterComponent },
+  { 
+    path: 'profil', 
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./profil/profil.module').then(m => m.ProfilModule)
+  },
   {
     path: 'about',
     loadChildren: () => import('./about/about.module').then(m => m.AboutModule)
@@ -26,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'cours',
     loadChildren: () => import('./cours/cours.module').then(m => m.CoursModule)
+  },
+  {
+    path: 'formations',
+    loadChildren: () => import('./formations/formations.module').then(m => m.FormationsModule)
   },
   {
     path: 'legal',
@@ -40,6 +50,11 @@ export const routes: Routes = [
     path: 'admin',
     canActivate: [AuthGuard, AdminGuard],
     loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)
+  },
+  {
+    path: 'mes-progres',
+    component: CourseProgressDashboardComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: '**',

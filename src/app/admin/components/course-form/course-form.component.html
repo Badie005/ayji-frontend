@@ -1,0 +1,239 @@
+<div class="course-form-container">
+  <div class="header">
+    <h1>
+      <i class="material-icons">{{ isEditMode ? 'edit' : 'add_circle' }}</i>
+      {{ isEditMode ? 'Modifier un cours' : 'Ajouter un nouveau cours' }}
+    </h1>
+    <button class="btn cancel-btn" (click)="cancel()">
+      <i class="material-icons">arrow_back</i> Retour
+    </button>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+
+  <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+  <div class="alert alert-error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <form [formGroup]="courseForm" (ngSubmit)="onSubmit()" *ngIf="!loading">
+    <div class="form-section">
+      <h2>Informations générales</h2>
+      
+      <div class="form-group">
+        <label for="title">Titre du cours <span class="required">*</span></label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title" 
+          [ngClass]="{'is-invalid': submitted && courseForm.controls['title'].errors}"
+        >
+        <div class="error-message" *ngIf="submitted && courseForm.controls['title'].errors">
+          <span *ngIf="courseForm.controls['title'].errors['required']">Le titre est requis</span>
+          <span *ngIf="courseForm.controls['title'].errors['minlength']">Le titre doit contenir au moins 3 caractères</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="order">Ordre d'affichage <span class="required">*</span></label>
+        <div class="order-input-container">
+          <input 
+            type="number" 
+            id="order" 
+            formControlName="order" 
+            min="1"
+            [ngClass]="{'is-invalid': submitted && courseForm.controls['order'].errors}"
+          >
+          <div class="order-suggestion" *ngIf="!isEditMode">
+            <span>Ordre suggéré: {{ suggestedOrder }}</span>
+          </div>
+        </div>
+        <div class="error-message" *ngIf="submitted && courseForm.controls['order'].errors">
+          <span *ngIf="courseForm.controls['order'].errors['required']">L'ordre est requis</span>
+          <span *ngIf="courseForm.controls['order'].errors['min']">L'ordre doit être supérieur à 0</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description <span class="required">*</span></label>
+        <textarea 
+          id="description" 
+          formControlName="description" 
+          rows="5"
+          [ngClass]="{'is-invalid': submitted && courseForm.controls['description'].errors}"
+        ></textarea>
+        <div class="error-message" *ngIf="submitted && courseForm.controls['description'].errors">
+          <span *ngIf="courseForm.controls['description'].errors['required']">La description est requise</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="content">Contenu du cours</label>
+        <textarea 
+          id="content" 
+          formControlName="content" 
+          rows="8"
+        ></textarea>
+      </div>
+    </div>
+    
+    <div class="form-section">
+      <h2>Ressources</h2>
+      
+      <!-- PDF du cours -->
+      <div class="form-group file-upload-group">
+        <label>Support de cours (PDF)</label>
+        
+        <div class="file-upload-container">
+          <div class="file-upload-input-container">
+            <input 
+              type="file" 
+              id="coursePdf" 
+              accept=".pdf"
+              (change)="selectFile($event, 'course')"
+              [disabled]="fileUrls['course']"
+            >
+            <button 
+              type="button" 
+              class="btn upload-btn" 
+              (click)="uploadFile('course')" 
+              [disabled]="!selectedFiles['course'] || fileUrls['course']"
+            >
+              <i class="material-icons">cloud_upload</i> Télécharger
+            </button>
+          </div>
+          
+          <div class="progress" *ngIf="progress['course'] > 0">
+            <div class="progress-bar" [style.width.%]="progress['course']">
+              {{ progress['course'] }}%
+            </div>
+          </div>
+          
+          <div class="file-status" *ngIf="fileUrls['course']">
+            <div class="file-info">
+              <i class="material-icons">insert_drive_file</i>
+              <span class="file-name">{{ fileNames['course'] || 'Fichier PDF' }}</span>
+            </div>
+            <button type="button" class="btn delete-file-btn" (click)="deleteFile('course')">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+          
+          <div class="file-error" *ngIf="uploadError['course']">
+            {{ uploadError['course'] }}
+          </div>
+        </div>
+        
+        <input type="hidden" formControlName="coursePdfUrl">
+      </div>
+      
+      <!-- PDF des exercices -->
+      <div class="form-group file-upload-group">
+        <label>Exercices (PDF)</label>
+        
+        <div class="file-upload-container">
+          <div class="file-upload-input-container">
+            <input 
+              type="file" 
+              (change)="selectFile($event, 'exercises')" 
+              accept="application/pdf"
+              [disabled]="uploadSuccess['exercises']"
+            >
+            <button 
+              type="button" 
+              class="btn upload-btn" 
+              (click)="uploadFile('exercises')" 
+              [disabled]="!selectedFiles['exercises']"
+            >
+              <i class="fas fa-upload"></i> Uploader
+            </button>
+          </div>
+
+          <!-- Barre de progression pour l'upload -->
+          <div *ngIf="progress['exercises'] > 0" class="progress">
+            <div 
+              class="progress-bar" 
+              [style.width.%]="progress['exercises']"
+            ></div>
+          </div>
+
+          <!-- Affichage du fichier uploadé -->
+          <div *ngIf="uploadSuccess['exercises']" class="file-status">
+            <div class="file-info">
+              <i class="fas fa-check-circle"></i>
+              <span class="file-name">{{ fileNames['exercises'] || 'Exercices.pdf' }}</span>
+            </div>
+            <button 
+              type="button" 
+              class="btn delete-file-btn" 
+              (click)="deleteFile('exercises')"
+            >
+              <i class="fas fa-trash"></i> Supprimer
+            </button>
+          </div>
+
+          <!-- Affichage des erreurs -->
+          <div *ngIf="uploadError['exercises']" class="file-error">
+            {{ uploadError['exercises'] }}
+          </div>
+        </div>
+      </div>
+      
+      <!-- PDF du QCM -->
+      <div class="form-group file-upload-group">
+        <label>QCM (PDF)</label>
+        
+        <div class="file-upload-container">
+          <div class="file-upload-input-container">
+            <input 
+              type="file" 
+              id="qcmPdf" 
+              accept=".pdf"
+              (change)="selectFile($event, 'qcm')"
+              [disabled]="fileUrls['qcm']"
+            >
+            <button 
+              type="button" 
+              class="btn upload-btn" 
+              (click)="uploadFile('qcm')" 
+              [disabled]="!selectedFiles['qcm'] || fileUrls['qcm']"
+            >
+              <i class="material-icons">cloud_upload</i> Télécharger
+            </button>
+          </div>
+          
+          <div class="progress" *ngIf="progress['qcm'] > 0">
+            <div class="progress-bar" [style.width.%]="progress['qcm']">
+              {{ progress['qcm'] }}%
+            </div>
+          </div>
+          
+          <div class="file-status" *ngIf="fileUrls['qcm']">
+            <div class="file-info">
+              <i class="material-icons">insert_drive_file</i>
+              <span class="file-name">{{ fileNames['qcm'] || 'Fichier PDF' }}</span>
+            </div>
+            <button type="button" class="btn delete-file-btn" (click)="deleteFile('qcm')">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+          
+          <div class="file-error" *ngIf="uploadError['qcm']">
+            {{ uploadError['qcm'] }}
+          </div>
+        </div>
+        
+        <input type="hidden" formControlName="qcmPdfUrl">
+      </div>
+    </div>
+    
+    <div class="form-actions">
+      <button type="button" class="btn cancel-btn" (click)="cancel()">Annuler</button>
+      <button type="submit" class="btn submit-btn" [disabled]="loading">
+        <i class="material-icons">{{ isEditMode ? 'save' : 'add_circle' }}</i>
+        {{ isEditMode ? 'Mettre à jour' : 'Ajouter' }}
+      </button>
+    </div>
+  </form>
+</div>

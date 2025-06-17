@@ -1,0 +1,90 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1><i class="fas fa-chart-line"></i> Tableau de bord</h1>
+  </div>
+  
+  <div class="dashboard-content">
+    <div class="dashboard-card users-card">
+      <div class="card-header">
+        <h2><i class="fas fa-users"></i> Utilisateurs</h2>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <p>Gérer les utilisateurs, les rôles et les permissions.</p>
+        </div>
+        <div class="card-actions">
+          <button (click)="goToUsers()" class="btn btn-primary">
+            <i class="fas fa-arrow-right"></i> Accéder
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-card courses-card">
+      <div class="card-header">
+        <h2><i class="fas fa-book"></i> Cours</h2>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <p>Gérer vos cours, chapitres et contenus éducatifs.</p>
+        </div>
+        <div class="card-actions">
+          <button class="btn action-btn" (click)="goToCourses()">
+            <i class="fas fa-graduation-cap"></i>
+            Gérer les cours
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-card stats-card">
+      <div class="card-header">
+        <h2><i class="fas fa-chart-bar"></i> Statistiques</h2>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <p>Visualiser les données et statistiques de la plateforme.</p>
+          <div *ngIf="loading" class="stats-loading">
+            <div class="spinner"></div>
+            <p>Chargement des statistiques...</p>
+          </div>
+          <div *ngIf="!loading" class="stats-container">
+            <div class="stat-item">
+              <div class="stat-value">{{ userCount }}</div>
+              <div class="stat-label">Utilisateurs</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">{{ courseCount }}</div>
+              <div class="stat-label">Cours</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-value">{{ lessonCount }}</div>
+              <div class="stat-label">Leçons</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-card settings-card">
+      <div class="card-header">
+        <h2><i class="fas fa-cog"></i> Paramètres</h2>
+      </div>
+      <div class="card-body">
+        <div class="card-content">
+          <p>Configurer les paramètres de la plateforme et les options système.</p>
+        </div>
+        <div class="card-actions">
+          <button (click)="goToSettings()" class="btn btn-outline">
+            <i class="fas fa-sliders-h"></i> Configurer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="dashboard-footer">
+    <div>Dernière connexion: {{ lastLogin | date: 'dd/MM/yyyy à HH:mm' }}</div>
+    <div>Version 1.0.0</div>
+  </div>
+</div>

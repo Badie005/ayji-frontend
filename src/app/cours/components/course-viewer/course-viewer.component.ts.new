@@ -1,0 +1,440 @@
+import { Component, OnInit, OnDestroy, HostListener, ChangeDetectorRef, ViewChildren, QueryList, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Pipe, PipeTransform } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Subscription, of } from 'rxjs';
+import { catchError, finalize } from 'rxjs/operators';
+import { trigger, transition, style, animate, state } from '@angular/animations';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+
+// Project imports
+import { AuthService } from '../../../core/services/auth.service';
+import { CourseService } from '../../services/course.service';
+
+// MCQ Components
+import { McqViewerComponent } from '../mcq-viewer/mcq-viewer.component';
+import { McqService } from '../../services/mcq.service';
+import { MCQGroup } from '../../models/mcq.model';
+
+// Course interface
+interface Course {
+  _id: string;
+  id: string;
+  title: string;
+  description: string;
+  subject?: string;
+  coursePdfUrl?: string;
+  exercisePdfUrl?: string;
+  solutionPdfUrl?: string;
+  qcmPdfUrl?: string;
+}
+
+// Safe URL Pipe to sanitize URLs
+@Pipe({
+  name: 'safe',
+  standalone: true
+})
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  
+  transform(url: string | SafeResourceUrl): SafeResourceUrl {
+    if (typeof url === 'string') {
+      return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    }
+    return url;
+  }
+}
+
+@Component({
+  selector: 'app-course-viewer',
+  templateUrl: './course-viewer.component.html',
+  styleUrls: ['./course-viewer.component.scss', './exercise-buttons.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterModule, SafePipe, McqViewerComponent],
+  animations: [
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0, transform: 'translateY(20px)' })),
+      transition(':enter', [
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+      ])
+    ])
+  ]
+})
+export class CourseViewerComponent implements OnInit, OnDestroy {
+  // Course data
+  course: Course | null = null;
+  courseId: string | null = null;
+  userId: string | null = null;
+  coursePdfUrl: SafeResourceUrl | null = null;
+  exercisePdfUrl: SafeResourceUrl | null = null;
+  solutionPdfUrl: SafeResourceUrl | null = null;
+  qcmPdfUrl: SafeResourceUrl | null = null;
+  
+  // Navigation
+  previousCourseId: string | null = null;
+  nextCourseId: string | null = null;
+  
+  // UI state
+  loading = false;
+  error: string | null = null;
+  activeTab: 'course' | 'exercise' | 'solution' | 'qcm' = 'course';
+  exerciseSubTab: 'exercises' | 'solutions' = 'exercises'; // Default sub-tab for exercises
+  tabTransitioning = false;
+  showBackToTop = false;
+  userHasStartedCourse = false;
+  progress = 0;
+  progressChanged = false;
+  
+  // PDF state
+  pdfLoading: Record<string, boolean> = {
+    course: false,
+    exercise: false,
+    solution: false,
+    qcm: false
+  };
+  pdfLoadError = false;
+  
+  // Property to track view mode to improve keyboard navigation
+  viewMode: 'tabs' | 'content' = 'tabs';
+  
+  // Subscriptions
+  private subscription = new Subscription();
+  private routeSub: Subscription | null = null;
+  private scrollListener: any;
+  
+  @ViewChildren('tabButton') tabButtons!: QueryList<ElementRef>;
+  
+  // Variables for MCQs
+  mcqGroups: MCQGroup[] = [];
+  loadingMcqs: boolean = false;
+  mcqProgress: number = 0;
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private titleService: Title,
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef,
+    private authService: AuthService,
+    private courseService: CourseService,
+    private mcqService: McqService
+  ) {
+    // Set default title
+    this.titleService.setTitle('Cours | AYJI');
+  }
+
+  ngOnInit(): void {
+    // Extract course ID from route
+    this.routeSub = this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        this.courseId = id;
+        this.loadCourseData(id);
+        this.loadMCQs(id);
+      }
+    });
+
+    // Set up scroll event listener
+    this.scrollListener = this.onScroll.bind(this);
+    window.addEventListener('scroll', this.scrollListener);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    if (this.routeSub) {
+      this.routeSub.unsubscribe();
+    }
+    window.removeEventListener('scroll', this.scrollListener);
+  }
+
+  loadCourseData(id: string): void {
+    this.loading = true;
+    this.error = null;
+
+    this.subscription.add(
+      this.courseService.getCourseById(id)
+        .pipe(
+          catchError(err => {
+            this.error = 'Erreur lors du chargement du cours: ' + err.message;
+            return of(null);
+          }),
+          finalize(() => {
+            this.loading = false;
+          })
+        )
+        .subscribe(course => {
+          if (course) {
+            this.course = course;
+            this.titleService.setTitle(`${this.course.title} - Cours`);
+            this.setupPdfUrls(this.course);
+            this.setupCourseNavigation(id);
+          } else {
+            this.error = "Identifiant de cours invalide ou manquant";
+          }
+        })
+    );
+  }
+
+  loadMCQs(courseId: string): void {
+    this.loadingMcqs = true;
+    
+    this.subscription.add(
+      this.mcqService.getMcqGroups(courseId)
+        .pipe(
+          finalize(() => {
+            this.loadingMcqs = false;
+            this.cdr.detectChanges();
+          })
+        )
+        .subscribe({
+          next: (groups) => {
+            this.mcqGroups = groups;
+          },
+          error: (error) => {
+            console.error('Error loading MCQs:', error);
+          }
+        })
+    );
+  }
+  
+  updateMcqProgress(progress: number): void {
+    this.mcqProgress = progress;
+    this.updateProgress();
+  }
+  
+  updateProgress(): void {
+    // Simple implementation - can be expanded based on actual progress logic
+    if (this.course) {
+      if (!this.userHasStartedCourse) {
+        this.userHasStartedCourse = true;
+        this.progress = 10; // Start with 10% just for opening the course
+      }
+      
+      // Update based on active tab
+      if (this.activeTab === 'qcm' && this.mcqProgress > 0) {
+        // Weight MCQ progress as 20% of total course progress
+        const mcqWeight = 0.2;
+        this.progress = Math.min(100, 10 + (this.mcqProgress * mcqWeight * 100));
+      }
+      
+      this.progressChanged = true;
+      setTimeout(() => {
+        this.progressChanged = false;
+        this.cdr.detectChanges();
+      }, 1000);
+    }
+  }
+
+  setupPdfUrls(course: Course): void {
+    if (!course) return;
+
+    const urlId = this.route.snapshot.paramMap.get('id');
+    if (urlId) {
+      const baseUrl = '/uploads/courses/';
+      const coursePdfs: Record<string, {course: string, exercise: string, solution: string, qcm: string}> = {
+        '1': {
+          course: baseUrl + 'cours1.pdf',
+          exercise: baseUrl + 'td1.pdf',
+          solution: baseUrl + 'td1_correction.pdf',
+          qcm: baseUrl + 'td1_correction.pdf'
+        },
+        '2': {
+          course: baseUrl + 'cours2.pdf',
+          exercise: baseUrl + 'td2.pdf',
+          solution: baseUrl + 'td2_correction.pdf',
+          qcm: baseUrl + 'td2_correction.pdf'
+        },
+        '3': {
+          course: baseUrl + 'cours3.pdf',
+          exercise: baseUrl + 'td3.pdf',
+          solution: baseUrl + 'td3_correction.pdf',
+          qcm: baseUrl + 'td3_correction.pdf'
+        },
+        '4': {
+          course: baseUrl + 'cours4.pdf',
+          exercise: baseUrl + 'td1.pdf',
+          solution: baseUrl + 'td1_correction.pdf',
+          qcm: baseUrl + 'td1_correction.pdf'
+        },
+        '5': {
+          course: baseUrl + 'cours5.pdf',
+          exercise: baseUrl + 'td2.pdf',
+          solution: baseUrl + 'td2_correction.pdf',
+          qcm: baseUrl + 'td2_correction.pdf'
+        },
+        '6': {
+          course: baseUrl + 'cours6.pdf',
+          exercise: baseUrl + 'td3.pdf',
+          solution: baseUrl + 'td3_correction.pdf',
+          qcm: baseUrl + 'td3_correction.pdf'
+        }
+      };
+
+      if (urlId in coursePdfs) {
+        course.coursePdfUrl = coursePdfs[urlId].course;
+        course.exercisePdfUrl = coursePdfs[urlId].exercise;
+        course.solutionPdfUrl = coursePdfs[urlId].solution;
+        course.qcmPdfUrl = coursePdfs[urlId].qcm;
+      } else {
+        console.warn(`Cours ${urlId}: aucun PDF trouvé pour cet ID`);
+      }
+    }
+
+    this.pdfLoading = {
+      course: true,
+      exercise: true,
+      solution: true,
+      qcm: true
+    };
+
+    this.coursePdfUrl = this.preparePdfForDisplay(course.coursePdfUrl);
+    this.exercisePdfUrl = this.preparePdfForDisplay(course.exercisePdfUrl);
+    this.solutionPdfUrl = this.preparePdfForDisplay(course.solutionPdfUrl);
+    this.qcmPdfUrl = this.preparePdfForDisplay(course.qcmPdfUrl);
+
+    setTimeout(() => {
+      this.pdfLoading = {
+        course: false,
+        exercise: false,
+        solution: false,
+        qcm: false
+      };
+      this.cdr.detectChanges();
+    }, 500);
+  }
+
+  setupCourseNavigation(currentId: string): void {
+    const courseSequence = ['1', '2', '3', '4', '5', '6'];
+    const currentIndex = courseSequence.indexOf(currentId);
+
+    if (currentIndex !== -1) {
+      this.previousCourseId = currentIndex > 0 ? courseSequence[currentIndex - 1] : null;
+      this.nextCourseId = currentIndex < courseSequence.length - 1 ? courseSequence[currentIndex + 1] : null;
+    } else {
+      this.previousCourseId = null;
+      this.nextCourseId = null;
+    }
+  }
+
+  setActiveTab(tab: 'course' | 'exercise' | 'solution' | 'qcm'): void {
+    if (this.activeTab === tab) return;
+
+    this.tabTransitioning = true;
+    this.activeTab = tab;
+
+    // Pre-load content for the selected tab if needed
+    if (tab === 'qcm' && this.courseId && this.mcqGroups.length === 0 && !this.loadingMcqs) {
+      this.loadMCQs(this.courseId);
+    }
+
+    this.updateProgress();
+    this.scrollToTop();
+
+    // End transition state after a short delay
+    setTimeout(() => {
+      this.tabTransitioning = false;
+      this.cdr.detectChanges();
+    }, 300);
+  }
+
+  setExerciseSubTab(subTab: 'exercises' | 'solutions'): void {
+    if (this.exerciseSubTab === subTab) return;
+    this.exerciseSubTab = subTab;
+    this.cdr.detectChanges();
+  }
+
+  preparePdfForDisplay(url: string | undefined | null): SafeResourceUrl | null {
+    if (!url) return null;
+
+    try {
+      const encodedUrl = this.encodePdfUrl(url);
+      return this.sanitizer.bypassSecurityTrustResourceUrl(encodedUrl);
+    } catch (error) {
+      console.error('Error preparing PDF URL:', error);
+      return null;
+    }
+  }
+
+  encodePdfUrl(url: string | null): string {
+    if (!url) return '';
+
+    try {
+      const parts = url.split('/');
+      const basePath = parts.slice(0, parts.length - 1).join('/');
+      const filename = parts[parts.length - 1];
+      const encodedFilename = encodeURIComponent(filename);
+      const finalUrl = `${basePath}/${encodedFilename}`;
+      return finalUrl;
+    } catch (error) {
+      console.error('Error encoding PDF URL:', error);
+      return url; // Return original URL if encoding fails
+    }
+  }
+
+  downloadPdf(type: 'course' | 'exercise' | 'solution' | 'qcm'): void {
+    if (!this.course) return;
+
+    const courseTitle = this.course.title.replace(/\s+/g, '_');
+    let pdfUrl: string | undefined = undefined;
+    let fileName: string;
+
+    switch (type) {
+      case 'course':
+        pdfUrl = this.course.coursePdfUrl;
+        fileName = `${courseTitle}_cours.pdf`;
+        break;
+      case 'exercise':
+        pdfUrl = this.course.exercisePdfUrl;
+        fileName = `${courseTitle}_exercices.pdf`;
+        break;
+      case 'solution':
+        pdfUrl = this.course.solutionPdfUrl;
+        fileName = `${courseTitle}_corrections.pdf`;
+        break;
+      default:
+        pdfUrl = this.course.qcmPdfUrl;
+        fileName = `${courseTitle}_document.pdf`;
+        break;
+    }
+
+    if (!pdfUrl) {
+      console.error('PDF URL not found for download');
+      return;
+    }
+
+    const encodedUrl = this.encodePdfUrl(pdfUrl);
+    const a = document.createElement('a');
+    a.href = encodedUrl;
+    a.target = '_blank';
+    a.download = fileName;
+    a.setAttribute('aria-label', `Télécharger ${fileName}`);
+    a.click();
+  }
+
+  scrollToTop(): void {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  onScroll(): void {
+    this.showBackToTop = window.scrollY > 300;
+    this.cdr.detectChanges();
+  }
+
+  navigateToCoursList(): void {
+    this.router.navigate(['/cours']);
+  }
+  
+  navigateToPreviousCourse(): void {
+    if (this.previousCourseId) {
+      this.router.navigate(['/cours', 'viewer', this.previousCourseId]);
+    }
+  }
+  
+  navigateToNextCourse(): void {
+    if (this.nextCourseId) {
+      this.router.navigate(['/cours', 'viewer', this.nextCourseId]);
+    }
+  }
+}

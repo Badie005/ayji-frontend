@@ -1,0 +1,508 @@
+/* Styles généraux */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+  color: #222;
+  background-color: #fff;
+}
+
+/* Container principal */
+.main {
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* En-tête */
+.header-container {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-heading {
+  color: #000;
+  font-size: 2.5rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.main-heading::after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background-color: #000;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: width 0.3s ease;
+}
+
+.main-heading:hover::after {
+  width: 100px;
+}
+
+.subheading {
+  color: #555;
+  font-size: 1.1rem;
+  font-weight: 300;
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.5) 25%,
+    rgba(0, 0, 0, 1) 50%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  margin: 30px 0;
+}
+
+/* Sections de contenu */
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Carte de présentation */
+.presentation-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.presentation-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.card-icon {
+  font-size: 1.8rem;
+  color: #000;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #000;
+}
+
+.card-content {
+  line-height: 1.7;
+}
+
+.card-content p {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Titre de section */
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 500;
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 2px;
+  background-color: #000;
+  bottom: -10px;
+  left: 0;
+  transition: width 0.3s ease;
+}
+
+.section-title:hover::after {
+  width: 70px;
+}
+
+/* Catégories */
+.categories-section {
+  margin-bottom: 40px;
+}
+
+.category-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.tab {
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.tab.active {
+  background: #000;
+  color: #fff;
+}
+
+/* Liste d'exercices */
+.exercises-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.exercise-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.exercise-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.exercise-level, .exercise-category {
+  font-size: 0.8rem;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+
+.exercise-level.beginner {
+  background-color: rgba(39, 174, 96, 0.15);
+  color: #27ae60;
+}
+
+.exercise-level.intermediate {
+  background-color: rgba(52, 152, 219, 0.15);
+  color: #3498db;
+}
+
+.exercise-level.advanced {
+  background-color: rgba(231, 76, 60, 0.15);
+  color: #e74c3c;
+}
+
+.exercise-category {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+.exercise-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+.exercise-description {
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  min-height: 80px;
+}
+
+.exercise-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.exercise-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-exercise, .btn-solution {
+  flex: 1;
+  padding: 8px 0;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.btn-exercise {
+  background-color: #000;
+  color: #fff;
+}
+
+.btn-exercise:hover {
+  background-color: #222;
+}
+
+.btn-solution {
+  background-color: transparent;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.btn-solution:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.page-link {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.page-link:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.page-link.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.page-link.next {
+  font-size: 0.8rem;
+}
+
+/* Bénéfices */
+.benefits-section {
+  margin-bottom: 40px;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+}
+
+.benefit-item {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 10px;
+  padding: 25px 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.benefit-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+}
+
+.benefit-item i {
+  font-size: 2.5rem;
+  color: #000;
+  margin-bottom: 15px;
+}
+
+.benefit-item h3 {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.benefit-item p {
+  color: #555;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Section CTA */
+.cta-section {
+  text-align: center;
+  padding: 50px 30px;
+  background: rgba(0, 0, 0, 0.03);
+  border-radius: 15px;
+  margin: 20px 0 40px;
+}
+
+.cta-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.cta-description {
+  font-size: 1.1rem;
+  color: #555;
+  max-width: 600px;
+  margin: 0 auto 30px;
+}
+
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.primary-button, .secondary-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.primary-button {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #000;
+}
+
+.primary-button:hover {
+  background-color: #222;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.secondary-button {
+  background-color: transparent;
+  color: #000;
+  border: 1px solid #000;
+}
+
+.secondary-button:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  transform: translateY(-3px);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .main {
+    padding: 40px 15px;
+  }
+  
+  .main-heading {
+    font-size: 2rem;
+  }
+  
+  .exercises-list {
+    grid-template-columns: 1fr;
+  }
+  
+  .cta-section {
+    padding: 30px 20px;
+  }
+  
+  .cta-title {
+    font-size: 1.5rem;
+  }
+  
+  .benefits-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .main-heading {
+    font-size: 1.8rem;
+  }
+  
+  .subheading {
+    font-size: 1rem;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .primary-button, .secondary-button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .category-tabs {
+    justify-content: center;
+  }
+}

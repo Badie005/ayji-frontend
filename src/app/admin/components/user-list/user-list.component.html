@@ -1,0 +1,103 @@
+<div class="user-list-container">
+  <div class="user-list-header">
+    <h1><i class="fas fa-users"></i> Utilisateurs</h1>
+    <button (click)="addNewUser()" class="btn btn-primary">
+      <i class="fas fa-plus"></i> Nouveau
+    </button>
+  </div>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Chargement...</p>
+  </div>
+  
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
+  <div *ngIf="!loading && users.length === 0" class="no-users">
+    <i class="fas fa-user-alt-slash" style="font-size: 1.5rem; margin-bottom: 12px; opacity: 0.7;"></i>
+    <p>Aucun utilisateur</p>
+    <p class="sub-text">Ajoutez des utilisateurs pour commencer</p>
+  </div>
+  
+  <div *ngIf="!loading && users.length > 0" class="user-list-content">
+    <div class="table-controls">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input 
+          type="text" 
+          placeholder="Rechercher..." 
+          (input)="searchUsers($event)"
+        />
+      </div>
+      <div class="table-actions">
+        <button class="btn-action" (click)="sortUsersByField('nom')">
+          <i class="fas fa-sort"></i> Nom
+        </button>
+        <button class="btn-action" (click)="sortUsersByField('role')">
+          <i class="fas fa-tag"></i> Rôle
+        </button>
+      </div>
+    </div>
+    
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th><i class="fas fa-user"></i> Nom</th>
+          <th><i class="fas fa-user"></i> Prénom</th>
+          <th><i class="fas fa-at"></i> Email</th>
+          <th><i class="fas fa-tag"></i> Rôle</th>
+          <th><i class="fas fa-clock"></i> Date</th>
+          <th><i class="fas fa-cog"></i> Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers">
+          <td>{{ user.nom || '-' }}</td>
+          <td>{{ user.prenom || '-' }}</td>
+          <td>
+            <a [href]="'mailto:' + user.email" class="user-email">{{ user.email }}</a>
+          </td>
+          <td>
+            <span [ngClass]="{
+              'admin-badge': user.role === 'admin',
+              'student-badge': user.role === 'etudiant'
+            }">
+              <i [class]="user.role === 'admin' ? 'fas fa-shield-alt' : 'fas fa-user'"></i>
+              {{ user.role === 'admin' ? 'Admin' : 'Étudiant' }}
+            </span>
+          </td>
+          <td>{{ user.createdAt | date: 'dd/MM/yyyy' }}</td>
+          <td class="actions">
+            <button (click)="editUser(user._id!)" class="btn-edit" title="Modifier"></button>
+            <button (click)="deleteUser(user._id!)" class="btn-delete" title="Supprimer"></button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div *ngIf="filteredUsers.length === 0" class="no-results">
+      <i class="fas fa-search" style="font-size: 1.2rem; margin-bottom: 8px; opacity: 0.7;"></i>
+      <p>Aucun résultat</p>
+      <p class="sub-text">Modifiez votre recherche</p>
+    </div>
+    
+    <div *ngIf="filteredUsers.length > 0" class="table-footer">
+      <div class="table-info">
+        <p><strong>{{ filteredUsers.length }}</strong> {{ users.length !== filteredUsers.length ? '/' + users.length : '' }}</p>
+      </div>
+      <div class="pagination">
+        <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
+        <span class="pagination-current">1</span>
+        <button class="pagination-btn" disabled><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="back-button">
+    <button (click)="goBack()" class="btn btn-secondary">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+  </div>
+</div>

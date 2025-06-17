@@ -5,8 +5,8 @@ import { Router, RouterLink } from '@angular/router';
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil, debounceTime, distinctUntilChanged } from 'rxjs/operators';
-// Importez ici votre service d'authentification
-// import { AuthService } from '../core/services/auth.service';
+// Importez le service d'authentification
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: "app-signup",
@@ -35,7 +35,7 @@ export class SignupComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    // private authService: AuthService
+    private authService: AuthService
   ) { }
 
   ngOnInit(): void {
@@ -196,26 +196,45 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     this.loading = true;
 
-    // Simulation d'une requête API avec un délai
-    setTimeout(() => {
-      try {
-        // Ici, vous pourriez appeler votre service d'authentification
-        // const { confirmPassword, ...userData } = this.registerForm.value;
-        // this.authService.register(userData).subscribe(...)
+    // Récupérer les données du formulaire sans confirmPassword
+    const { confirmPassword, ...userData } = this.registerForm.value;
+    
+    console.log('Données du formulaire:', userData);
+    
+    // Appel au service d'authentification pour l'inscription
+    
+    this.authService.register(userData).subscribe({
+      next: (response) => {
+        console.log('Inscription réussie', response);
         
-        console.log('Formulaire d\'inscription valide', this.registerForm.value);
-
-        // Exemple de redirection après inscription réussie
-        this.router.navigate(['/login']);
-
+        // Stockez temporairement l'email pour faciliter la connexion
+        localStorage.setItem('lastRegisteredEmail', userData.email);
+        
+        // Afficher un message de réussite avant de rediriger
+        alert('Inscription réussie ! Vous allez être redirigé vers la page de connexion.');
+        
+        // Redirection vers la page de connexion avec un message de succès
+        this.router.navigate(['/login'], { 
+          queryParams: { 
+            registered: 'success',
+            email: userData.email
+          }
+        });
+        
         this.loading = false;
-        // Pour tester, décommentez la ligne suivante:
-        // throw new Error('Erreur de connexion au serveur');
-      } catch (error) {
+      },
+      error: (error) => {
+        console.error('Erreur lors de l\'inscription', error);
+        if (error.error && error.error.message) {
+          this.errorMessage = error.error.message;
+        } else if (error.status === 0) {
+          this.errorMessage = 'Impossible de se connecter au serveur. Veuillez vérifier votre connexion internet ou contacter l\'administrateur.';
+        } else {
+          this.errorMessage = 'Une erreur est survenue lors de l\'inscription';
+        }
         this.loading = false;
-        this.errorMessage = error instanceof Error ? error.message : 'Une erreur est survenue';
       }
-    }, 1000);
+    });
   }
 
   // Focus sur le premier champ invalide

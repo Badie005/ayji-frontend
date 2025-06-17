@@ -1,0 +1,102 @@
+<div class="user-add-container">
+  <div class="user-add-header">
+    <h1><i class="fas fa-user-plus"></i> Ajouter un nouvel utilisateur</h1>
+  </div>
+  
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+  
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+    <div class="form-group">
+      <label for="nom">Nom</label>
+      <input
+        type="text"
+        id="nom"
+        formControlName="nom"
+        [ngClass]="{ 'is-invalid': submitted && f['nom'].errors }"
+        placeholder="Entrez le nom"
+      />
+      <div *ngIf="submitted && f['nom'].errors" class="invalid-feedback">
+        <div *ngIf="f['nom'].errors['required']">Le nom est requis</div>
+        <div *ngIf="f['nom'].errors['maxlength']">Le nom ne doit pas dépasser 50 caractères</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="prenom">Prénom</label>
+      <input
+        type="text"
+        id="prenom"
+        formControlName="prenom"
+        [ngClass]="{ 'is-invalid': submitted && f['prenom'].errors }"
+        placeholder="Entrez le prénom"
+      />
+      <div *ngIf="submitted && f['prenom'].errors" class="invalid-feedback">
+        <div *ngIf="f['prenom'].errors['required']">Le prénom est requis</div>
+        <div *ngIf="f['prenom'].errors['maxlength']">Le prénom ne doit pas dépasser 50 caractères</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }"
+        placeholder="exemple@domaine.com"
+      />
+      <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+        <div *ngIf="f['email'].errors['required']">L'email est requis</div>
+        <div *ngIf="f['email'].errors['email']">Veuillez entrer une adresse email valide</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="motDePasse">Mot de passe</label>
+      <div class="password-input-container">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="motDePasse"
+          formControlName="motDePasse"
+          [ngClass]="{ 'is-invalid': submitted && f['motDePasse'].errors }"
+          placeholder="Minimum 8 caractères"
+        />
+        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+          <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+      </div>
+      <div *ngIf="submitted && f['motDePasse'].errors" class="invalid-feedback">
+        <div *ngIf="f['motDePasse'].errors['required']">Le mot de passe est requis</div>
+        <div *ngIf="f['motDePasse'].errors['minlength']">Le mot de passe doit contenir au moins 8 caractères</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="role">Rôle</label>
+      <select
+        id="role"
+        formControlName="role"
+        [ngClass]="{ 'is-invalid': submitted && f['role'].errors }"
+      >
+        <option value="" disabled selected>Sélectionnez un rôle</option>
+        <option value="etudiant">Étudiant</option>
+        <option value="admin">Administrateur</option>
+      </select>
+      <div *ngIf="submitted && f['role'].errors" class="invalid-feedback">
+        <div *ngIf="f['role'].errors['required']">Le rôle est requis</div>
+      </div>
+    </div>
+    
+    <div class="form-buttons">
+      <button type="button" (click)="goBack()" class="btn btn-secondary">
+        <i class="fas fa-arrow-left"></i> Annuler
+      </button>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+        <i *ngIf="!loading" class="fas fa-user-plus"></i> Créer l'utilisateur
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,90 @@
+<div class="settings-container">
+  <div class="page-header">
+    <h1>Paramètres du système</h1>
+    <p class="subheading">Configuration de la plateforme de formation</p>
+  </div>
+
+  <div class="alert alert-success" *ngIf="saveSuccess">
+    <i class="fas fa-check-circle"></i> Paramètres enregistrés avec succès
+  </div>
+
+  <div class="alert alert-danger" *ngIf="saveError">
+    <i class="fas fa-exclamation-circle"></i> Veuillez corriger les erreurs dans le formulaire
+  </div>
+
+  <div class="card settings-card">
+    <div class="card-header">
+      <i class="fas fa-cogs"></i> Paramètres généraux
+    </div>
+    <div class="card-body">
+      <form [formGroup]="settingsForm" (ngSubmit)="saveSettings()">
+        <div class="form-group">
+          <label for="siteName">Nom du site</label>
+          <input 
+            type="text" 
+            id="siteName" 
+            formControlName="siteName" 
+            class="form-control"
+            [ngClass]="{'is-invalid': settingsForm.get('siteName')?.invalid && settingsForm.get('siteName')?.touched}">
+          <div class="invalid-feedback" *ngIf="settingsForm.get('siteName')?.errors?.['required'] && settingsForm.get('siteName')?.touched">
+            Le nom du site est requis
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="siteEmail">Email de contact</label>
+          <input 
+            type="email" 
+            id="siteEmail" 
+            formControlName="siteEmail" 
+            class="form-control"
+            [ngClass]="{'is-invalid': settingsForm.get('siteEmail')?.invalid && settingsForm.get('siteEmail')?.touched}">
+          <div class="invalid-feedback" *ngIf="settingsForm.get('siteEmail')?.errors?.['required'] && settingsForm.get('siteEmail')?.touched">
+            L'email de contact est requis
+          </div>
+          <div class="invalid-feedback" *ngIf="settingsForm.get('siteEmail')?.errors?.['email'] && settingsForm.get('siteEmail')?.touched">
+            Veuillez entrer un email valide
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="maxUploadSize">Taille maximum des uploads (MB)</label>
+          <input 
+            type="number" 
+            id="maxUploadSize" 
+            formControlName="maxUploadSize" 
+            class="form-control"
+            [ngClass]="{'is-invalid': settingsForm.get('maxUploadSize')?.invalid && settingsForm.get('maxUploadSize')?.touched}">
+          <div class="invalid-feedback" *ngIf="settingsForm.get('maxUploadSize')?.errors?.['required'] && settingsForm.get('maxUploadSize')?.touched">
+            La taille maximum est requise
+          </div>
+          <div class="invalid-feedback" *ngIf="settingsForm.get('maxUploadSize')?.errors?.['min'] && settingsForm.get('maxUploadSize')?.touched">
+            La taille minimum est de 1 MB
+          </div>
+          <div class="invalid-feedback" *ngIf="settingsForm.get('maxUploadSize')?.errors?.['max'] && settingsForm.get('maxUploadSize')?.touched">
+            La taille maximum est de 100 MB
+          </div>
+        </div>
+
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="enableNotifications" formControlName="enableNotifications">
+          <label class="form-check-label" for="enableNotifications">Activer les notifications</label>
+        </div>
+
+        <div class="form-check mb-4">
+          <input type="checkbox" class="form-check-input" id="maintenanceMode" formControlName="maintenanceMode">
+          <label class="form-check-label" for="maintenanceMode">Mode maintenance</label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary me-2" [disabled]="settingsForm.invalid">
+            <i class="fas fa-save"></i> Enregistrer
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="resetSettings()">
+            <i class="fas fa-undo"></i> Réinitialiser
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

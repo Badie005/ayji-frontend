@@ -1,5 +1,5 @@
 <div class="ayji-main">
-  <div class="ayji-container">
+  <div class="ayji-container" @fadeIn>
     <div class="ayji-container2">
       <div class="ayji-heading-1">
         <div class="ayji-main-heading">Notre Mission</div>
@@ -14,7 +14,7 @@
   </div>
 
   <!-- Section Vision -->
-  <div class="ayji-p-les">
+  <div class="ayji-p-les" @fadeIn>
     <div class="ayji-container4">
       <div class="ayji-header">
         <div class="ayji-title">Notre Vision</div>
@@ -25,10 +25,7 @@
             <div class="card2">
               <div class="container5">
                 <div class="card-description">
-                  AYJI a été créée avec la conviction profonde que l'apprentissage des Systèmes et Réseaux Informatiques devrait être accessible à tous, 
-                  interactif et adapté aux besoins d'aujourd'hui. Notre mission est de démocratiser l'accès à une éducation de qualité en SRI, 
-                  en proposant des contenus pédagogiques innovants et des méthodes d'apprentissage qui correspondent aux attentes des étudiants 
-                  et des professionnels en formation continue.
+                  {{ vision }}
                 </div>
               </div>
             </div>
@@ -41,43 +38,39 @@
   <!-- Section Piliers -->
   <div class="ayji-p-les">
     <div class="ayji-container4">
-      <div class="ayji-header">
+      <div class="ayji-header section-header" (click)="toggleSection('pillars')">
         <div class="ayji-title">Les Piliers de Notre Mission</div>
+        <div class="section-toggle">
+          <i [class]="visibilityState.pillars ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
+        </div>
       </div>
-      <div class="margin">
-        <div class="content">
-          <div class="cards-row">
-            <div class="feature-card">
-              <div class="icon-wrapper large">
-                <i class="fas fa-universal-access feature-icon-bw"></i>
+      <div class="margin" *ngIf="visibilityState.pillars">
+        <section class="bg-zinc-50 py-16 md:py-32 dark:bg-transparent">
+          <div class="mx-auto max-w-5xl px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+              
+              <!-- Cards dynamiques pour les piliers -->
+              <div class="card-modern group shadow-lg" *ngFor="let pillar of pillars; let i = index" @pillarAnimation [style.animation-delay]="i * 200 + 'ms'">
+                <div class="card-header pb-3">
+                  <div class="card-decorator">
+                    <div aria-hidden class="decorator-bg-grid"></div>
+                    <div aria-hidden class="decorator-bg-radial"></div>
+                    <div class="decorator-icon">
+                      <i [class]="pillar.icon"></i>
+                    </div>
+                  </div>
+                  <h3 class="mt-6 font-medium">{{ pillar.title }}</h3>
+                </div>
+                <div class="card-content">
+                  <p class="card-text">
+                    {{ pillar.description }}
+                  </p>
+                </div>
               </div>
-              <h3 class="feature-title">Accessibilité</h3>
-              <p class="card-description">
-                Rendre l'apprentissage des SRI accessible à tous, indépendamment de la localisation géographique, du niveau d'étude ou des moyens financiers.
-              </p>
-            </div>
-            
-            <div class="feature-card">
-              <div class="icon-wrapper large">
-                <i class="fas fa-award feature-icon-bw"></i>
-              </div>
-              <h3 class="feature-title">Qualité</h3>
-              <p class="card-description">
-                Proposer des contenus pédagogiques de haute qualité, rédigés par des experts et constamment mis à jour pour refléter les dernières évolutions technologiques.
-              </p>
-            </div>
-            
-            <div class="feature-card">
-              <div class="icon-wrapper large">
-                <i class="fas fa-lightbulb feature-icon-bw"></i>
-              </div>
-              <h3 class="feature-title">Innovation</h3>
-              <p class="card-description">
-                Développer des méthodes d'apprentissage innovantes qui tirent parti des dernières avancées en matière de pédagogie numérique.
-              </p>
+              
             </div>
           </div>
-        </div>
+        </section>
       </div>
     </div>
   </div>
@@ -85,48 +78,46 @@
   <!-- Section Objectifs -->
   <div class="ayji-p-les2">
     <div class="ayji-container4">
-      <div class="ayji-header">
+      <div class="ayji-header section-header" (click)="toggleSection('objectives')">
         <div class="ayji-title">Nos Objectifs</div>
+        <div class="section-toggle">
+          <i [class]="visibilityState.objectives ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
+        </div>
       </div>
-      <div class="margin">
+      <div class="margin" *ngIf="visibilityState.objectives">
         <div class="content">
           <div class="objective-list">
-            <div class="objective-item">
+            
+            <!-- Items dynamiques pour les objectifs -->
+            <div class="objective-item" *ngFor="let objective of objectives; let i = index" @objectiveAnimation [style.animation-delay]="i * 150 + 'ms'">
               <div class="objective-icon">
-                <i class="fas fa-graduation-cap feature-icon-bw"></i>
+                <i [class]="objective.icon + ' feature-icon-bw'"></i>
               </div>
               <div class="objective-content">
-                <h3 class="objective-title">Éducation Pour Tous</h3>
+                <h3 class="objective-title">{{ objective.title }}</h3>
                 <p class="objective-description">
-                  Permettre à au moins 10 000 étudiants de bénéficier de nos ressources gratuites d'ici la fin de l'année, et doubler ce chiffre chaque année.
+                  {{ objective.description }}
                 </p>
               </div>
             </div>
             
-            <div class="objective-item">
-              <div class="objective-icon">
-                <i class="fas fa-users feature-icon-bw"></i>
-              </div>
-              <div class="objective-content">
-                <h3 class="objective-title">Communauté d'Entraide</h3>
-                <p class="objective-description">
-                  Favoriser l'émergence d'une communauté d'apprentissage collaborative où les étudiants peuvent s'entraider et partager leurs connaissances.
-                </p>
-              </div>
-            </div>
-            
-            <div class="objective-item">
-              <div class="objective-icon">
-                <i class="fas fa-handshake feature-icon-bw"></i>
-              </div>
-              <div class="objective-content">
-                <h3 class="objective-title">Connexion avec l'Industrie</h3>
-                <p class="objective-description">
-                  Créer des ponts entre la formation académique et les besoins réels de l'industrie, préparant ainsi les étudiants à intégrer efficacement le marché du travail.
-                </p>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Section Appel à l'action -->
+  <div class="ayji-p-les2 cta-section" @fadeIn>
+    <div class="ayji-container4">
+      <div class="cta-container">
+        <h2 class="cta-title">Rejoignez le mouvement AYJI</h2>
+        <p class="cta-description">
+          Ensemble, transformons l'apprentissage des Systèmes et Réseaux Informatiques pour les générations futures.
+        </p>
+        <div class="cta-buttons">
+          <a href="/cours" class="cta-button primary">Découvrir nos cours</a>
+          <a href="/about/contact" class="cta-button secondary">Nous contacter</a>
         </div>
       </div>
     </div>

@@ -17,11 +17,83 @@
     </div>
   </div>
   
+  <!-- Afficher les boutons Auth ou le menu profil selon l'état de connexion -->
+  <div class="nav-links" *ngIf="currentUser">
+    <!-- Menu Admin -->
+    <ng-container *ngIf="isAdmin()">
+      <div class="nav-menu">
+        <a *ngFor="let item of adminMenuItems" 
+           [routerLink]="item.route" 
+           routerLinkActive="active"
+           class="nav-item">
+          {{ item.text }}
+        </a>
+      </div>
+    </ng-container>
+    
+    <!-- Menu Étudiant -->
+    <ng-container *ngIf="isStudent()">
+      <div class="nav-menu">
+        <a *ngFor="let item of studentMenuItems" 
+           [routerLink]="item.route" 
+           routerLinkActive="active"
+           class="nav-item">
+          {{ item.text }}
+        </a>
+      </div>
+    </ng-container>
+  </div>
+  
   <div class="log-sign">
-    <div *ngFor="let button of authButtons"
-         [class]="button.class"
-         [routerLink]="button.route">
-      <div [class]="button.textClass">{{button.text}}</div>
+    <!-- Boutons d'authentification (quand non connecté) -->
+    <ng-container *ngIf="!currentUser">
+      <div *ngFor="let button of authButtons"
+           [class]="button.class"
+           [routerLink]="button.route">
+        <div [class]="button.textClass">{{button.text}}</div>
+      </div>
+    </ng-container>
+    
+    <!-- Menu Profil (quand connecté) -->
+    <div *ngIf="currentUser" class="profile-menu">
+      <div class="profile-dropdown">
+        <div class="profile-button">
+          <div class="avatar-circle">
+            <span class="initials">
+              {{ currentUser.prenom ? currentUser.prenom.charAt(0) : '' }}{{ currentUser.nom ? currentUser.nom.charAt(0) : 'SA' }}
+            </span>
+          </div>
+          <div class="user-info">
+            <span class="name">{{ currentUser.prenom && currentUser.nom ? currentUser.prenom + ' ' + currentUser.nom : 'Super Admin' }}</span>
+            <span class="role">{{ currentUser.role || 'Administrator' }}</span>
+          </div>
+          <div class="menu-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="dropdown-content">
+          <a [routerLink]="['/profil']">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            Mon Profil
+          </a>
+          <a *ngIf="isAdmin()" [routerLink]="['/admin/dashboard']">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
+            Dashboard Admin
+          </a>
+          <a *ngIf="isStudent()" [routerLink]="['/member/profile']">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+            Mes Cours
+          </a>
+          <div class="divider"></div>
+          <a href="javascript:void(0)" (click)="logout()" class="logout">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+            <span>Déconnexion</span>
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </header>

@@ -28,7 +28,7 @@ export class FooterComponent {
       title: 'Formations disponibles',
       items: [
         { name: 'Systèmes et Réseaux Informatiques (SRI)', link: '/formations/sri' },
-        { name: 'Cours interactifs pour BTS MaCW', link: '/formations/bts-macw' },
+        { name: 'Cours interactifs pour BTS MCW', link: '/formations/bts-mcw' },
         { name: 'Exercices pratiques et corrigés', link: '/formations/exercices' },
         { name: 'Quizz pour évaluer vos compétences', link: '/formations/quiz' },
         { name: 'Ressources pédagogiques téléchargeables', link: '/formations/ressources' }

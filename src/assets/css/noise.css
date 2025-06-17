@@ -1,0 +1,17 @@
+/* Noise texture overlay for the entire application */
+body {
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10000;
+  opacity: 0.04;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+NjY19fX2JiYl/f39ra2uRkZGZmZlpaWmXl5dvb29xcXGTk5NnZ2c4zIQeAAAADnRSTlPGRcbjcvP4/vfrxY3W2ZSlm+kAAAGJSURBVHja7ZXLkoMgDEVpNGIk4VnU6u3//7MBFTvWh+7oXBmGXCRcUUASAiT/3eWM5/AhIUBnRiHFQs6GAwFdSEQoJHQl3Jpc3bSNsWkn5dDJ3TlCVECiBzIWiMMTGYGYnYkyf0bzFyKRKKTM77gQzCkZZ+YY5G5mFlMTnE4swsiJJRxQiEsG2C9OJCmA1LfdpUKsG4K0FfGZ0UVQUmOlLnixXGOlprbjIvwcj3fxKl5MN2OGBJ2eZJhgVj33jmfR+85MGihI8GtvlkbuseBMwcb6wXyyMSQBpVErUSzYVhWiUlYFDdRt3IVLTW/KpTccjTUDQlIGwK6FbQQ1BgIC2pYqIkBekxDXyjEQfVj0xcZ4MgSxgKgYDQbG6HQPiroOJlVXZuqOSp2t1kEpkIeDMh7atDFtWx9QpYKdgUFdqJbF/Nx0RYyC1YaShHV7a1qaLUdOr/qW8ZLp/AYVH3l+5nC4Zc7BBjB3XBlrMGOdz3mwtzy3NV+Zu1OzVEb2/FxJPIQ/5k84fe6/F30CpYoBS0SMmVMAAAAASUVORK5CYII=");
+}

@@ -1,59 +1,85 @@
-# Client
+# AYJI – Modern E-Learning Platform
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.8.
+AYJI est une plateforme e-learning moderne et interactive, développée dans le cadre d’un projet de fin d’études. Elle a pour objectif de résoudre le manque d’engagement et de suivi dans l’apprentissage en ligne en offrant :
 
-## Development server
+* une interface étudiante intuitive regroupant cours, quiz et suivi de progression ;
+* un tableau d’administration pour gérer facilement le contenu pédagogique.
 
-To start a local development server, run:
+---
+
+## ✨ Fonctionnalités clés
+
+- **Authentification sécurisée** : inscription & connexion.
+- **Tableau de bord des cours** : progression individuelle en un coup d’œil.
+- **Visionneuse PDF intégrée** pour consulter le contenu pédagogique.
+- **Quiz interactifs (QCM)** classés par niveau de difficulté.
+- **Résultats détaillés** avec explications pour un feedback constructif.
+- **Profil utilisateur** avec statistiques (temps passé, cours complétés, etc.).
+- **Interface responsive** construite avec Angular 17+ et SCSS.
+
+---
+
+## ⚙️ Prérequis
+
+| Outil            | Version recommandée |
+|------------------|---------------------|
+| Node.js          | ≥ 20.x              |
+| npm / pnpm / yarn| ≥ 8.x               |
+| Angular CLI      | ≥ 17.x              |
+
+---
+
+## 🚀 Mise en route
 
 ```bash
+# Cloner le dépôt
+git clone https://github.com/Badie005/ayji-frontend.git
+cd ayji-frontend
+
+# Installer les dépendances
+npm install  # ou pnpm install | yarn install
+
+# Lancer le serveur de dev
 ng serve
+# 👉 http://localhost:4200/
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 📦 Scripts utiles
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Script             | Description                         |
+|--------------------|-------------------------------------|
+| `ng serve`         | Démarre le serveur de développement |
+| `ng build`         | Compile l’application pour prod     |
+| `ng test`          | Lance les tests unitaires (Karma)   |
 
-```bash
-ng generate component component-name
+---
+
+## 🗂️ Structure du projet (extrait)
+
+```text
+src/
+ ├─ app/
+ │   ├─ core/            # Services & garde 
+ │   ├─ shared/          # Composants réutilisables
+ │   ├─ features/        # Modules fonctionnels (cours, quiz…)
+ │   └─ app.module.ts    # Module racine
+ ├─ assets/              # Images, polices, traductions…
+ └─ styles.scss          # Styles globaux
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## 🤝 Contribuer
 
-## Building
+1. Forkez le repo, créez votre branche (`git checkout -b feat/ma-fonctionnalite`).
+2. Commitez vos changements (`git commit -m 'feat: ma fonctionnalité'`).
+3. Poussez la branche (`git push origin feat/ma-fonctionnalite`).
+4. Ouvrez une *Pull Request*.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 📄 Licence
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Ce projet est publié sous licence MIT — voir le fichier **LICENSE** pour plus d’informations.

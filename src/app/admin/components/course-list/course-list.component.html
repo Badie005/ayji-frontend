@@ -1,0 +1,142 @@
+<div class="course-list-container">
+  <div class="course-list-header">
+    <h1><i class="fas fa-graduation-cap"></i> Gestion des Cours</h1>
+    <div class="action-buttons">
+      <button class="btn order-btn" (click)="reorganizeCourseOrders()" title="Réorganiser l'ordre des cours">
+        <i class="fas fa-sort"></i> Réorganiser
+      </button>
+      <button class="btn add-course-btn" (click)="addNewCourse()">
+        <i class="fas fa-plus"></i> Ajouter un cours
+      </button>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <div class="search-box">
+      <i class="fas fa-search search-icon"></i>
+      <input 
+        type="text" 
+        placeholder="Rechercher un cours par titre..." 
+        (input)="searchCourses($event)" 
+        [value]="searchTerm"
+      >
+      <i *ngIf="searchTerm" class="fas fa-times clear-icon" (click)="clearSearch()"></i>
+    </div>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Chargement des cours...</p>
+  </div>
+
+  <div class="error-message" *ngIf="errorMessage">
+    <i class="fas fa-exclamation-circle"></i>
+    <span>{{ errorMessage }}</span>
+  </div>
+
+  <div class="success-message" *ngIf="successMessage">
+    <i class="fas fa-check-circle"></i>
+    <span>{{ successMessage }}</span>
+  </div>
+
+  <div class="courses-wrapper" *ngIf="!loading && !errorMessage">
+    <!-- Bannière d'avertissement pour les doublons d'ordre -->
+    <div class="warning-banner" *ngIf="hasDuplicateOrders">
+      <i class="fas fa-exclamation-triangle"></i>
+      <div>
+        <strong>Attention !</strong> Plusieurs cours ont le même ordre d'affichage. 
+        Cela peut créer de la confusion dans l'ordre de présentation des cours.
+      </div>
+      <div class="warning-actions">
+        <button (click)="reorganizeCourseOrders()" title="Réorganiser automatiquement tous les cours">
+          <i class="fas fa-sort"></i> Réorganiser
+        </button>
+        <button (click)="showOrderingHelp()" class="help-btn" title="Aide sur l'ordre d'affichage">
+          <i class="fas fa-question-circle"></i> Aide
+        </button>
+      </div>
+    </div>
+
+    <!-- Bannière d'avertissement pour les doublons de titre -->
+    <div class="warning-banner" *ngIf="duplicateCourses.length > 0">
+      <i class="fas fa-copy"></i>
+      <div>
+        <strong>Doublons détectés !</strong> Certains cours ont des titres identiques. 
+        <span *ngFor="let dup of duplicateCourses; let i = index">
+          "{{ dup.title }}" ({{ dup.count }} occurrences){{ i < duplicateCourses.length - 1 ? ', ' : '' }}
+        </span>
+      </div>
+      <div class="warning-actions">
+        <button (click)="suggestTitleFixes()">
+          <i class="fas fa-wrench"></i> Résoudre les doublons
+        </button>
+      </div>
+    </div>
+
+    <div class="courses-stats" *ngIf="filteredCourses.length > 0">
+      <div class="stat-card">
+        <div class="stat-value">{{ filteredCourses.length }}</div>
+        <div class="stat-label">Cours affichés</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{{ totalCourses }}</div>
+        <div class="stat-label">Total des cours</div>
+      </div>
+    </div>
+
+    <div class="courses-grid">
+      <div class="course-card" *ngFor="let course of filteredCourses">
+        <div class="course-header">
+          <h3 [ngClass]="getCourseTitleClass(course)">{{ course.title }}</h3>
+          <div class="course-order" [ngClass]="getCourseOrderClass(course)" title="Ordre d'affichage">
+            #{{ course.order || 0 }}
+          </div>
+        </div>
+        <div class="course-content">
+          <p class="course-description">{{ course.description }}</p>
+          
+          <div class="course-files" *ngIf="course.coursePdfUrl || course.exercisePdfUrl || course.qcmPdfUrl">
+            <div *ngIf="course.coursePdfUrl" class="file-badge">
+              <i class="fas fa-file-pdf"></i> Cours PDF
+            </div>
+            <div *ngIf="course.exercisePdfUrl" class="file-badge">
+              <i class="fas fa-file-pdf"></i> Exercices
+            </div>
+            <div *ngIf="course.qcmPdfUrl" class="file-badge">
+              <i class="fas fa-file-pdf"></i> QCM
+            </div>
+          </div>
+        </div>
+        
+        <div class="course-actions">
+          <button class="action-btn view-btn" (click)="viewCourseDetails(course)">
+            <i class="fas fa-eye"></i>
+          </button>
+          <button class="action-btn edit-btn" (click)="editCourse(course)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="action-btn delete-btn" (click)="deleteCourse(course)">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Message si aucun cours trouvé après filtrage -->
+    <div class="empty-state" *ngIf="filteredCourses.length === 0 && courses.length > 0">
+      <i class="fas fa-search-minus"></i>
+      <h3>Aucun cours ne correspond à votre recherche</h3>
+      <p>Essayez de modifier vos critères de recherche ou <a href="javascript:void(0)" (click)="clearSearch()">effacez la recherche</a> pour voir tous les cours.</p>
+    </div>
+
+    <!-- Message si aucun cours dans la base de données -->
+    <div class="empty-state" *ngIf="courses.length === 0 && !loading">
+      <i class="fas fa-graduation-cap"></i>
+      <h3>Aucun cours disponible</h3>
+      <p>Commencez par ajouter votre premier cours en cliquant sur le bouton "Ajouter un cours".</p>
+      <button class="btn add-course-btn empty-add-btn" (click)="addNewCourse()">
+        <i class="fas fa-plus"></i> Ajouter un cours
+      </button>
+    </div>
+  </div>
+</div>
